@@ -1,0 +1,2228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DP-900 · Cuestionarios</title>
+<style>
+  :root {
+    --navy: #0b3d6e;
+    --azul: #0f6cbd;
+    --azul-claro: #e8f1fb;
+    --cian: #50e6ff;
+    --verde: #107c10;
+    --verde-claro: #e6f3e6;
+    --rojo: #a4262c;
+    --rojo-claro: #fdecee;
+    --naranja: #c55a11;
+    --naranja-claro: #fff4e5;
+    --ink: #1b1b1b;
+    --muted: #5c6378;
+    --line: #c9d6e3;
+    --soft: #f4f7fb;
+    --bg: #eef2f7;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  a { color: var(--azul); }
+
+  /* ── Encabezado ─────────────────────────────────────────────── */
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--navy), var(--azul));
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+  }
+  .top .marca { font-weight: 700; cursor: pointer; letter-spacing: .02em; background: none; border: none; color: #fff; font: inherit; font-weight: 700; padding: 0; }
+  .top .marca span { color: var(--cian); }
+  .top nav button, .top nav a {
+    display: inline-block;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .45);
+    color: #fff;
+    border-radius: 20px;
+    padding: 6px 14px;
+    margin-left: 6px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+  }
+  .top nav button:hover, .top nav a:hover { background: rgba(255, 255, 255, .15); }
+
+  main { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(11, 61, 110, .08);
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  h2, h3 { color: var(--navy); }
+  h3 { font-size: 17px; margin: 20px 0 10px; }
+
+  /* ── Inicio ─────────────────────────────────────────────────── */
+  .hero { margin-bottom: 16px; }
+  .hero h1 { margin: 4px 0 6px; color: var(--navy); font-size: 28px; }
+  .hero p { margin: 0 0 10px; color: var(--muted); max-width: 760px; }
+  .chip {
+    display: inline-block;
+    background: var(--azul-claro);
+    color: var(--navy);
+    border-radius: 14px;
+    padding: 2px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 6px 6px 0;
+  }
+  .chip.suave { background: var(--soft); color: var(--muted); font-weight: 500; }
+  .modos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .modo-card { display: flex; flex-direction: column; margin: 0; }
+  .modo-card h2 { margin: 0 0 6px; font-size: 20px; }
+  .modo-card > p { color: var(--muted); margin: 0 0 12px; font-size: 15px; }
+  .modo-card .btn.grande { margin-top: auto; }
+  .cifra { font-size: 40px; font-weight: 800; color: var(--navy); margin: 0 0 12px; line-height: 1.1; }
+  .cifra span { font-size: 15px; color: var(--muted); font-weight: 600; }
+  .aviso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--naranja-claro);
+    border-left: 4px solid var(--naranja);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+  .fila { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 8px 0; }
+  .campo { display: flex; flex-direction: column; font-size: 13px; color: var(--muted); gap: 4px; margin-bottom: 10px; }
+  .chk { display: flex; align-items: center; gap: 8px; font-size: 14px; padding: 3px 0; cursor: pointer; }
+  .chk input { width: 16px; height: 16px; accent-color: var(--azul); }
+  .cnt { margin-left: auto; color: var(--muted); font-size: 12px; padding-left: 8px; }
+  .partes-sel { margin-bottom: 4px; }
+  details.temas { margin: 4px 0 10px; font-size: 14px; }
+  details.temas summary { cursor: pointer; color: var(--azul); font-weight: 600; }
+  .grupo-temas { margin: 6px 0 4px 6px; }
+  .gt-tit { font-weight: 700; color: var(--navy); font-size: 13px; margin-top: 8px; }
+  .mini { font-size: 13px; color: var(--muted); }
+  .pie { text-align: center; color: var(--muted); font-size: 13px; margin-top: 24px; }
+
+  /* ── Botones y controles ────────────────────────────────────── */
+  .btn {
+    background: var(--azul);
+    color: #fff;
+    border: 1px solid var(--azul);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--navy); border-color: var(--navy); }
+  .btn[disabled] { opacity: .45; cursor: not-allowed; }
+  .btn[disabled]:hover { background: var(--azul); border-color: var(--azul); }
+  .btn.sec { background: #fff; color: var(--navy); border-color: var(--line); }
+  .btn.sec:hover { background: var(--soft); }
+  .btn.sec.activo { background: var(--naranja-claro); border-color: var(--naranja); color: var(--naranja); }
+  .btn.grande { width: 100%; padding: 12px; }
+  .btn.peligro { background: var(--rojo); border-color: var(--rojo); }
+  select {
+    font: inherit;
+    font-size: 15px;
+    padding: 7px 10px;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+    max-width: 100%;
+  }
+  select:focus, button:focus-visible { outline: 2px solid var(--azul); outline-offset: 2px; }
+  select.ok { border-color: var(--verde); background: var(--verde-claro); }
+  select.mal { border-color: var(--rojo); background: var(--rojo-claro); }
+
+  /* ── Pregunta ───────────────────────────────────────────────── */
+  .quiz-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 10px; flex-wrap: wrap; }
+  .modo-tag {
+    display: inline-block;
+    background: var(--navy);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    padding: 2px 9px;
+    margin-right: 8px;
+  }
+  .reloj {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--navy);
+    background: #fff;
+    border-radius: 8px;
+    padding: 4px 12px;
+    box-shadow: 0 1px 6px rgba(11, 61, 110, .12);
+  }
+  .reloj.poco { color: #fff; background: var(--rojo); }
+  .marcador { font-weight: 600; color: var(--navy); font-size: 15px; }
+  .progreso { height: 6px; background: #dbe3ee; border-radius: 3px; overflow: hidden; margin-bottom: 14px; }
+  .progreso div { height: 100%; background: var(--azul); transition: width .2s; }
+  .meta { margin-bottom: 10px; }
+  .enun { font-size: 17px; margin-bottom: 14px; }
+  .enun pre, .expl pre {
+    background: #f6f8fa;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--navy);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    overflow-x: auto;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  code { font-family: Consolas, "Courier New", monospace; font-size: .92em; background: var(--soft); border: 1px solid var(--line); border-radius: 3px; padding: 0 3px; }
+  .enun.completar select { margin: 2px 4px; font-family: inherit; }
+  .enun.completar pre select { font-family: Consolas, "Courier New", monospace; font-size: 14px; padding: 2px 6px; }
+  .instr { font-size: 13px; color: var(--muted); margin: -6px 0 10px; }
+
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 14px;
+    margin-bottom: 10px;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    transition: border-color .1s, background .1s;
+  }
+  .opcion:hover:not([disabled]) { border-color: var(--azul); background: var(--soft); }
+  .opcion .letra {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--soft);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--navy);
+  }
+  .opciones.multiple .letra { border-radius: 6px; }
+  .opcion .txt { padding-top: 2px; }
+  .opcion.sel { border-color: var(--azul); background: var(--azul-claro); }
+  .opcion.sel .letra { background: var(--azul); color: #fff; border-color: var(--azul); }
+  .opcion[disabled] { cursor: default; color: var(--ink); }
+  .opcion.ok { border-color: var(--verde); background: var(--verde-claro); }
+  .opcion.ok .letra { background: var(--verde); border-color: var(--verde); color: #fff; }
+  .opcion.mal { border-color: var(--rojo); background: var(--rojo-claro); }
+  .opcion.mal .letra { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+  .opcion.falto { border-color: var(--verde); border-style: dashed; }
+  .opcion .marca { margin-left: auto; font-weight: 700; padding-left: 8px; }
+  .opcion.ok .marca, .opcion.falto .marca { color: var(--verde); }
+  .opcion.mal .marca { color: var(--rojo); }
+
+  table.sino, table.rel { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
+  table.sino th, table.sino td, table.rel td { padding: 9px 8px; border-bottom: 1px solid #e3e9f1; text-align: left; vertical-align: middle; }
+  table.sino th { font-size: 13px; color: var(--navy); }
+  table.sino th:not(:first-child), table.sino td:not(:first-child) { width: 70px; text-align: center; }
+  table.rel td:first-child { width: 55%; }
+  .sn {
+    min-width: 52px;
+    padding: 6px 10px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .sn:hover:not([disabled]) { border-color: var(--azul); }
+  .sn[disabled] { cursor: default; }
+  .sn.sel { background: var(--azul); color: #fff; border-color: var(--azul); }
+  .sn.ok { background: var(--verde); border-color: var(--verde); color: #fff; }
+  .sn.mal { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+  .sn.falto { border-color: var(--verde); border-style: dashed; color: var(--verde); }
+  .correcta { font-size: 14px; color: var(--verde); margin-top: 4px; }
+
+  .expl { border-radius: 10px; padding: 12px 16px; margin-top: 16px; border-left: 4px solid; }
+  .expl p { margin: 6px 0; }
+  .expl.ok { background: var(--verde-claro); border-color: var(--verde); }
+  .expl.mal { background: var(--rojo-claro); border-color: var(--rojo); }
+  .expl.parcial { background: var(--naranja-claro); border-color: var(--naranja); }
+  .expl-tit { font-weight: 700; }
+  .expl.ok .expl-tit { color: var(--verde); }
+  .expl.mal .expl-tit { color: var(--rojo); }
+  .expl.parcial .expl-tit { color: var(--naranja); }
+  .ref { font-size: 13px; color: var(--muted); }
+
+  .acciones { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; }
+  .acciones .derecha { margin-left: auto; }
+  .paleta { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; margin-top: 8px; }
+  .pal {
+    height: 34px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    position: relative;
+    color: var(--ink);
+  }
+  .pal.resp { background: var(--azul-claro); border-color: var(--azul); }
+  .pal.marc::after { content: "★"; position: absolute; top: -8px; right: -4px; color: var(--naranja); font-size: 13px; }
+  .pal.act { outline: 2px solid var(--navy); outline-offset: 1px; font-weight: 700; }
+  .leyenda { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .leyenda i { display: inline-block; width: 14px; height: 14px; border: 1.5px solid var(--line); border-radius: 3px; background: #fff; margin-left: 8px; position: relative; }
+  .leyenda i.resp { background: var(--azul-claro); border-color: var(--azul); }
+  .leyenda i.marc::after { content: "★"; position: absolute; top: -9px; right: -6px; color: var(--naranja); font-size: 11px; font-style: normal; }
+  .atajos { font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+  /* ── Resultados ─────────────────────────────────────────────── */
+  .res-top { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .res-top p { margin: 4px 0; }
+  .puntaje { font-size: 56px; font-weight: 800; line-height: 1; color: var(--navy); white-space: nowrap; }
+  .puntaje span { font-size: 18px; color: var(--muted); font-weight: 600; margin-left: 4px; }
+  .puntaje.ok { color: var(--verde); }
+  .puntaje.mal { color: var(--rojo); }
+  .veredicto { font-size: 22px; font-weight: 700; color: var(--navy); }
+  .veredicto.ok { color: var(--verde); }
+  .veredicto.mal { color: var(--rojo); }
+  .alerta { color: var(--naranja); font-weight: 600; }
+  .barra-fila { display: grid; grid-template-columns: 210px 1fr 100px; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 14px; }
+  .barra { height: 12px; background: #e3e9f1; border-radius: 6px; overflow: hidden; }
+  .barra div { height: 100%; background: var(--azul); }
+  .barra div.ok { background: var(--verde); }
+  .barra div.mal { background: var(--naranja); }
+  .bv { text-align: right; font-variant-numeric: tabular-nums; }
+  .bv small { color: var(--muted); }
+  ul.debiles { margin: 0; padding-left: 20px; }
+  ul.debiles li { margin-bottom: 4px; }
+  .rev-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin: 24px 0 10px; }
+  .rev-head h2 { margin: 0; }
+  .filtros { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip-btn { border: 1px solid var(--line); background: #fff; border-radius: 16px; padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; color: var(--ink); }
+  .chip-btn.act { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .rev-num { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+
+  /* ── Progreso ───────────────────────────────────────────────── */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .kpis div { background: var(--soft); border-radius: 10px; padding: 12px 14px; }
+  .kpis b { display: block; font-size: 26px; color: var(--navy); }
+  .kpis span { font-size: 13px; color: var(--muted); }
+  table.tabla { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.tabla th, table.tabla td { text-align: left; padding: 7px 8px; border-bottom: 1px solid #e3e9f1; }
+  table.tabla th { color: var(--navy); font-size: 13px; }
+  table.tabla td.num, table.tabla th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .pct-bajo { color: var(--rojo); font-weight: 600; }
+  .pct-alto { color: var(--verde); font-weight: 600; }
+
+  #toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .2s;
+    z-index: 50;
+    max-width: 90vw;
+    text-align: center;
+  }
+  #toast.vis { opacity: 1; transform: translateX(-50%); }
+
+  @media (max-width: 640px) {
+    .barra-fila { grid-template-columns: 1fr 80px; }
+    .barra-fila .barra { grid-column: 1 / -1; order: 3; }
+    table.rel td { display: block; width: 100% !important; border-bottom: none; padding: 4px 0; }
+    table.rel tr { display: block; border-bottom: 1px solid #e3e9f1; padding: 8px 0; }
+    .puntaje { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <button class="marca" data-act="home">DP-900 · <span>Cuestionarios</span></button>
+  <nav>
+    <button data-act="home">Inicio</button>
+    <button data-act="stats">Progreso</button>
+    <a href="resumen.html" data-resumen>Resumen</a>
+  </nav>
+</header>
+<main id="app"></main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!--
+  Banco de preguntas. Cada pregunta es un objeto; el tipo se deduce de sus campos:
+    unica       { q, o: [...], c: índice }
+    multiple    { q, o: [...], c: [índices] }
+    completar   { q: "texto con ___", o: [...], c: índice }
+    sino        { q, a: [["afirmación", 1 | 0], ...] }
+    relacionar  { q, pares: [["elemento", "destino"], ...], d: [destinos en orden] (opcional) }
+  Campos comunes: e (explicación), h (hoja del resumen, si difiere de la del tema),
+  g (grupo de variantes: el simulacro nunca incluye dos preguntas del mismo grupo).
+-->
+<script>
+const BANCO = [];
+function T(p, tema, hoja, lista) {
+  lista.forEach(function (q) { q.p = p; q.t = tema; q.h = q.h || hoja; BANCO.push(q); });
+}
+</script>
+
+<script>
+/* ═══════════════════ PARTE 1 · CONCEPTOS BÁSICOS DE DATOS ═══════════════════ */
+
+T(1, "Representación de datos", 4, [
+  { q: "Una aplicación guarda los perfiles de clientes en documentos JSON. Algunos clientes tienen varios teléfonos en una lista y otros incluyen un objeto anidado <code>preferencias</code>. ¿Cómo se clasifican estos datos?",
+    o: ["Semiestructurados", "Estructurados", "No estructurados", "Relacionales normalizados"], c: 0,
+    e: "JSON tiene estructura (campos, listas, objetos anidados), pero puede variar entre instancias: eso lo hace <b>semiestructurado</b>. Trampa típica: JSON no es «no estructurado»." },
+  { q: "Clasifica cada conjunto de datos según su estructura.",
+    pares: [["Tabla de empleados en SQL Server", "Estructurados"], ["Archivo CSV con las mismas columnas en todas las filas", "Estructurados"], ["Documento XML con elementos opcionales", "Semiestructurados"], ["Documento JSON con campos que varían por registro", "Semiestructurados"], ["Grabación MP3 de una llamada al centro de soporte", "No estructurados"], ["Fotografías JPEG de productos", "No estructurados"]],
+    d: ["Estructurados", "Semiestructurados", "No estructurados"],
+    e: "Estructurados: esquema fijo en filas y columnas (tablas, CSV). Semiestructurados: estructura jerárquica que puede variar (JSON, XML). No estructurados: sin estructura definida (imágenes, audio, video, PDF)." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["En los datos estructurados, todas las instancias de una entidad tienen los mismos campos.", 1], ["Un contrato escaneado en PDF es un ejemplo de dato semiestructurado.", 0], ["Los datos semiestructurados pueden incluir listas y objetos anidados.", 1]],
+    e: "Los datos estructurados tienen esquema fijo. Un PDF escaneado es la imagen de un documento: dato <b>no estructurado</b>. JSON y XML admiten listas y objetos anidados." },
+  { q: "Un sistema recibe lecturas de sensores. Todas incluyen <code>deviceId</code> y <code>timestamp</code>, pero según el modelo del sensor pueden incluir temperatura, humedad o un arreglo de lecturas. ¿Qué afirmación es correcta?",
+    o: ["Son semiestructurados, porque la estructura varía entre instancias", "Son estructurados, porque todos los registros comparten deviceId y timestamp", "Son no estructurados, porque no tienen un esquema fijo", "Solo pueden guardarse en una base de datos relacional normalizada"], c: 0,
+    e: "Compartir algunos campos no basta para ser estructurado: si cada instancia puede tener campos distintos, los datos son <b>semiestructurados</b>. «No estructurado» se reserva para datos sin estructura, como audio o imágenes." },
+  { q: "En un modelo de datos, un cliente es una ___ y su dirección de correo electrónico es uno de sus atributos.",
+    o: ["entidad", "columna", "clave foránea", "partición"], c: 0,
+    e: "Las <b>entidades</b> son objetos del mundo real (cliente, producto). Los <b>atributos</b> son sus características (nombre, correo)." }
+]);
+
+T(1, "Formatos de archivo", 4, [
+  { q: "Necesitas un formato de archivo para un data lake que comprima bien y permita leer solo las columnas que usa cada consulta analítica. Es el estándar de los lakehouses. ¿Qué formato eliges?",
+    o: ["Parquet", "Avro", "CSV", "JSON"], c: 0, g: "fmt-col",
+    e: "<b>Parquet</b> es columnar: agrupa los datos por columna, comprime de forma eficiente y lee solo las columnas necesarias. Avro es por filas." },
+  { q: "¿Qué formato es orientado a filas, guarda el esquema en un encabezado JSON y los datos en binario por bloques, y es adecuado para serializar y transmitir registros?",
+    o: ["Avro", "Parquet", "ORC", "XML"], c: 0,
+    e: "<b>Avro</b> (Apache) es orientado a filas: encabezado JSON con el esquema y datos binarios. Bueno para escribir registro a registro y para streaming." },
+  { q: "¿Qué dos formatos almacenan los datos por columnas? Selecciona dos.",
+    o: ["Parquet", "ORC", "Avro", "CSV", "XML"], c: [0, 1], g: "fmt-col",
+    e: "<b>Parquet</b> y <b>ORC</b> (Optimized Row Columnar) son columnares. Avro es por filas; CSV y XML son formatos de texto." },
+  { q: "ORC (Optimized Row Columnar) fue creado por Hortonworks para optimizar las lecturas y escrituras en:",
+    o: ["Apache Hive", "Apache Kafka", "SQL Server", "Azure Cosmos DB"], c: 0,
+    e: "ORC nació para optimizar lecturas y escrituras en <b>Apache Hive</b>." },
+  { q: "¿Qué afirmación describe mejor Delta Lake?",
+    o: ["Una capa de tablas sobre archivos Parquet con un registro de transacciones que aporta ACID y control de versiones", "Un formato binario orientado a filas, con el esquema en un encabezado JSON, que sustituye a Avro", "Un servicio de Azure que replica continuamente bases de datos operativas en OneLake", "Un tipo de blob optimizado para agregar datos al final, pensado para registros"], c: 0,
+    e: "Delta Lake no es un formato nuevo: es una <b>capa de tablas sobre Parquet</b> con un registro de transacciones que permite ACID, versiones y actualizaciones confiables sobre un data lake." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["XML usa etiquetas para definir elementos y atributos.", 1], ["TSV es un formato de texto delimitado que separa los campos con comas.", 0], ["El término BLOB suele usarse para imágenes, audio, video y archivos propios de aplicaciones.", 1]],
+    e: "XML usa etiquetas. TSV usa <b>tabulaciones</b>; CSV usa comas. Todo archivo es binario, pero «BLOB» se usa para imágenes, audio, video y archivos de aplicaciones." },
+  { q: "Dos aplicaciones de distintos proveedores intercambian mensajes mediante una API REST. Se necesita un formato ligero, legible por personas y con estructura jerárquica de objetos. ¿Cuál es la mejor opción?",
+    o: ["JSON", "Parquet", "ORC", "Avro"], c: 0,
+    e: "<b>JSON</b> es ligero, legible y jerárquico; es el estándar para intercambio entre aplicaciones. Parquet, ORC y Avro son binarios optimizados para almacenamiento y procesamiento." },
+  { q: "Una canalización recibe millones de eventos por hora y los escribe registro a registro. Después, un motor analítico consulta pocas columnas sobre muchas filas. ¿Qué combinación de formatos es la más adecuada?",
+    o: ["Avro para la ingesta y Parquet para el análisis", "Parquet para la ingesta y Avro para el análisis", "CSV para ambas etapas", "XML para la ingesta y JSON para el análisis"], c: 0,
+    e: "Los formatos <b>por filas</b> (Avro) son buenos para escribir registros completos y transmitirlos; los <b>columnares</b> (Parquet) son ideales para leer pocas columnas de muchas filas." },
+  { q: "Un archivo CSV es un ejemplo de ___.",
+    o: ["texto delimitado", "formato columnar optimizado", "formato binario orientado a filas", "documento jerárquico"], c: 0,
+    e: "CSV (comas) y TSV (tabulaciones) son <b>texto delimitado</b>: datos tabulares separados por un delimitador." }
+]);
+
+T(1, "Bases de datos y NoSQL", 4, [
+  { q: "Relaciona cada escenario con el tipo de base de datos NoSQL más adecuado.",
+    pares: [["Red social: amigos de amigos y recomendaciones por conexiones", "Grafos"], ["Caché de sesiones de usuario recuperadas por su ID", "Clave-valor"], ["Catálogo de productos con atributos variables, consultado por sus campos", "Documentos"], ["Datos dispersos con columnas agrupadas por afinidad, al estilo de Cassandra", "Familias de columnas"]],
+    d: ["Clave-valor", "Documentos", "Familias de columnas", "Grafos"],
+    e: "Clave-valor: acceso por clave única. Documentos: el valor es un documento (JSON) consultable por campos. Familias de columnas: columnas agrupadas. Grafos: nodos y aristas, ideales cuando importan las relaciones." },
+  { q: "En una base de datos de grafos, ¿cómo se representan las relaciones entre entidades?",
+    o: ["Como aristas", "Como nodos", "Como claves foráneas", "Como familias de columnas"], c: 0,
+    e: "Las entidades son <b>nodos</b> (vértices) y las relaciones son <b>aristas</b>." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["NoSQL es un lenguaje de consulta estándar, igual que SQL.", 0], ["En una base de datos de documentos, dos documentos de la misma colección pueden tener campos distintos.", 1], ["Las bases de datos relacionales usan claves foráneas para relacionar tablas.", 1]],
+    e: "NoSQL significa «Not only SQL» y no es un lenguaje: cada motor tiene su propia API o lenguaje. Las BD de documentos tienen esquema flexible. Las relacionales usan PK y FK." },
+  { q: "¿Qué característica distingue a una base de datos de documentos de una base clave-valor genérica?",
+    o: ["Permite consultar por los campos del documento, no solo por la clave", "Cada registro se identifica con una clave única", "No impone un esquema relacional ni una estructura tabular", "Puede almacenar valores en formato JSON"], c: 0,
+    e: "Una BD de documentos es un tipo de clave-valor donde el valor es un documento (normalmente JSON) <b>consultable por sus campos</b>. Las demás opciones aplican también a una clave-valor genérica." },
+  { q: "¿Qué afirmación sobre las bases de datos relacionales es correcta?",
+    o: ["Cada columna tiene un tipo de dato definido y cada fila se identifica con una clave principal", "Dos filas de la misma tabla pueden tener columnas distintas", "Cada proveedor usa una API propia, sin un lenguaje de consulta común", "Están pensadas sobre todo para datos no estructurados, como video"], c: 0,
+    e: "Las BD relacionales tienen <b>esquema fijo</b> (tipos por columna), clave principal por fila y se consultan con <b>SQL</b>. El esquema flexible es propio de NoSQL." }
+]);
+
+T(1, "OLTP y ACID", 4, [
+  { q: "Relaciona cada situación con la propiedad ACID que la garantiza.",
+    pares: [["Una transferencia bancaria se ejecuta completa o no se ejecuta", "Atomicidad"], ["Tras la confirmación (commit), el cambio persiste aunque el servidor se reinicie", "Durabilidad"], ["Dos transacciones concurrentes no ven los cambios intermedios de la otra", "Aislamiento"], ["La base de datos pasa de un estado válido a otro válido, sin violar reglas", "Consistencia"]],
+    d: ["Atomicidad", "Consistencia", "Aislamiento", "Durabilidad"], g: "acid",
+    e: "<b>A</b>tomicidad: todo o nada. <b>C</b>onsistencia: de un estado válido a otro. A<b>i</b>slamiento: las transacciones concurrentes no interfieren. <b>D</b>urabilidad: lo confirmado persiste aunque el sistema falle." },
+  { q: "Durante una transferencia, el sistema falla después de debitar la cuenta A y antes de acreditar la cuenta B. Al reiniciar, el débito se revierte. ¿Qué propiedad ACID lo garantiza?",
+    o: ["Atomicidad", "Durabilidad", "Aislamiento", "Consistencia"], c: 0, g: "acid",
+    e: "La <b>atomicidad</b> garantiza que la transacción se ejecuta completa o no se ejecuta: un débito sin su crédito se deshace." },
+  { q: "Una transacción lee datos que otra transacción modificó pero todavía no ha confirmado. ¿Qué propiedad ACID se está incumpliendo?",
+    o: ["Aislamiento", "Atomicidad", "Durabilidad", "Consistencia"], c: 0, g: "acid",
+    e: "El <b>aislamiento</b> evita que las transacciones concurrentes interfieran entre sí, por ejemplo leyendo cambios no confirmados." },
+  { q: "Un sistema de punto de venta registra miles de ventas por minuto y cada venta actualiza el inventario. ¿Qué tipo de carga de trabajo es?",
+    o: ["OLTP (procesamiento transaccional)", "Analítica (OLAP)", "Procesamiento por lotes nocturno", "Data warehouse"], c: 0,
+    e: "Muchas transacciones pequeñas, concurrentes y de lectura y escritura (CRUD) = <b>OLTP</b>." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Los sistemas OLTP trabajan normalmente con datos históricos agregados.", 0], ["Las cargas analíticas son, en su mayoría, de solo lectura.", 1], ["Las cargas OLTP se caracterizan por muchas consultas pequeñas y concurrentes.", 1]],
+    e: "OLTP: datos actuales y operativos, muchas operaciones pequeñas de lectura y escritura. Analítico: datos históricos y agregados, lectura mayoritaria, pocas consultas grandes." },
+  { q: "Un informe necesita las ventas totales por región y mes de los últimos cinco años. ¿Dónde conviene ejecutar esta consulta?",
+    o: ["En un sistema analítico, como un data warehouse o un modelo semántico", "Directamente en la base de datos OLTP de ventas, que ya tiene todos los datos", "En un recurso compartido de Azure Files montado por SMB", "En una caché clave-valor que guarda las sesiones de usuario"], c: 0,
+    e: "Las consultas grandes sobre datos históricos y agregados son propias de los sistemas <b>analíticos</b>. Ejecutarlas sobre el OLTP afectaría a las transacciones." },
+  { q: "¿Qué significa CRUD en el contexto de los sistemas OLTP?",
+    o: ["Crear, leer, actualizar y eliminar registros", "Comprimir, replicar, unir y distribuir datos", "Cargar, revisar, unificar y depurar datos", "Consultar, resumir, unir y desnormalizar tablas"], c: 0,
+    e: "Las BD OLTP están optimizadas para operaciones <b>CRUD</b> rápidas sobre registros individuales." }
+]);
+
+T(1, "Procesamiento analítico", 5, [
+  { q: "¿Cuál es la diferencia entre ETL y ELT?",
+    o: ["En ELT los datos se cargan primero en el destino y se transforman allí; en ETL se transforman antes de cargarlos", "ETL se usa para datos en streaming en tiempo real y ELT solo para cargas por lotes programadas por la noche", "ELT solo funciona con bases de datos relacionales normalizadas y ETL solo con archivos en data lakes", "En ETL los datos se cargan sin transformar en el destino y en ELT se transforman en el sistema de origen"], c: 0, g: "etl",
+    e: "ETL: extraer → transformar → cargar. ELT: extraer → cargar → transformar en el destino (habitual en lakehouses)." },
+  { q: "Relaciona cada capa de la arquitectura medallón con su contenido.",
+    pares: [["Datos crudos, tal como llegan del origen", "Bronze"], ["Datos limpios y estandarizados, sin duplicados", "Silver"], ["Datos agregados y modelados, listos para informes", "Gold"]],
+    d: ["Bronze", "Silver", "Gold"],
+    e: "Bronze = crudo. Silver = limpio y estandarizado. Gold = agregado y listo para el negocio." },
+  { q: "¿Por qué un data warehouse suele contener datos desnormalizados?",
+    o: ["Para acelerar las consultas de lectura reduciendo el número de combinaciones", "Para reducir al mínimo el espacio de almacenamiento eliminando duplicados", "Para garantizar las propiedades ACID en cada escritura concurrente", "Porque los data warehouses no admiten claves principales ni foráneas"], c: 0,
+    e: "El warehouse está optimizado para <b>lecturas</b>: se duplican datos a propósito (desnormalizar) para que las consultas analíticas sean más rápidas." },
+  { q: "Relaciona cada perfil con la capa de datos que usa normalmente.",
+    pares: [["Científico de datos que explora y entrena modelos", "Archivos del data lake"], ["Analista que crea informes y visualizaciones complejas", "Tablas del data warehouse"], ["Usuario de negocio que consulta paneles", "Modelo semántico preagregado"]],
+    e: "Científicos: archivos del lago. Analistas: tablas del warehouse. Usuarios de negocio: datos preagregados del modelo semántico en informes y paneles." },
+  { q: "¿Cuál es el nombre actual de lo que antes se conocía como «cubo» OLAP en Power BI y Fabric?",
+    o: ["Modelo semántico", "Lakehouse", "Tabla de hechos", "Eventhouse"], c: 0,
+    e: "El modelo OLAP hoy se llama <b>modelo semántico</b>. El ejemplo más común son los modelos semánticos de Power BI." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Una tabla de hechos guarda medidas numéricas, como el importe de una venta.", 1], ["Las dimensiones son entidades por las que se agrupan o filtran las medidas, como la fecha o el producto.", 1], ["Un data lake obliga a definir el esquema antes de escribir los archivos.", 0]],
+    e: "Hechos = medidas; dimensiones = entidades para agrupar. Un data lake guarda archivos en su formato original; el esquema se aplica <b>al leer</b>." },
+  { q: "Una empresa quiere almacenar archivos de cualquier tipo en su formato original, a gran escala y bajo costo, para explorarlos más adelante. ¿Qué componente describe?",
+    o: ["Data lake", "Data warehouse", "Modelo semántico", "Base de datos OLTP"], c: 0,
+    e: "Un <b>data lake</b> es un repositorio de archivos en su formato original, a gran escala y bajo costo." },
+  { q: "¿Cuál es la principal ventaja de la arquitectura medallón?",
+    o: ["Cada capa tiene un nivel de calidad claro y siempre se puede reprocesar desde Bronze si cambian los requisitos", "Elimina la necesidad de conservar los datos crudos, lo que reduce el costo de almacenamiento", "Garantiza latencias de milisegundos en todas las consultas de los usuarios de negocio", "Sustituye al modelo semántico de Power BI como capa de consumo de los informes"], c: 0,
+    e: "La arquitectura medallón separa niveles de calidad (Bronze, Silver, Gold) y conserva los datos crudos para poder reprocesarlos." },
+  { q: "Un data ___ combina el almacenamiento flexible de un data lake con las consultas relacionales de un data warehouse.",
+    o: ["lakehouse", "mart", "store", "mesh"], c: 0,
+    e: "El <b>data lakehouse</b> une el almacenamiento flexible del lago con el análisis SQL del warehouse." },
+  { q: "Un compañero afirma que un servidor de archivos y una base de datos son ambos «almacenes de datos» (data stores). ¿Tiene razón?",
+    o: ["Sí: un data store es cualquier sistema que guarda datos, incluidos archivos y bases de datos", "No: «almacén de datos» se refiere únicamente a un data warehouse relacional", "No: solo las bases de datos relacionales se consideran almacenes de datos", "Solo si ambos guardan datos estructurados con un esquema fijo"], c: 0,
+    e: "Un <b>almacén de datos (data store)</b> es cualquier sistema que guarda datos. No confundir con <b>data warehouse</b> («almacenamiento de datos»)." },
+  { q: "En un modelo semántico, ¿qué permite una jerarquía como región → ciudad → dirección?",
+    o: ["Agregar y navegar los datos por distintos niveles de detalle", "Garantizar la atomicidad de las escrituras en las tablas de hechos", "Replicar los datos del modelo entre varias regiones de Azure", "Normalizar las tablas de dimensiones en tablas más pequeñas"], c: 0,
+    e: "Los modelos OLAP o semánticos preagregan por dimensiones y <b>niveles jerárquicos</b>, lo que acelera las consultas de resumen." }
+]);
+
+T(1, "Roles", 6, [
+  { q: "Relaciona cada tarea con el rol que la realiza normalmente.",
+    pares: [["Configurar copias de seguridad y recuperación ante desastres", "Administrador de BD"], ["Conceder o denegar permisos sobre una base de datos", "Administrador de BD"], ["Crear canalizaciones que ingieren, limpian y transforman datos", "Ingeniero de datos"], ["Diseñar un panel con KPI para la dirección", "Analista de datos"], ["Integrar un LLM para chatear con los datos de la empresa", "Ingeniero de IA"]],
+    d: ["Administrador de BD", "Ingeniero de datos", "Analista de datos", "Ingeniero de IA"],
+    e: "DBA: disponibilidad, rendimiento, copias de seguridad y permisos. Ingeniero de datos: canalizaciones. Analista: modelos, informes y paneles. Ingeniero de IA: funciones con IA, LLM y Microsoft Foundry." },
+  { q: "Una empleada crea informes interactivos en Power BI y define medidas DAX para mostrar tendencias de ventas. ¿Qué rol desempeña?",
+    o: ["Analista de datos", "Ingeniera de datos", "Administradora de bases de datos", "Ingeniera de IA"], c: 0,
+    e: "Explorar tendencias, diseñar modelos analíticos y crear informes y visualizaciones es tarea del <b>analista de datos</b>." },
+  { q: "¿Qué rol se encarga de que los datos mantengan su privacidad a lo largo de las canalizaciones, desde el entorno local hasta la nube?",
+    o: ["Ingeniero de datos", "Analista de datos", "Usuario de negocio", "Ingeniero de IA"], c: 0,
+    e: "El <b>ingeniero de datos</b> crea y supervisa las canalizaciones y se ocupa de la privacidad de los datos en todo el recorrido." },
+  { q: "Según la ruta de Microsoft Learn, ¿cuál es la plataforma principal del ingeniero de IA?",
+    o: ["Microsoft Foundry", "Power BI", "Azure Data Factory", "Microsoft Purview"], c: 0,
+    e: "<b>Microsoft Foundry</b> es la PaaS para crear soluciones de IA: modelos, herramientas e infraestructura." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Una misma persona puede desempeñar los roles de DBA e ingeniero de datos.", 1], ["Crear un panel para la dirección es una tarea típica del ingeniero de datos.", 0], ["El DBA es responsable de la disponibilidad y el rendimiento de las bases de datos.", 1]],
+    e: "Los roles se combinan a menudo. Trampa típica: «crear un panel» es del <b>analista</b>, no del ingeniero." },
+  { q: "¿Qué dos tareas corresponden típicamente a un administrador de bases de datos? Selecciona dos.",
+    o: ["Optimizar el rendimiento y aplicar actualizaciones a la base de datos", "Administrar los permisos de acceso a la base de datos", "Crear visualizaciones interactivas para la dirección", "Construir canalizaciones de ingesta desde archivos y streaming", "Integrar modelos de lenguaje en aplicaciones"], c: [0, 1],
+    e: "El DBA se encarga de disponibilidad, rendimiento, copias de seguridad, recuperación y seguridad (permisos)." },
+  { q: "Según la ruta de Microsoft Learn, ¿cuál es la idea clave sobre la IA en los roles de datos?",
+    o: ["Todos los roles la usan como asistente, pero el criterio del profesional sigue siendo necesario", "La IA ya sustituye al analista de datos en la creación de informes", "Solo el ingeniero de IA la usa; los demás roles trabajan sin ella", "El diseño y la IA responsable ya pueden delegarse por completo en la IA"], c: 0,
+    e: "Todos los roles usan IA como asistente (consultas en lenguaje natural, código, DAX), pero el criterio humano sigue siendo necesario." }
+]);
+
+T(1, "Servicios de datos de Azure", 6, [
+  { q: "Relaciona cada servicio con su modelo de entrega en la nube.",
+    pares: [["SQL Server en una máquina virtual de Azure", "IaaS"], ["Azure SQL Database", "PaaS"], ["Azure SQL Managed Instance", "PaaS"], ["Azure Cosmos DB", "PaaS"], ["Microsoft Fabric", "SaaS"]],
+    d: ["IaaS", "PaaS", "SaaS"],
+    e: "IaaS: Microsoft da la VM y tú administras SO y software. PaaS: Microsoft administra la infraestructura. SaaS: producto completo listo para usar (Fabric)." },
+  { q: "Necesitas analizar con alto rendimiento grandes volúmenes de logs y telemetría con marca de tiempo. ¿Qué servicio encaja mejor?",
+    o: ["Azure Data Explorer", "Azure SQL Database", "Azure Files", "Microsoft Purview"], c: 0, h: 7,
+    e: "<b>Azure Data Explorer</b> analiza con alto rendimiento datos con marca de tiempo, como logs y telemetría IoT." },
+  { q: "¿Qué convierte una cuenta de Azure Blob Storage en un data lake (Data Lake Storage Gen2)?",
+    o: ["Habilitar el espacio de nombres jerárquico", "Configurar la redundancia GRS", "Cambiar el nivel de acceso a Hot", "Crear un contenedor con acceso público"], c: 0, g: "hns",
+    e: "Data lake = Blob Storage + <b>espacio de nombres jerárquico</b> (carpetas reales en un sistema de archivos distribuido)." },
+  { q: "¿Qué servicio de Microsoft se centra en la gobernanza de datos: mapa de datos, catálogo y linaje en todos los orígenes de la organización?",
+    o: ["Microsoft Purview", "Azure Data Factory", "Azure Databricks", "Microsoft Foundry"], c: 0, h: 7,
+    e: "<b>Microsoft Purview</b>: gobernanza, descubrimiento, mapa de datos y linaje." },
+  { q: "¿Qué servicio define y programa canalizaciones para mover y transformar datos, y es el que se usa fuera de Fabric?",
+    o: ["Azure Data Factory", "Azure Stream Analytics", "Power BI", "Microsoft Purview"], c: 0,
+    e: "<b>Azure Data Factory</b> orquesta canalizaciones ETL. Dentro de Fabric existe <b>Fabric Data Factory</b>." },
+  { q: "¿Quién administra normalmente Azure Cosmos DB como parte de una aplicación?",
+    o: ["Los desarrolladores", "Los analistas de datos", "Los usuarios de negocio", "Los científicos de datos"], c: 0,
+    e: "Cosmos DB normalmente la administran los <b>desarrolladores</b> como parte de la aplicación; los ingenieros la integran en soluciones analíticas." },
+  { q: "¿Qué servicio procesa flujos de datos en tiempo real mediante trabajos con entrada, consulta y salida?",
+    o: ["Azure Stream Analytics", "Azure Data Factory", "Microsoft Purview", "Azure Files"], c: 0, h: 7,
+    e: "<b>Azure Stream Analytics</b>: entrada → consulta → salida, para datos de streaming." },
+  { q: "¿Qué es OneLake?",
+    o: ["La capa de almacenamiento única y compartida de Microsoft Fabric", "Un motor de consultas KQL para series temporales", "Un servicio de base de datos NoSQL de escala global", "El motor en memoria de los modelos de Power BI"], c: 0, h: 7,
+    e: "<b>OneLake</b> es el almacenamiento único de Fabric; todos sus servicios leen y escriben ahí." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Azure Databricks se basa en Apache Spark.", 1], ["Microsoft Fabric requiere crear y administrar clústeres manualmente.", 0], ["Power BI puede usarse de forma independiente o integrado en Fabric.", 1]], h: 7,
+    e: "Databricks se basa en Spark y Delta Lake. Fabric es SaaS: no hay servidores ni clústeres que administrar. Power BI funciona solo o dentro de Fabric." },
+  { q: "Un equipo de ciencia de datos trabaja con código en cuadernos sobre Spark y Delta Lake, en un servicio administrado dentro de su propia suscripción de Azure. ¿Qué plataforma encaja mejor?",
+    o: ["Azure Databricks", "Power BI", "Azure Data Explorer", "Azure SQL Database"], c: 0, h: 7,
+    e: "<b>Azure Databricks</b>: Spark, Delta Lake, cuadernos y servicio administrado en tu suscripción." },
+  { q: "¿Qué ofrece Fabric IQ (versión preliminar)?",
+    o: ["Un significado de negocio común (Cliente, Pedido, Producto) sobre los datos de OneLake para preguntar en lenguaje natural", "Un motor de streaming que ingiere eventos desde Azure Event Hubs y los guarda en tablas Delta de OneLake", "Un nivel de acceso de almacenamiento más barato que Archive para datos fríos que casi nunca se leen", "Un servicio que evalúa y migra instancias de SQL Server locales a Azure SQL Managed Instance"], c: 0, h: 7,
+    e: "<b>Fabric IQ</b> da un significado de negocio común a los datos de OneLake para que usuarios y agentes de IA pregunten en lenguaje natural." },
+  { q: "¿Qué lenguaje de fórmulas se usa para crear medidas en Power BI?",
+    o: ["DAX", "KQL", "T-SQL", "MQL"], c: 0, h: 7,
+    e: "<b>DAX</b> (Data Analysis Expressions) es el lenguaje de fórmulas de Power BI. KQL es para Kusto; MQL, para MongoDB." },
+  { q: "Relaciona cada necesidad con el servicio de Azure adecuado.",
+    pares: [["Mover y transformar datos con canalizaciones (ETL)", "Azure Data Factory"], ["Informes y paneles interactivos", "Power BI"], ["Gobernanza, catálogo y linaje", "Microsoft Purview"], ["Crear aplicaciones de IA y flujos multiagente", "Microsoft Foundry"], ["NoSQL de escala global con documentos y grafos", "Azure Cosmos DB"]], h: 7,
+    e: "Referencia rápida: Data Factory (ETL), Power BI (informes), Purview (gobernanza), Foundry (IA), Cosmos DB (NoSQL global)." }
+]);
+</script>
+
+<script>
+/* ═══════════════════ PARTE 2 · DATOS RELACIONALES EN AZURE ═══════════════════ */
+
+T(2, "Modelo relacional y normalización", 9, [
+  { q: "¿Cuál es el objetivo principal de la normalización?",
+    o: ["Minimizar la duplicación de datos y asegurar su integridad", "Acelerar las consultas analíticas duplicando datos a propósito", "Eliminar la necesidad de definir claves principales", "Permitir que cada fila de una tabla tenga columnas distintas"], c: 0,
+    e: "La normalización <b>minimiza la duplicación</b> y <b>asegura la integridad</b>. Duplicar a propósito es desnormalizar, algo típico de los data warehouses." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["En un esquema normalizado, cambiar la dirección de un cliente requiere modificar una sola fila.", 1], ["La normalización recomienda guardar calle y ciudad en la misma columna para simplificar.", 0], ["Cada entidad debe tener su propia tabla.", 1]],
+    e: "Normalizar: cada entidad en su tabla, cada atributo discreto en su columna, clave principal por fila y claves foráneas entre entidades relacionadas." },
+  { q: "En la tabla LineItem, la clave principal está formada por la combinación de OrderNo e ItemNo. ¿Cómo se llama este tipo de clave?",
+    o: ["Clave compuesta", "Clave foránea", "Clave de partición", "Clave alternativa"], c: 0,
+    e: "Una <b>clave compuesta</b> es una combinación única de varias columnas." },
+  { q: "Intentas insertar un pedido con CustomerID = 999, pero no existe ningún cliente con ese ID. El RDBMS rechaza la inserción. ¿Qué regla se está aplicando?",
+    o: ["Integridad referencial", "Normalización", "Atomicidad", "Desnormalización"], c: 0,
+    e: "La <b>integridad referencial</b> impide que una clave foránea apunte a una clave principal inexistente." },
+  { q: "La tabla Order tiene una columna Customer que almacena el ID de la tabla Customer. ¿Qué es esa columna dentro de Order?",
+    o: ["Una clave foránea", "Una clave principal", "Un índice", "Una clave compuesta"], c: 0,
+    e: "Una <b>clave foránea (FK)</b> guarda la clave principal de la entidad relacionada." },
+  { q: "Una hoja de cálculo de pedidos repite el nombre y la dirección del cliente en cada línea y guarda calle y ciudad en la misma celda. ¿Qué dos cambios aplicarías al normalizarla? Selecciona dos.",
+    o: ["Mover los clientes a su propia tabla y referenciarlos con una clave foránea", "Separar calle y ciudad en columnas distintas", "Agregar más columnas de producto a cada fila del pedido", "Quitar la clave principal de la tabla de pedidos", "Guardar cada pedido completo como un documento JSON"], c: [0, 1],
+    e: "Cada entidad en su tabla (Customer), relacionada por FK, y cada atributo discreto en su propia columna." },
+  { q: "¿Qué afirmación sobre las claves principales es correcta?",
+    o: ["Identifican de forma única cada fila; toda tabla debería tener una, aunque SQL no lo exige", "SQL obliga a definir una clave principal en cada tabla que se crea", "Su valor puede repetirse cuando la tabla tiene muchas filas", "Solo pueden definirse en tablas que también tienen claves foráneas"], c: 0,
+    e: "La clave principal identifica cada fila. Toda tabla <b>debería</b> tener una, pero SQL no lo exige." },
+  { q: "Un cliente no tiene segundo nombre y la columna MiddleName admite valores vacíos. ¿Qué valor queda en esa columna?",
+    o: ["NULL", "0", "La cadena 'N/A', que es obligatoria", "Ninguno: la fila no se puede insertar"], c: 0,
+    e: "<b>NULL</b> representa la ausencia de valor en una columna que lo permite." },
+  { q: "¿Qué ventaja de granularidad aporta la normalización?",
+    o: ["Permite filtrar fácilmente, por ejemplo, los clientes de una ciudad concreta", "Reduce todas las entidades del sistema a una sola tabla ancha", "Permite guardar varios valores separados por comas en una misma celda", "Elimina la necesidad de definir tipos de datos en cada columna"], c: 0,
+    e: "Con cada atributo en su propia columna (por ejemplo, City), es sencillo filtrar y agrupar." }
+]);
+
+T(2, "Instrucciones SQL", 10, [
+  { q: "Clasifica cada instrucción SQL.",
+    pares: [["CREATE", "DDL"], ["ALTER", "DDL"], ["DROP", "DDL"], ["GRANT", "DCL"], ["REVOKE", "DCL"], ["SELECT", "DML"], ["UPDATE", "DML"], ["DELETE", "DML"]],
+    d: ["DDL", "DCL", "DML"], h: 9,
+    e: "DDL = definición (estructura): CREATE, ALTER, DROP, RENAME. DCL = control (permisos): GRANT, DENY, REVOKE. DML = manipulación (datos): SELECT, INSERT, UPDATE, DELETE." },
+  { q: "Un compañero ejecuta <code>DELETE FROM Customer;</code> sin cláusula WHERE. ¿Qué ocurre?",
+    o: ["Se eliminan todas las filas, pero la tabla sigue existiendo", "Se elimina la tabla completa, incluidas su estructura y sus filas", "SQL pide confirmación antes de borrar las filas afectadas", "Se produce un error porque DELETE exige una cláusula WHERE"], c: 0, g: "del-drop",
+    e: "Sin WHERE, DELETE afecta a <b>todas</b> las filas y SQL no pide confirmación. La tabla sigue existiendo; para quitarla se usa DROP (DDL)." },
+  { q: "¿Qué instrucción elimina por completo la tabla Product, incluida su estructura?",
+    o: ["DROP TABLE Product;", "DELETE FROM Product;", "REVOKE ALL ON Product;", "ALTER TABLE Product DELETE;"], c: 0, g: "del-drop",
+    e: "<b>DROP</b> (DDL) quita el objeto y todas sus filas. DELETE (DML) solo elimina filas." },
+  { q: "Necesitas impedir explícitamente que user2 lea la tabla Salary, aunque pertenezca a un grupo que tiene permiso de lectura. ¿Qué instrucción usas?",
+    o: ["DENY", "REVOKE", "DROP", "ALTER"], c: 0,
+    e: "<b>DENY</b> deniega el permiso. <b>REVOKE</b> solo quita un permiso concedido antes; el usuario podría seguir leyendo gracias a su grupo." },
+  { q: "Relaciona cada sistema con su dialecto de SQL.",
+    pares: [["Azure SQL Database", "T-SQL"], ["Azure SQL Managed Instance", "T-SQL"], ["SQL Server en una VM de Azure", "T-SQL"], ["PostgreSQL", "pgSQL"], ["Oracle", "PL/SQL"]],
+    d: ["T-SQL", "pgSQL", "PL/SQL"], h: 9,
+    e: "T-SQL: toda la familia SQL Server. pgSQL (PL/pgSQL): PostgreSQL. PL/SQL: Oracle." },
+  { q: "Completa la consulta para obtener solo los clientes de Seattle:<pre>SELECT FirstName, LastName\nFROM Customer\n___ City = 'Seattle'\nORDER BY LastName;</pre>",
+    o: ["WHERE", "ON", "SET", "VALUES"], c: 0,
+    e: "La cláusula <b>WHERE</b> filtra las filas. ON se usa en JOIN, SET en UPDATE y VALUES en INSERT." },
+  { q: "Completa la instrucción:<pre>UPDATE Customer\n___ Address = '123 High St.'\nWHERE ID = 1;</pre>",
+    o: ["SET", "VALUES", "INTO", "ON"], c: 0,
+    e: "Sintaxis: <code>UPDATE tabla SET columna = valor WHERE ...</code>" },
+  { q: "Completa la instrucción:<pre>INSERT INTO Product(ID, Name, Price)\n___ (99, 'Drill', 4.99);</pre>",
+    o: ["VALUES", "SET", "WHERE", "FROM"], c: 0,
+    e: "Sintaxis: <code>INSERT INTO tabla(columnas) VALUES (...)</code>" },
+  { q: "Ejecutas una consulta SELECT sin ORDER BY. ¿En qué orden se devuelven las filas?",
+    o: ["En ningún orden garantizado", "Siempre ordenadas por la clave principal", "Siempre en el orden en que se insertaron", "Alfabéticamente por la primera columna"], c: 0,
+    e: "Sin <b>ORDER BY</b>, las filas no salen en ningún orden garantizado." },
+  { q: "Observa la consulta:<pre>SELECT o.OrderNo, c.City\nFROM [Order] AS o\nJOIN Customer AS c\nON o.Customer = c.ID;</pre>¿Qué afirmación es correcta?",
+    o: ["La condición empareja la clave foránea de Order con la clave principal de Customer; o y c son alias", "Combina cada fila de Order con todas las filas de Customer, sin ninguna condición", "o y c son nombres de esquemas de la base de datos donde viven las tablas", "Devuelve únicamente los clientes que todavía no tienen ningún pedido"], c: 0,
+    e: "El JOIN suele emparejar una <b>FK</b> con su <b>PK</b>; <code>o</code> y <code>c</code> son alias de tabla." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["SQL fue estandarizado por ANSI en 1986 y por ISO en 1987.", 1], ["Los dialectos existen porque cada proveedor agrega extensiones propietarias.", 1], ["Un UPDATE sin WHERE solo modifica la primera fila de la tabla.", 0]], h: 9,
+    e: "ANSI 1986 e ISO 1987. Los dialectos (T-SQL, pgSQL, PL/SQL) agregan extensiones. Un UPDATE sin WHERE modifica <b>todas</b> las filas." },
+  { q: "¿Por qué, en una base de datos real, una tabla llamada Order suele escribirse como <code>[Order]</code>?",
+    o: ["Porque ORDER es una palabra reservada de SQL", "Porque se trata de una vista y no de una tabla", "Porque es una tabla temporal de la sesión", "Porque los corchetes indican la clave principal"], c: 0,
+    e: "<code>ORDER</code> es palabra reservada (ORDER BY); en T-SQL se delimita con corchetes." },
+  { q: "Dada esta tabla:<pre>CREATE TABLE Product\n(\n    ID    INT PRIMARY KEY,\n    Name  VARCHAR(20) NOT NULL,\n    Price DECIMAL NULL\n);</pre>¿Qué inserción fallará?",
+    o: ["INSERT INTO Product(ID, Price) VALUES (1, 9.99);", "INSERT INTO Product(ID, Name) VALUES (2, 'Saw');", "INSERT INTO Product(ID, Name, Price) VALUES (3, 'Nail', NULL);", "INSERT INTO Product(ID, Name, Price) VALUES (4, 'Hammer', 2.99);"], c: 0,
+    e: "<code>Name</code> es <b>NOT NULL</b>: la primera inserción no le da valor y falla. Price admite NULL, así que las demás funcionan." },
+  { q: "¿Qué dos instrucciones pertenecen al lenguaje de manipulación de datos (DML)? Selecciona dos.",
+    o: ["INSERT", "SELECT", "GRANT", "ALTER", "RENAME"], c: [0, 1], h: 9,
+    e: "DML: SELECT, INSERT, UPDATE, DELETE. GRANT es DCL; ALTER y RENAME son DDL." },
+  { q: "Un DBA quiere que user1 pueda leer, insertar y modificar datos de la tabla Product. ¿Qué instrucción usa?",
+    o: ["GRANT SELECT, INSERT, UPDATE ON Product TO user1;", "DENY SELECT, INSERT, UPDATE ON Product TO user1;", "ALTER TABLE Product ADD user1;", "REVOKE SELECT, INSERT, UPDATE ON Product FROM user1;"], c: 0,
+    e: "<b>GRANT</b> concede permisos (DCL)." },
+  { q: "¿Qué instrucción usarías para añadir una columna Email a una tabla existente?",
+    o: ["ALTER", "UPDATE", "INSERT", "GRANT"], c: 0,
+    e: "<b>ALTER</b> (DDL) modifica la estructura de un objeto. UPDATE modifica valores de filas existentes." },
+  { q: "¿Qué afirmación sobre INSERT en SQL estándar es correcta?",
+    o: ["Inserta una fila a la vez, aunque algunos dialectos permiten varias listas de VALUES", "Siempre inserta todas las filas de otra tabla indicada en la cláusula FROM", "Requiere una cláusula WHERE para indicar en qué posición insertar la fila", "Solo puede usarse en tablas que no tienen definida una clave principal"], c: 0,
+    e: "El SQL estándar inserta <b>una fila a la vez</b>; algunos dialectos permiten varias listas de VALUES." }
+]);
+
+T(2, "Objetos de base de datos", 11, [
+  { q: "Relaciona cada descripción con el objeto de base de datos.",
+    pares: [["Consulta guardada que se usa como tabla virtual", "Vista"], ["Código SQL guardado que acepta parámetros y se ejecuta a petición", "Procedimiento almacenado"], ["Estructura de árbol que acelera las búsquedas por una columna", "Índice"], ["Código que se ejecuta automáticamente ante un evento", "Desencadenador (trigger)"]],
+    e: "Vista: tabla virtual basada en un SELECT. Procedimiento: SQL con parámetros que se ejecuta con EXEC. Índice: árbol ordenado para buscar rápido. Trigger: se ejecuta solo ante un evento." },
+  { q: "Los usuarios ejecutan a diario una consulta compleja que combina Order y Customer para ver las entregas. Quieres que puedan consultarla y filtrarla como si fuera una tabla, sin duplicar datos. ¿Qué creas?",
+    o: ["Una vista", "Un índice", "Una tabla nueva con los datos copiados", "Una clave compuesta"], c: 0,
+    e: "Una <b>vista</b> es una tabla virtual basada en un SELECT; se consulta y filtra como una tabla." },
+  { q: "Una aplicación debe renombrar productos y quieres encapsular esa lógica en la base de datos, recibiendo el ID y el nuevo nombre como parámetros. ¿Qué objeto creas?",
+    o: ["Un procedimiento almacenado", "Una vista", "Un índice", "Una clave foránea"], c: 0,
+    e: "Un <b>procedimiento almacenado</b> encapsula lógica y acepta parámetros." },
+  { q: "¿Cómo se ejecuta en T-SQL el procedimiento almacenado RenameProduct?",
+    o: ["EXEC RenameProduct 201, 'Spanner';", "SELECT * FROM RenameProduct;", "CREATE VIEW RenameProduct;", "CREATE INDEX RenameProduct;"], c: 0,
+    e: "Los procedimientos se ejecutan con <b>EXEC</b>." },
+  { q: "Una tabla de 20 filas tiene un índice sobre la columna Name. ¿Qué es lo más probable al consultar filtrando por Name?",
+    o: ["El optimizador ignora el índice y lee la tabla completa", "El índice hace la consulta 20 veces más rápida", "La consulta falla porque la tabla es demasiado pequeña", "El índice se elimina automáticamente"], c: 0,
+    e: "En tablas con <b>pocas filas</b> el índice no aporta y el optimizador lee la tabla completa." },
+  { q: "¿Qué dos afirmaciones sobre los índices son correctas? Selecciona dos.",
+    o: ["Ocupan almacenamiento adicional", "Hacen más lentas las operaciones INSERT, UPDATE y DELETE", "Una tabla solo puede tener un índice", "Siempre mejoran el rendimiento sin ningún costo", "Sustituyen a la clave principal"], c: [0, 1],
+    e: "Los índices aceleran las lecturas, pero ocupan espacio y hay que mantenerlos en cada escritura. Una tabla puede tener varios." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Una vista puede combinar filas de varias tablas.", 1], ["Un procedimiento almacenado puede recibir parámetros.", 1], ["Un índice acelera las escrituras porque mantiene los datos ordenados.", 0]],
+    e: "Las vistas pueden usar JOIN y los procedimientos aceptan parámetros. Los índices aceleran las <b>lecturas</b> y ralentizan las escrituras." },
+  { q: "¿Qué componente decide si una consulta usa un índice o recorre la tabla completa?",
+    o: ["El optimizador de consultas", "El servidor lógico", "Data Migration Assistant", "El desencadenador"], c: 0,
+    e: "El <b>optimizador de consultas</b> decide cómo ejecutar cada consulta." },
+  { q: "Una tabla de pedidos tiene millones de filas y recibe muchas inserciones por segundo, pero rara vez se consulta. Alguien propone crear índices en diez columnas. ¿Cuál es el principal riesgo?",
+    o: ["Las inserciones serán más lentas y se usará más almacenamiento", "Las consultas de lectura serán más lentas", "Se perderá la integridad referencial con otras tablas", "La tabla dejará de admitir valores NULL"], c: 0,
+    e: "Cada índice se actualiza en cada escritura: hay que equilibrar la velocidad de las consultas con el costo de las escrituras." },
+  { q: "Completa la instrucción para crear un índice sobre la columna Name:<pre>___ idx_ProductName\nON Product(Name);</pre>",
+    o: ["CREATE INDEX", "CREATE VIEW", "CREATE PROCEDURE", "ALTER TABLE"], c: 0,
+    e: "<code>CREATE INDEX nombre ON tabla(columna);</code>" }
+]);
+
+T(2, "Familia Azure SQL", 12, [
+  { q: "Relaciona cada escenario con la opción de Azure SQL más adecuada.",
+    pares: [["Migrar SQL Server con Agente SQL y consultas entre BD, con cambios mínimos y sin administrar el SO", "SQL Managed Instance"], ["App nueva en la nube con una sola BD, bajo costo y mínima administración", "Azure SQL Database (base única)"], ["La aplicación necesita acceso al sistema operativo del servidor", "SQL Server en VM"], ["Varias BD con picos de uso en momentos distintos que comparten presupuesto", "Azure SQL Database (grupo elástico)"]], h: 28,
+    e: "Managed Instance: compatibilidad de instancia. SQL Database: apps nuevas con mínima administración; grupo elástico para cargas variables. VM: control total del SO." },
+  { q: "¿Qué opción de Azure SQL ofrece el SLA de disponibilidad más alto (99,995 %)?",
+    o: ["Azure SQL Database", "Azure SQL Managed Instance", "SQL Server en una VM de Azure", "Las tres ofrecen 99,995 %"], c: 0,
+    e: "Azure SQL Database: 99,995 %. Managed Instance y SQL Server en VM: 99,99 %." },
+  { q: "Tu empresa quiere migrar a Azure una instancia de SQL Server que usa características avanzadas a nivel de instancia, sin tener que administrar una máquina virtual. ¿Qué servicio eliges?",
+    o: ["Azure SQL Managed Instance", "SQL Server en una VM de Azure", "Azure SQL Database (base única)", "Azure Database for PostgreSQL"], c: 0, g: "mi",
+    e: "<b>Managed Instance</b>: compatibilidad casi total con SQL Server (Enterprise Edition) y PaaS; ideal para lift-and-shift sin administrar una VM." },
+  { q: "Una aplicación local depende del Agente SQL Server y de consultas entre bases de datos de la misma instancia. Quieres un servicio PaaS. ¿Cuál eliges?",
+    o: ["Azure SQL Managed Instance", "Azure SQL Database (base única)", "SQL Server en una VM de Azure", "Azure Cosmos DB for NoSQL"], c: 0, g: "mi", h: 28,
+    e: "Si piden compatibilidad de instancia (Agente SQL, varias BD) y PaaS, es <b>Managed Instance</b>. La VM es IaaS." },
+  { q: "¿Qué herramienta detecta problemas de compatibilidad que podrían bloquear una migración a Azure SQL Database o Managed Instance?",
+    o: ["Data Migration Assistant (DMA)", "Azure File Sync", "AzCopy", "Microsoft Purview"], c: 0,
+    e: "<b>DMA</b> detecta incompatibilidades antes de migrar." },
+  { q: "Necesitas una base de datos de Azure SQL de unos 80 TB con escalado rápido y copias de seguridad y restauración rápidas. ¿Qué opción eliges?",
+    o: ["Azure SQL Database Hiperescala", "Un grupo elástico de Azure SQL Database", "Azure SQL Database sin servidor", "Azure Files con nivel SSD"], c: 0,
+    e: "<b>Hiperescala</b>: BD de hasta 100 TB, escalado rápido y respaldo y restauración rápidos." },
+  { q: "Una base de datos de desarrollo se usa unas pocas horas al día de forma impredecible. Quieres que los recursos se escalen solos según la demanda. ¿Qué modelo de Azure SQL Database eliges?",
+    o: ["Sin servidor (serverless)", "Recursos preasignados con cobro por hora", "Hiperescala", "SQL Server en una VM"], c: 0,
+    e: "<b>Sin servidor</b>: escala sola y asigna recursos según la demanda." },
+  { q: "¿Qué es un servidor lógico en Azure SQL Database?",
+    o: ["El punto central de inicios de sesión, firewall, auditoría y conmutación por error de varias bases de datos", "Una máquina virtual con SQL Server instalado, cuyo sistema operativo y parches administra el cliente", "Un conjunto de bases de datos con uso variable que comparten recursos de cómputo para reducir costos", "Un tipo de índice especial que acelera las consultas que combinan tablas de varias bases de datos"], c: 0,
+    e: "El <b>servidor lógico</b> es el punto central de administración donde se crean las BD de Azure SQL Database." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["En SQL Server en una VM de Azure, tú administras el SO, las actualizaciones y las copias de seguridad.", 1], ["Azure SQL Managed Instance automatiza las copias de seguridad y los parches.", 1], ["Azure SQL Database es 100 % compatible con todas las características de SQL Server local.", 0]],
+    e: "En la VM (IaaS) administras todo. MI y SQL Database automatizan respaldos y parches. SQL Database solo incluye las funciones principales." },
+  { q: "¿Qué dos situaciones justifican elegir SQL Server en una VM de Azure? Selecciona dos.",
+    o: ["La aplicación necesita funciones del sistema operativo que no están disponibles en PaaS", "Se requiere control total sobre la versión de SQL Server y el sistema operativo", "Se busca la menor administración posible", "Se necesita el SLA de disponibilidad del 99,995 %", "Se quiere pagar solo por uso con escalado automático"], c: [0, 1],
+    e: "La VM (IaaS) da control total del SO y del DBMS, pero implica administrarlo todo." },
+  { q: "¿Qué tipos de inicio de sesión admite Azure SQL Managed Instance?",
+    o: ["Inicios de sesión de SQL Server y de Microsoft Entra ID", "Solo Microsoft Entra ID con autenticación multifactor", "Solo inicios de sesión de SQL Server con contraseña", "Solo certificados de cliente y claves de acceso compartidas"], c: 0,
+    e: "MI admite inicios de sesión de <b>SQL Server</b> (usuario y contraseña) y de <b>Microsoft Entra ID</b>." },
+  { q: "¿Qué tres ventajas ofrece Azure SQL Database? Selecciona tres.",
+    o: ["Restauración a un momento dado", "Advanced Threat Protection, con alertas ante inyección de SQL", "Replicación entre regiones para recuperación ante desastres", "Acceso de administrador al sistema operativo del servidor", "Compatibilidad total con todas las características de SQL Server local"], c: [0, 1, 2], h: 13,
+    e: "SQL Database ofrece restauración a un momento dado, Advanced Threat Protection, replicación entre regiones, auditoría y cifrado. No da acceso al SO ni compatibilidad total." },
+  { q: "Una empresa tiene una base de datos de nóminas con mucha carga a fin de mes y otra de informes con carga a mitad de mes. Quiere reducir costos. ¿Qué recomiendas?",
+    o: ["Colocar ambas en un grupo elástico de Azure SQL Database", "Crear dos SQL Server en VM separadas", "Usar dos Managed Instance independientes", "Migrarlas a Azure Cosmos DB"], c: 0,
+    e: "Un <b>grupo elástico</b> permite que varias BD con cargas variables compartan recursos y reduce costos." },
+  { q: "Azure SQL Database registra los eventos de ___ en una cuenta de Azure Storage, lo que ayuda al cumplimiento normativo.",
+    o: ["auditoría", "indexación", "replicación", "rehidratación"], c: 0, h: 13,
+    e: "La <b>auditoría</b> registra eventos en una cuenta de Azure Storage." },
+  { q: "¿Qué modelo de servicio corresponde a SQL Server en una VM de Azure?",
+    o: ["IaaS", "PaaS", "SaaS", "Sin servidor"], c: 0,
+    e: "SQL Server en VM es <b>IaaS</b>: Microsoft da la VM y tú administras el resto." },
+  { q: "¿Qué afirmación sobre Azure SQL Managed Instance es correcta?",
+    o: ["Cada instancia admite varias bases de datos, con un control similar al de un servidor local", "Solo admite una base de datos por instancia, igual que SQL Database", "Requiere que el cliente administre el sistema operativo y los parches", "No admite migraciones desde SQL Server local sin reescribir la aplicación"], c: 0,
+    e: "MI es una instancia de SQL Server con <b>varias BD</b>; automatiza el mantenimiento y tú conservas el control de la seguridad y de la asignación de recursos." },
+  { q: "Necesitas un entorno de desarrollo y pruebas de SQL Server sin comprar hardware, con la posibilidad de aumentar memoria y CPU sin reinstalar, y con acceso administrativo total al SO. ¿Qué eliges?",
+    o: ["SQL Server en una VM de Azure", "Azure SQL Database sin servidor", "Azure SQL Managed Instance", "Azure Database for MySQL"], c: 0,
+    e: "La VM permite dev/test sin hardware, escalado vertical y <b>derechos administrativos totales</b> sobre el SO." }
+]);
+
+T(2, "MySQL y PostgreSQL", 13, [
+  { q: "Una aplicación web en PHP que corre sobre Linux y Apache (pila LAMP) debe migrarse con cambios mínimos a un servicio administrado. ¿Qué servicio eliges?",
+    o: ["Azure Database for MySQL", "Azure Database for PostgreSQL", "Azure SQL Managed Instance", "Azure Cosmos DB for MongoDB"], c: 0,
+    e: "MySQL es el líder de la pila <b>LAMP</b> (Linux, Apache, MySQL, PHP)." },
+  { q: "Una aplicación necesita guardar y consultar datos geométricos (líneas, círculos, polígonos) y tipos de datos personalizados en una base de datos relacional de código abierto. ¿Qué eliges?",
+    o: ["Azure Database for PostgreSQL", "Azure Database for MySQL", "Azure Table Storage", "Azure Cosmos DB for Table"], c: 0,
+    e: "<b>PostgreSQL</b> es objeto-relacional: admite tipos de datos personalizados y datos geométricos." },
+  { q: "Azure Database for MySQL se basa en la edición:",
+    o: ["Community", "Enterprise", "Standard", "Cluster"], c: 0,
+    e: "Azure Database for MySQL se basa en la edición <b>Community</b> (gratuita)." },
+  { q: "¿Hasta cuántos días permite Azure Database for MySQL restaurar a un momento dado?",
+    o: ["35 días (7 por defecto)", "7 días como máximo", "90 días (30 por defecto)", "365 días"], c: 0,
+    e: "Respaldos automáticos y restauración a un momento dado hasta <b>35 días</b>; 7 por defecto." },
+  { q: "¿Qué opción de implementación se recomienda para nuevas cargas en Azure Database for MySQL y PostgreSQL?",
+    o: ["Servidor flexible", "Servidor único", "Hiperescala", "Grupo elástico"], c: 0,
+    e: "El <b>servidor flexible</b> es la opción recomendada para cargas nuevas, con más control de configuración y optimización de costos." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Azure Database for PostgreSQL admite todas las extensiones disponibles en un PostgreSQL local.", 0], ["En Azure Database for PostgreSQL, las consultas se registran en la base de datos azure_sys.", 1], ["Azure Database for MariaDB es la opción recomendada hoy para nuevas cargas.", 0]], h: 28,
+    e: "No todas las extensiones locales están disponibles. Las consultas se registran en <code>azure_sys</code>. MariaDB fue retirado; su equivalente es MySQL." },
+  { q: "En una pregunta antigua aparece Azure Database for MariaDB. ¿Qué servicio es el equivalente actual?",
+    o: ["Azure Database for MySQL", "Azure Database for PostgreSQL", "Azure SQL Database", "Azure Cosmos DB for Table"], c: 0, h: 28,
+    e: "MariaDB ya fue retirado; la opción equivalente hoy es <b>Azure Database for MySQL</b>." },
+  { q: "¿Qué herramienta de administración de PostgreSQL es compatible con Azure Database for PostgreSQL, salvo funciones de servidor como copias de seguridad y restauración?",
+    o: ["pgAdmin", "AzCopy", "Azure File Sync", "Power BI Desktop"], c: 0,
+    e: "<b>pgAdmin</b> es compatible; el respaldo y la restauración los maneja Microsoft." },
+  { q: "¿Qué lenguaje propio de PostgreSQL permite crear procedimientos almacenados?",
+    o: ["pgSQL (PL/pgSQL)", "T-SQL", "PL/SQL", "KQL"], c: 0,
+    e: "PostgreSQL usa <b>pgSQL</b>. PL/SQL es de Oracle; T-SQL, de SQL Server." },
+  { q: "¿Qué dos afirmaciones sobre Azure Database for MySQL son correctas? Selecciona dos.",
+    o: ["Incluye alta disponibilidad sin costo adicional", "Permite reglas de firewall y configurar parámetros como conexiones y tiempos de espera", "Da acceso completo al sistema operativo del servidor", "Se basa en la edición Enterprise de MySQL", "Requiere aplicar los parches manualmente"], c: [0, 1],
+    e: "Alta disponibilidad incluida, firewall, SSL opcional y parámetros configurables. Algunas funciones de administración las gestiona Azure." },
+  { q: "¿Para qué sirve consultar la vista <code>query_store.qs_view</code> en Azure Database for PostgreSQL?",
+    o: ["Para revisar las consultas registradas y ajustar el rendimiento", "Para configurar la redundancia geográfica del servidor", "Para conceder permisos a los usuarios de la base de datos", "Para restaurar la base de datos a un momento dado"], c: 0,
+    e: "Las consultas se registran en <code>azure_sys</code> y se revisan con <code>query_store.qs_view</code> para ajustar el rendimiento." }
+]);
+</script>
+
+<script>
+/* ═══════════════════ PARTE 3 · DATOS NO RELACIONALES EN AZURE ═══════════════════ */
+
+T(3, "Blob Storage", 15, [
+  { q: "Relaciona cada caso con el tipo de blob adecuado.",
+    pares: [["Disco virtual de una máquina virtual", "Blob en páginas"], ["Archivo de log al que solo se agregan entradas", "Blob en anexos"], ["Videos de capacitación que casi no cambian", "Blob en bloques"], ["Imágenes de productos para un sitio web", "Blob en bloques"]],
+    d: ["Blob en bloques", "Blob en páginas", "Blob en anexos"],
+    e: "Bloques: objetos grandes y discretos que cambian poco. Páginas: lecturas y escrituras aleatorias, discos de VM. Anexos: solo agregar al final, logs." },
+  { q: "¿Qué tipo de blob usa Azure para los discos virtuales de las máquinas virtuales?",
+    o: ["Blob en páginas", "Blob en bloques", "Blob en anexos", "Blob en el nivel Archive"], c: 0, g: "blob-tipo",
+    e: "Los <b>blobs en páginas</b> (páginas de 512 bytes, hasta 8 TB) están optimizados para E/S aleatoria; Azure los usa para los discos de las VM." },
+  { q: "Una aplicación escribe eventos de auditoría que solo se agregan al final; nunca se modifican ni eliminan las entradas existentes. ¿Qué tipo de blob es el más adecuado?",
+    o: ["Blob en anexos", "Blob en bloques", "Blob en páginas", "Azure Table Storage"], c: 0, g: "blob-tipo",
+    e: "Los <b>blobs en anexos</b> están optimizados para agregar datos al final; no se pueden modificar ni borrar bloques existentes." },
+  { q: "En una cuenta de Blob Storage sin espacio de nombres jerárquico, ¿en qué nivel se controla el acceso de lectura y escritura?",
+    o: ["En el contenedor", "En cada carpeta virtual", "En cada bloque del blob", "Solo a nivel de suscripción"], c: 0,
+    e: "El acceso se controla <b>a nivel de contenedor</b>. Las carpetas virtuales son solo un «/» en el nombre del blob." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Sin espacio de nombres jerárquico, ventas/2026/enero.csv es un único blob cuyo nombre contiene barras.", 1], ["Las carpetas virtuales de Blob Storage permiten asignar permisos por carpeta.", 0], ["Los blobs en páginas están optimizados para lecturas y escrituras aleatorias.", 1]],
+    e: "Las carpetas virtuales no permiten controlar el acceso ni hacer operaciones masivas por carpeta; para eso se necesita Data Lake Storage Gen2." },
+  { q: "¿Qué método de autenticación se recomienda para dar permisos precisos sobre Blob Storage?",
+    o: ["Microsoft Entra ID con RBAC", "Claves de la cuenta incrustadas en el código", "Acceso anónimo público al contenedor", "Inicios de sesión de SQL Server"], c: 0,
+    e: "Se recomienda <b>Microsoft Entra ID</b> con <b>RBAC</b> (control de acceso basado en roles)." },
+  { q: "¿Qué tamaño tienen las páginas de un blob en páginas?",
+    o: ["512 bytes", "4 MB", "4000 MiB", "1 KB"], c: 0,
+    e: "Páginas fijas de <b>512 bytes</b>; tamaño máximo de 8 TB." },
+  { q: "¿Qué afirmación sobre los blobs en bloques es correcta?",
+    o: ["El bloque es la unidad mínima de lectura y escritura; son ideales para objetos grandes que cambian poco", "Se dividen en páginas de 512 bytes optimizadas para lecturas y escrituras aleatorias, como los discos de VM", "No pueden superar los 4 MB por blob, por lo que no sirven para videos ni copias de seguridad", "Solo permiten agregar datos al final del blob; los bloques existentes no se pueden modificar"], c: 0,
+    e: "Blob en bloques: bloques de hasta 4000 MiB y un máximo de ~190,7 TiB; para imágenes, videos y documentos." },
+  { q: "Relaciona cada concepto de Blob Storage con lo que determina.",
+    pares: [["Tipo de blob", "Cómo se escribe (bloques, páginas, anexos)"], ["Nivel de acceso", "Cada cuánto se lee (Hot, Cool, Cold, Archive)"], ["Redundancia", "Cuántas copias hay y dónde (LRS, ZRS, GRS, GZRS)"]],
+    e: "Tipo = forma de escritura. Nivel = frecuencia de acceso y costo. Redundancia = copias y ubicación." }
+]);
+
+T(3, "Niveles de acceso", 15, [
+  { q: "Relaciona cada nivel de acceso con su periodo mínimo antes de aplicar la penalización por eliminación anticipada.",
+    pares: [["Hot (frecuente)", "Sin mínimo"], ["Cool (esporádico)", "30 días"], ["Cold (frío)", "90 días"], ["Archive (archivo)", "180 días"]],
+    d: ["Sin mínimo", "30 días", "90 días", "180 días"],
+    e: "Hot: sin mínimo. Cool: 30 días. Cold: 90 días. Archive: 180 días." },
+  { q: "Tu empresa debe conservar registros de auditoría durante siete años. Casi nunca se consultan y, cuando se necesitan, se puede esperar varias horas. ¿Qué nivel minimiza el costo?",
+    o: ["Archive", "Cold", "Cool", "Hot"], c: 0,
+    e: "<b>Archive</b> tiene el menor costo de almacenamiento; los datos están sin conexión y la rehidratación puede tardar hasta 15 horas." },
+  { q: "Necesitas guardar copias de seguridad a corto plazo que rara vez se usan, pero que deben poder leerse en milisegundos si ocurre un desastre. ¿Qué nivel tiene el menor costo de almacenamiento que cumple el requisito?",
+    o: ["Cold", "Archive", "Hot", "Cool"], c: 0,
+    e: "<b>Cold</b> es el nivel en línea más barato para datos que rara vez se usan pero requieren recuperación rápida. Archive está sin conexión." },
+  { q: "Intentas leer un blob que está en el nivel Archive y la operación falla. ¿Qué debes hacer?",
+    o: ["Rehidratarlo cambiándolo a Hot, Cool o Cold y esperar a que termine el proceso", "Cambiar la redundancia de la cuenta a RA-GRS y leerlo desde la región secundaria", "Habilitar el espacio de nombres jerárquico para acceder al blob como archivo", "Descargarlo directamente con AzCopy, que sí puede leer blobs sin conexión"], c: 0,
+    e: "Los blobs en Archive están sin conexión: hay que <b>rehidratarlos</b> a un nivel en línea, lo que puede tardar horas." },
+  { q: "Mueves un blob al nivel Cool y lo eliminas a los 10 días. ¿Qué ocurre?",
+    o: ["Se cobra una penalización por eliminación anticipada", "Nada: Cool no tiene periodo mínimo", "No se puede eliminar hasta que pasen 30 días", "El blob vuelve automáticamente a Hot"], c: 0,
+    e: "Cool tiene un mínimo de <b>30 días</b>; borrarlo o moverlo antes genera una penalización." },
+  { q: "Quieres que los blobs pasen automáticamente de Hot a Cool a los 30 días sin modificaciones, a Archive a los 180 días y se eliminen a los siete años. ¿Qué configuras?",
+    o: ["Directivas de administración del ciclo de vida", "Redundancia RA-GZRS con conmutación por error", "Azure File Sync con niveles en la nube", "Mirroring de Fabric hacia OneLake"], c: 0,
+    e: "Las <b>directivas de ciclo de vida</b> mueven blobs entre niveles según su antigüedad y pueden eliminarlos." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Hot es el nivel de acceso predeterminado.", 1], ["Archive tiene el menor costo de almacenamiento y el mayor costo de acceso.", 1], ["Archive puede configurarse como nivel predeterminado de toda la cuenta de almacenamiento.", 0], ["Un blob en Cool puede volver a Hot.", 1]],
+    e: "Hot es el predeterminado. Menor costo de almacenamiento = mayor costo de acceso. Archive solo se asigna por blob, no a la cuenta." },
+  { q: "Tras solicitar la rehidratación de un blob en Archive, ¿cuánto puede tardar en estar disponible?",
+    o: ["Hasta unas 15 horas", "Unos milisegundos", "Exactamente 30 días", "Es inmediato si la cuenta usa GRS"], c: 0,
+    e: "La latencia de Archive puede llegar a <b>15 horas</b>." },
+  { q: "Un sitio web sirve imágenes que se consultan constantemente durante el primer mes y casi nunca después. ¿Qué estrategia es la más rentable?",
+    o: ["Crear los blobs en Hot y moverlos a Cool o Cold con una directiva de ciclo de vida", "Guardarlos directamente en Archive desde el primer día, porque es el nivel más barato", "Mantenerlos siempre en Hot para no pagar nunca penalizaciones por eliminación anticipada", "Guardarlos en un recurso compartido de Azure Files montado por el servidor web"], c: 0,
+    e: "Patrón común: crear en Hot y bajar de nivel cuando se usan menos, automatizándolo con el ciclo de vida." }
+]);
+
+T(3, "Redundancia", 15, [
+  { q: "Relaciona cada opción de redundancia con lo que hace.",
+    pares: [["Tres copias en un solo centro de datos", "LRS"], ["Copias en tres zonas de disponibilidad de la región principal", "ZRS"], ["Replicación asincrónica a una región secundaria a cientos de km", "GRS"], ["Tres zonas en la región principal más copia en una región secundaria", "GZRS"]],
+    d: ["LRS", "ZRS", "GRS", "GZRS"],
+    e: "LRS: local. ZRS: zonas. GRS: región secundaria. GZRS: zonas más región secundaria." },
+  { q: "Tu solución debe seguir disponible si cae una zona de disponibilidad completa y, además, protegerse ante un desastre que afecte a toda la región. ¿Qué opción cubre ambos casos?",
+    o: ["GZRS", "ZRS", "GRS", "LRS"], c: 0,
+    e: "<b>GZRS</b> combina ZRS en la región principal con una copia en la región secundaria." },
+  { q: "Necesitas leer los datos desde la región secundaria incluso cuando no se ha producido una conmutación por error. ¿Qué opción eliges?",
+    o: ["RA-GRS", "GRS", "ZRS", "LRS"], c: 0,
+    e: "El prefijo <b>RA-</b> (Read Access) permite leer desde la región secundaria." },
+  { q: "¿Cuál es la opción de redundancia más económica, que protege solo ante el fallo de un servidor o un disco?",
+    o: ["LRS", "ZRS", "GRS", "GZRS"], c: 0,
+    e: "<b>LRS</b>: tres copias en un centro de datos; menor costo y menor protección." },
+  { q: "¿Cómo replica GRS los datos a la región secundaria?",
+    o: ["De forma asincrónica", "De forma sincrónica", "Solo cuando el administrador lo solicita", "No replica a otra región"], c: 0,
+    e: "GRS replica de forma <b>asincrónica</b> a una región secundaria." },
+  { q: "¿Qué dos opciones protegen los datos ante un desastre que afecte a toda la región principal? Selecciona dos.",
+    o: ["GRS", "GZRS", "ZRS", "LRS", "El nivel de acceso Hot"], c: [0, 1],
+    e: "Solo las opciones con región secundaria (GRS, GZRS y sus variantes RA-) protegen ante un desastre regional." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["ZRS protege ante la caída de una zona de disponibilidad.", 1], ["LRS guarda copias en tres regiones distintas.", 0], ["RA-GZRS permite leer desde la región secundaria.", 1]],
+    e: "ZRS: tres zonas de una región. LRS: un solo centro de datos. RA- habilita la lectura en la región secundaria." }
+]);
+
+T(3, "Data Lake Gen2 y OneLake", 16, [
+  { q: "Un equipo de ingeniería necesita un data lake con carpetas reales y permisos de lectura, escritura y ejecución por archivo y carpeta (ACL compatibles con POSIX). ¿Qué usa?",
+    o: ["Azure Data Lake Storage Gen2", "Blob Storage sin espacio de nombres jerárquico", "Azure Files", "Azure Table Storage"], c: 0,
+    e: "ADLS Gen2 (espacio de nombres jerárquico) habilita <b>ACL POSIX</b> por archivo y carpeta, además de RBAC." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["ADLS Gen2 es un servicio independiente de Azure Storage.", 0], ["Una vez habilitado el espacio de nombres jerárquico, se puede volver a un espacio de nombres plano.", 0], ["El espacio de nombres jerárquico puede habilitarse al crear la cuenta o después.", 1]], g: "hns",
+    e: "ADLS Gen2 es Blob Storage con espacio de nombres jerárquico. La actualización es de <b>un solo sentido</b>." },
+  { q: "¿En qué formato abierto guarda OneLake los datos tabulares?",
+    o: ["Delta Parquet", "Avro", "CSV", "BSON"], c: 0,
+    e: "OneLake guarda en <b>Delta Parquet</b> (Parquet más un registro de transacciones)." },
+  { q: "¿Qué afirmación sobre OneLake es correcta?",
+    o: ["Viene automáticamente con cada inquilino (tenant) de Fabric y es un único lago lógico para toda la organización", "Hay que crear un OneLake distinto para cada departamento, y cada uno se paga por separado", "Solo admite datos estructurados con un esquema definido al escribir, como un data warehouse", "Solo puede consultarse con KQL desde un Eventhouse de Real-Time Intelligence en Fabric"], c: 0,
+    e: "OneLake: un solo lago para toda la organización, incluido en cada tenant de Fabric; admite cualquier tipo de archivo." },
+  { q: "¿Sobre qué tecnología está construido OneLake, lo que le permite admitir sus API y SDK?",
+    o: ["Azure Data Lake Storage Gen2", "Azure Files", "Azure Cosmos DB", "Azure SQL Database"], c: 0,
+    e: "OneLake está construido sobre <b>ADLS Gen2</b> y admite sus API y SDK." },
+  { q: "¿Qué dos ventajas ofrece OneLake? Selecciona dos.",
+    o: ["Varios motores analíticos usan los mismos datos sin moverlos ni duplicarlos", "Propiedad distribuida: cada área administra sus datos en áreas de trabajo con límites de gobernanza", "Obliga a crear un lago separado para cada área de negocio", "Solo admite archivos CSV", "Requiere administrar clústeres de almacenamiento"], c: [0, 1],
+    e: "Un lago para toda la organización, propiedad distribuida, formato abierto y acceso desde el explorador de archivos de OneLake." },
+  { q: "¿Qué servicio puede montar ADLS Gen2 como sistema de archivos distribuido para procesar grandes volúmenes de datos?",
+    o: ["Azure Databricks", "Azure SQL Database", "Power BI Mobile", "Azure File Sync"], c: 0,
+    e: "<b>Azure Databricks</b> puede montar ADLS Gen2 como sistema de archivos distribuido." },
+  { q: "¿Qué frase resume mejor la idea de OneLake?",
+    o: ["Es el «OneDrive de los datos»: un solo lago para toda la organización", "Es una base de datos relacional para cargas OLTP", "Es una cola de eventos para soluciones de streaming", "Es un recurso compartido SMB para los equipos de la oficina"], c: 0,
+    e: "«OneLake es el OneDrive de los datos»." }
+]);
+
+T(3, "Azure Files", 16, [
+  { q: "Una empresa quiere reemplazar su servidor de archivos local por un recurso compartido en la nube que los equipos Windows puedan montar como unidad de red. ¿Qué servicio y protocolo usa?",
+    o: ["Azure Files con SMB", "Azure Files con NFS", "Blob Storage con REST", "Azure Table Storage"], c: 0,
+    e: "<b>Azure Files</b> crea recursos compartidos de red; <b>SMB</b> funciona en Windows, Linux y macOS. NFS es solo para Linux." },
+  { q: "Necesitas un recurso compartido NFS en Azure Files. ¿Qué requisitos debes cumplir?",
+    o: ["Una cuenta de almacenamiento SSD y una red virtual, con clientes Linux", "Una cuenta de almacenamiento HDD estándar, con clientes Windows o macOS", "Habilitar el espacio de nombres jerárquico de Data Lake Storage Gen2", "Una cuenta de cualquier tipo, con acceso público y clientes Windows"], c: 0,
+    e: "NFS: solo Linux (kernel 4.3+); requiere una cuenta <b>SSD</b> y una <b>red virtual</b>." },
+  { q: "Quieres mantener en el servidor de una sucursal una copia en caché local de un recurso compartido de Azure Files. ¿Qué usas?",
+    o: ["Azure File Sync", "AzCopy", "Mirroring de Fabric", "RA-GRS"], c: 0,
+    e: "<b>Azure File Sync</b> sincroniza copias en caché locales con Azure Files. AzCopy sirve para cargar archivos." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["NFS en Azure Files funciona en clientes Windows y macOS.", 0], ["Un archivo individual en Azure Files puede ocupar hasta 4 TiB.", 1], ["SMB es compatible con Windows, Linux y macOS.", 1]],
+    e: "NFS: solo Linux. Archivo de hasta 4 TiB. SMB: multiplataforma y el más usado." },
+  { q: "¿Cuántos identificadores (handles) simultáneos admite Azure Files por archivo o directorio?",
+    o: ["2000", "200", "20 000", "Ilimitados"], c: 0,
+    e: "Hasta <b>2000</b> identificadores simultáneos por archivo o directorio." },
+  { q: "¿Cuál es la diferencia principal entre Azure Files y Blob Storage?",
+    o: ["Azure Files ofrece recursos compartidos que se montan por SMB o NFS; a Blob Storage se accede por HTTP/REST", "Blob Storage se monta como unidad por SMB o NFS, mientras que a Azure Files solo se accede por HTTP/REST", "Azure Files es un almacén NoSQL clave-valor y Blob Storage es una base de datos relacional administrada", "Blob Storage solo guarda datos estructurados en tablas y Azure Files solo guarda archivos binarios"], c: 0,
+    e: "Azure Files (SMB/NFS) ≠ Blob Storage (HTTP/REST con la API de Blob Storage)." },
+  { q: "¿Qué dos métodos sirven para cargar archivos en Azure Files? Selecciona dos.",
+    o: ["Azure Portal", "AzCopy", "Power BI Desktop", "Microsoft Purview", "Eventstream"], c: [0, 1],
+    e: "Se carga desde <b>Azure Portal</b> o con <b>AzCopy</b>; Azure File Sync sincroniza cachés locales." },
+  { q: "Un equipo necesita el máximo rendimiento en un recurso compartido de Azure Files y acepta pagar más. ¿Qué nivel de medios elige?",
+    o: ["SSD", "HDD", "Archive", "Cool"], c: 0,
+    e: "<b>SSD</b>: más rendimiento a mayor precio. HDD: más barato. Archive y Cool son niveles de Blob Storage." }
+]);
+
+T(3, "Table Storage", 16, [
+  { q: "¿Qué forma la clave única de una fila en Azure Table Storage?",
+    o: ["PartitionKey + RowKey", "Solo RowKey", "Timestamp + RowKey", "Una clave principal autoincremental"], c: 0,
+    e: "Cada fila se identifica con <b>PartitionKey + RowKey</b>." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Table Storage admite claves foráneas y vistas.", 0], ["Las filas de una misma tabla pueden tener columnas distintas.", 1], ["Dentro de una partición, las filas se guardan ordenadas por RowKey.", 1]],
+    e: "Table Storage es NoSQL clave-valor: sin FK, relaciones, procedimientos ni vistas; columnas variables por fila; filas ordenadas por RowKey dentro de cada partición." },
+  { q: "Una consulta que especifica PartitionKey y RowKey para obtener una sola fila es una:",
+    o: ["Consulta de punto", "Consulta por rango", "Exploración completa de la tabla", "Consulta entre particiones"], c: 0,
+    e: "<b>Consulta de punto</b>: una fila por PartitionKey + RowKey. <b>Por rango</b>: un bloque contiguo de filas dentro de una partición." },
+  { q: "En Table Storage, ¿por qué conviene incluir la PartitionKey en las consultas?",
+    o: ["Porque las filas de una partición se guardan juntas, lo que reduce la E/S y mejora el rendimiento", "Porque sin ella la consulta solo devuelve la primera fila de la tabla", "Porque activa el cifrado de los datos en reposo de esa partición", "Porque obliga a que todas las filas tengan las mismas columnas y tipos"], c: 0,
+    e: "Incluir la PartitionKey reduce la E/S: las filas relacionadas se guardan juntas." },
+  { q: "Un proyecto nuevo necesita un almacén clave-valor con distribución global e índices secundarios automáticos, usando el mismo modelo de programación que Table Storage. ¿Qué elige?",
+    o: ["Azure Cosmos DB for Table", "Azure Table Storage", "Azure Cosmos DB for Apache Cassandra", "Azure SQL Database"], c: 0, g: "cos-table",
+    e: "<b>Cosmos DB for Table</b>: mismo modelo que Table Storage, con distribución global, índices secundarios y escalado automático. Es la recomendada para cargas nuevas." },
+  { q: "En Table Storage, los datos suelen estar desnormalizados. ¿Qué significa en este contexto?",
+    o: ["Cada fila contiene toda la entidad, por ejemplo un cliente con todos sus teléfonos y direcciones", "Los datos se reparten en varias tablas relacionadas con claves foráneas", "Las columnas tienen tipos de datos fijos para todas las filas", "Cada fila se guarda en una región de Azure distinta"], c: 0,
+    e: "En Table Storage cada fila contiene la entidad completa; en una BD relacional irían en varias tablas." },
+  { q: "¿Qué columna registra la fecha de la última modificación de una fila en Table Storage?",
+    o: ["Timestamp", "PartitionKey", "RowKey", "ModifiedKey"], c: 0,
+    e: "La columna <b>Timestamp</b> registra la última modificación." },
+  { q: "Necesitas un almacén clave-valor simple y barato para una carga existente, sin requisitos de distribución global. ¿Qué eliges?",
+    o: ["Azure Table Storage", "Azure Cosmos DB for Table", "Azure SQL Managed Instance", "Azure Cosmos DB for Apache Gremlin"], c: 0, g: "cos-table", h: 19,
+    e: "Clave-valor simple y barato: <b>Table Storage</b>. Si piden distribución global o SLA de latencia, es Cosmos DB for Table." }
+]);
+
+T(3, "Cosmos DB: conceptos", 17, [
+  { q: "Relaciona cada nivel de la jerarquía de recursos de Cosmos DB con su descripción.",
+    pares: [["Recurso de Azure que puede contener bases de datos ilimitadas", "Cuenta"], ["Espacio de nombres que agrupa contenedores", "Base de datos"], ["Unidad de almacenamiento y escalado donde se define la clave de partición", "Contenedor"], ["Documento, fila, nodo o arista, según la API", "Elemento"]],
+    d: ["Cuenta", "Base de datos", "Contenedor", "Elemento"],
+    e: "Cuenta → base de datos → contenedor → elementos." },
+  { q: "¿En qué nivel de Cosmos DB se configuran la clave de partición, el rendimiento, la indexación y el TTL?",
+    o: ["Contenedor", "Cuenta", "Base de datos", "Elemento"], c: 0,
+    e: "El <b>contenedor</b> es la unidad de almacenamiento y escalado." },
+  { q: "Relaciona cada nivel de coherencia de Cosmos DB con su garantía.",
+    pares: [["Cada lectura ve la escritura más reciente", "Fuerte"], ["Las lecturas van atrasadas un intervalo configurable de tiempo o versiones", "Obsolescencia limitada"], ["Coherencia garantizada dentro de la sesión de un cliente", "Sesión"], ["Nunca se ven escrituras desordenadas, aunque pueden estar desactualizadas", "Prefijo coherente"], ["Las réplicas convergen con el tiempo", "Eventual"]],
+    d: ["Fuerte", "Obsolescencia limitada", "Sesión", "Prefijo coherente", "Eventual"],
+    e: "Orden F-O-S-P-E: Fuerte, Obsolescencia limitada, Sesión, Prefijo coherente, Eventual." },
+  { q: "¿Cuál es el nivel de coherencia predeterminado y más usado en Cosmos DB?",
+    o: ["Sesión", "Fuerte", "Eventual", "Prefijo coherente"], c: 0,
+    e: "<b>Sesión</b> es el predeterminado y el punto de partida para apps transaccionales." },
+  { q: "Una app global prioriza la máxima disponibilidad y la menor latencia, y tolera que las lecturas estén temporalmente desactualizadas e incluso desordenadas. ¿Qué nivel de coherencia elige?",
+    o: ["Eventual", "Fuerte", "Sesión", "Obsolescencia limitada"], c: 0, g: "coh",
+    e: "<b>Eventual</b>: la garantía más débil, con la mayor disponibilidad y la menor latencia." },
+  { q: "Un sistema de comentarios puede mostrar los mensajes con algo de retraso, pero nunca en un orden distinto al que se escribieron. ¿Cuál es el nivel de coherencia más débil que cumple el requisito?",
+    o: ["Prefijo coherente", "Eventual", "Sesión", "Fuerte"], c: 0, g: "coh",
+    e: "<b>Prefijo coherente</b>: nunca se ven escrituras desordenadas, aunque pueden estar desactualizadas. Eventual no garantiza el orden." },
+  { q: "Una aplicación financiera exige que cada lectura devuelva siempre la escritura más reciente, aunque aumente la latencia. ¿Qué nivel de coherencia elige?",
+    o: ["Fuerte", "Sesión", "Prefijo coherente", "Eventual"], c: 0, g: "coh",
+    e: "<b>Fuerte</b>: cada lectura ve la escritura más reciente." },
+  { q: "¿A qué equivale aproximadamente 1 unidad de solicitud (RU) en Cosmos DB?",
+    o: ["Al costo de leer un elemento de 1 KB", "A 1 GB de almacenamiento al mes", "A una hora de cómputo de un núcleo", "A una consulta por segundo"], c: 0,
+    e: "<b>1 RU</b> ≈ leer un elemento de 1 KB. La capacidad se mide en RU/s." },
+  { q: "Una aplicación nueva tiene tráfico bajo e impredecible, se usará en una sola región y quieres pagar solo por las solicitudes que haga. ¿Qué modo de capacidad eliges?",
+    o: ["Sin servidor", "Rendimiento aprovisionado dedicado", "Rendimiento aprovisionado compartido", "Hiperescala"], c: 0,
+    e: "<b>Sin servidor</b>: se paga por solicitud; ideal para tráfico bajo o impredecible (limitado a una región)." },
+  { q: "Quieres usar Cosmos DB en modo sin servidor y replicar los datos en tres regiones. ¿Es posible?",
+    o: ["No: las cuentas sin servidor se limitan a una región; para distribución global se usa rendimiento aprovisionado", "Sí: se pueden agregar regiones a una cuenta sin servidor en cualquier momento desde el portal de Azure", "Sí, siempre que se habilite la redundancia GRS en la cuenta de almacenamiento asociada", "Sí, pero solo si los contenedores comparten el rendimiento de la base de datos en un grupo elástico"], c: 0,
+    e: "Las cuentas <b>sin servidor</b> se limitan a una sola región." },
+  { q: "¿Qué caracteriza a una buena clave de partición en Cosmos DB?",
+    o: ["Tiene muchos valores distintos y reparte los datos de forma uniforme", "Tiene pocos valores, para concentrar los datos en pocas particiones", "Siempre es la fecha de creación del elemento", "Cambia en cada actualización del elemento"], c: 0,
+    e: "Una buena clave tiene <b>muchos valores distintos</b> y una distribución <b>uniforme</b>, para mantener el rendimiento al crecer." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Por defecto, Cosmos DB indexa todas las propiedades de los elementos.", 1], ["Una partición lógica puede crecer sin límite de tamaño.", 0], ["Con rendimiento compartido, hasta 25 contenedores comparten las RU/s de la base de datos.", 1]],
+    e: "Indexación automática de todas las propiedades. Partición lógica: máximo <b>20 GB</b>. Rendimiento compartido: hasta 25 contenedores." },
+  { q: "¿En qué dos escenarios Cosmos DB NO es la mejor opción? Selecciona dos.",
+    o: ["Consultas con combinaciones complejas entre muchas tablas relacionales", "Análisis histórico a gran escala sobre años de datos", "Carritos de compra con latencia de milisegundos", "Perfiles y tablas de clasificación de juegos", "Ingesta de telemetría IoT casi en tiempo real"], c: [0, 1],
+    e: "Para JOIN complejos: Azure SQL Database. Para análisis histórico a gran escala: Microsoft Fabric o Azure Synapse Analytics." },
+  { q: "Quieres que Cosmos DB ajuste automáticamente las RU/s según la demanda real, hasta un máximo que defines. ¿Qué característica usas?",
+    o: ["Escalabilidad automática (autoscale)", "Modo sin servidor", "Grupo elástico", "Hiperescala"], c: 0,
+    e: "Con la <b>escalabilidad automática</b> se fija un máximo de RU/s y Cosmos DB ajusta la capacidad." },
+  { q: "¿Qué hace el TTL (Time to Live) en un contenedor de Cosmos DB?",
+    o: ["Elimina automáticamente los elementos tras un tiempo", "Limita las RU/s que puede consumir el contenedor", "Define el nivel de coherencia de las lecturas", "Replica los datos en otra región"], c: 0,
+    e: "<b>TTL</b>: tiempo tras el cual un elemento se elimina automáticamente." },
+  { q: "Una app de comercio minorista con usuarios en varios continentes necesita catálogos y carritos con esquema flexible, latencia de milisegundos y escrituras en varias regiones. ¿Qué servicio elige?",
+    o: ["Azure Cosmos DB", "Azure SQL Database (base única)", "Azure Table Storage", "Azure Database for MySQL"], c: 0,
+    e: "Palabras clave «distribución global», «milisegundos» y «escrituras multirregión» → <b>Cosmos DB</b>." }
+]);
+
+T(3, "Cosmos DB: API", 18, [
+  { q: "Relaciona cada escenario con la API de Cosmos DB adecuada.",
+    pares: [["App nueva con documentos JSON y consultas tipo SQL", "NoSQL"], ["Migrar una app que usa los controladores de MongoDB", "MongoDB"], ["Migrar una carga de Apache Cassandra", "Apache Cassandra"], ["Detección de fraude basada en relaciones entre cuentas", "Apache Gremlin"], ["Migrar una app de Table Storage para obtener distribución global", "Table"]],
+    d: ["NoSQL", "MongoDB", "Table", "Apache Cassandra", "Apache Gremlin"],
+    e: "NoSQL: apps nuevas con JSON. MongoDB y Cassandra: migraciones. Gremlin: grafos. Table: clave-valor compatible con Table Storage." },
+  { q: "Relaciona cada consulta con la API de Cosmos DB a la que pertenece.",
+    pares: [["SELECT * FROM customers c WHERE c.id = 'joe@litware.com'", "NoSQL"], ["db.products.find({id: 123})", "MongoDB"], ["SELECT * FROM Employees WHERE ID = 2", "Apache Cassandra"], ["g.V().hasLabel('employee').order().by('id')", "Apache Gremlin"], ["https://endpoint/Customers(PartitionKey='1',RowKey='124')", "Table"]],
+    d: ["NoSQL", "MongoDB", "Table", "Apache Cassandra", "Apache Gremlin"],
+    e: "NoSQL: sintaxis tipo SQL sobre documentos (alias como <code>c</code>). MongoDB: MQL, métodos sobre colecciones. Cassandra: CQL sobre tablas de familias de columnas. Gremlin: recorridos de grafo. Table: punto de conexión REST." },
+  { q: "¿Cuándo se elige la API de una cuenta de Cosmos DB?",
+    o: ["Al crear la cuenta", "Al crear cada contenedor", "En cada consulta", "Se puede cambiar en cualquier momento"], c: 0,
+    e: "La API se elige <b>al crear la cuenta</b> y define el formato de datos, el lenguaje de consulta y las bibliotecas cliente." },
+  { q: "¿Cómo se llamaba antes Azure Cosmos DB for NoSQL?",
+    o: ["API de SQL", "API de Table", "API de Gremlin", "API de MongoDB"], c: 0,
+    e: "Antes se llamaba <b>API de SQL</b>; cambió de nombre en 2023." },
+  { q: "¿Qué formato de datos usa Cosmos DB for MongoDB?",
+    o: ["BSON", "Parquet", "Avro", "XML"], c: 0,
+    e: "MongoDB usa <b>BSON</b> (JSON binario) y se consulta con MQL." },
+  { q: "¿Cuál es la principal ventaja de que Cosmos DB ofrezca varias API?",
+    o: ["Portabilidad: apps de MongoDB o Cassandra se apuntan a Cosmos DB con cambios mínimos", "Permite usar JOIN entre contenedores de distintas bases de datos", "Elimina la necesidad de elegir una clave de partición en cada contenedor", "Permite cambiar la API de una cuenta existente sin migrar los datos"], c: 0,
+    e: "La API es una capa de abstracción: las apps existentes migran con cambios mínimos y ganan distribución global, rendimiento administrado y SLA." },
+  { q: "Quieres analizar en Microsoft Fabric los datos operativos de Cosmos DB for NoSQL casi en tiempo real, sin crear canalizaciones y sin afectar la carga transaccional. ¿Qué usas?",
+    o: ["Fabric mirroring", "AzCopy", "Azure File Sync", "Una exportación nocturna a CSV"], c: 0,
+    e: "<b>Fabric mirroring</b> replica automáticamente los datos operativos a Fabric, sin canalizaciones." },
+  { q: "¿Qué tres ventajas obtiene una carga al pasar de Azure Table Storage a Cosmos DB for Table? Selecciona tres.",
+    o: ["Distribución global", "Índices secundarios automáticos", "Escalado automático instantáneo", "Claves foráneas entre tablas", "Consultas con JOIN"], c: [0, 1, 2],
+    e: "Cosmos DB for Table gana escalabilidad, distribución global, índices secundarios automáticos y escalado automático." },
+  { q: "En Cosmos DB for Apache Cassandra, la fila de Sue Smith no tiene valor en la columna Manager, pero la de Ben Chan sí. ¿Qué modelo de datos lo permite?",
+    o: ["Familias de columnas, donde las filas no necesitan tener las mismas columnas", "Relacional, con columnas que admiten valores NULL y una clave principal", "Grafos, donde cada empleado es un vértice y la relación es una arista", "Documentos BSON agrupados en colecciones con esquema flexible"], c: 0,
+    e: "Cassandra usa <b>familias de columnas</b>: las filas no necesitan tener las mismas columnas." },
+  { q: "Necesitas PostgreSQL distribuido con escalado horizontal en Azure. ¿Qué servicio eliges?",
+    o: ["Azure Cosmos DB for PostgreSQL", "Azure Database for MySQL", "Azure Cosmos DB for NoSQL", "Azure SQL Database Hiperescala"], c: 0, h: 28,
+    e: "PostgreSQL distribuido con escala horizontal → <b>Cosmos DB for PostgreSQL</b>." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Cosmos DB for NoSQL es la API nativa y la recomendada para apps nuevas.", 1], ["En Gremlin, las entidades se llaman aristas y las relaciones, vértices.", 0], ["Cassandra Query Language (CQL) es similar a SQL.", 1]],
+    e: "NoSQL es la API nativa. En Gremlin, entidades = <b>vértices</b> y relaciones = <b>aristas</b>. CQL es similar a SQL." },
+  { q: "Un sistema de recomendaciones debe recorrer relaciones como «el cliente compró», «el producto pertenece a» y «el cliente sigue a». ¿Qué API de Cosmos DB encaja mejor?",
+    o: ["Apache Gremlin", "Table", "MongoDB", "Apache Cassandra"], c: 0,
+    e: "Cuando las conexiones importan tanto como los datos (redes sociales, recomendaciones, fraude, organigramas): <b>Gremlin</b>." },
+  { q: "¿Qué tres criterios se usan para elegir la API de Cosmos DB? Selecciona tres.",
+    o: ["El modelo de datos", "Las habilidades del equipo", "El código existente", "El nivel de acceso de Blob Storage", "La redundancia LRS o GRS"], c: [0, 1, 2],
+    e: "Elige la API según el <b>modelo de datos</b>, las <b>habilidades del equipo</b> y el <b>código existente</b>." }
+]);
+</script>
+
+<script>
+/* ═══════════════════ PARTE 4 · ANÁLISIS EN AZURE ═══════════════════ */
+
+T(4, "Fabric y Databricks", 21, [
+  { q: "Una empresa quiere una plataforma de análisis SaaS que reúna ingeniería de datos, almacenamiento, tiempo real, ciencia de datos y Power BI en una sola área de trabajo, sin administrar clústeres. ¿Qué elige?",
+    o: ["Microsoft Fabric", "Azure Databricks", "SQL Server en una VM de Azure", "Azure Stream Analytics"], c: 0, g: "fab-dbx",
+    e: "<b>Microsoft Fabric</b> es la plataforma unificada <b>SaaS</b>; Microsoft opera la infraestructura." },
+  { q: "Un equipo de ingenieros trabaja con cuadernos y código Spark y su empresa sigue una estrategia multinube. ¿Qué plataforma encaja mejor?",
+    o: ["Azure Databricks", "Microsoft Fabric", "Power BI Desktop", "Azure Database for PostgreSQL"], c: 0, g: "fab-dbx",
+    e: "<b>Azure Databricks</b>: flujos centrados en código Spark, portabilidad multinube o experiencia previa del equipo." },
+  { q: "Relaciona cada característica con la plataforma a la que pertenece.",
+    pares: [["Modelo SaaS", "Microsoft Fabric"], ["Servicio administrado dentro de tu suscripción de Azure", "Azure Databricks"], ["Asistente de IA Copilot", "Microsoft Fabric"], ["Asistente de IA Genie", "Azure Databricks"], ["Almacenamiento compartido en OneLake", "Microsoft Fabric"], ["Gobernanza con Unity Catalog", "Azure Databricks"]],
+    d: ["Microsoft Fabric", "Azure Databricks"],
+    e: "Fabric: SaaS, OneLake, Copilot. Databricks: servicio administrado en tu suscripción, Delta Lake, Unity Catalog, Genie." },
+  { q: "¿Qué componente de Azure Databricks ofrece gobernanza de datos e IA, con control de acceso, linaje y descubrimiento?",
+    o: ["Unity Catalog", "Databricks SQL", "Genie", "Lakeflow Spark Declarative Pipelines"], c: 0,
+    e: "<b>Unity Catalog</b>: gobernanza de datos e IA en Databricks." },
+  { q: "¿Qué componente de Databricks proporciona un SQL Warehouse sin servidor para consultar tablas Delta, con historial, paneles y alertas?",
+    o: ["Databricks SQL", "Unity Catalog", "Notebooks de Databricks", "Real-Time hub"], c: 0,
+    e: "<b>Databricks SQL</b>: SQL Warehouse sin servidor optimizado para herramientas de BI y consultas simultáneas." },
+  { q: "Un analista de negocio quiere hacer preguntas en lenguaje natural sobre tablas Delta de Databricks y que se genere y ejecute el SQL automáticamente. ¿Qué usa?",
+    o: ["Genie", "Copilot en Fabric", "Power BI Q&A", "Activator"], c: 0, g: "ia-plataforma",
+    e: "<b>Genie</b> (Databricks): conversación que genera y ejecuta SQL sobre Delta Lake." },
+  { q: "¿Qué asistente de IA de Microsoft Fabric genera DAX y SQL, resume informes y explica tendencias?",
+    o: ["Copilot", "Genie", "Unity Catalog", "Activator"], c: 0, g: "ia-plataforma",
+    e: "<b>Copilot en Fabric</b>. En Databricks, el equivalente es Genie." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Azure Databricks está basado en Apache Spark.", 1], ["En Microsoft Fabric hay que crear y administrar los clústeres de Spark.", 0], ["Delta Lake agrega transacciones, aplicación de esquemas y control de versiones sobre Parquet.", 1]],
+    e: "Databricks se basa en Spark y Delta Lake. Fabric es SaaS: creas áreas de trabajo y elementos, y Microsoft opera la infraestructura." },
+  { q: "En Databricks, ¿qué lenguajes admiten los notebooks?",
+    o: ["Python, SQL, Scala y R", "Solo SQL y DAX", "KQL, DAX y Power Query M", "C#, Java y T-SQL"], c: 0,
+    e: "Los notebooks de Databricks admiten <b>Python, SQL, Scala y R</b>." }
+]);
+
+T(4, "Arquitectura de análisis", 21, [
+  { q: "Ordena las etapas de una arquitectura de análisis relacionándolas con su número.",
+    pares: [["Ingesta y procesamiento (ETL o ELT)", "1"], ["Almacén analítico (warehouse, lago o lakehouse)", "2"], ["Modelo analítico (modelo semántico)", "3"], ["Visualización (informes y paneles)", "4"]],
+    d: ["1", "2", "3", "4"],
+    e: "Ingesta → almacén analítico → modelo analítico → visualización; a esto se suma el análisis asistido por IA." },
+  { q: "Una canalización copia los datos crudos de varios sistemas al data lake sin modificarlos y, después, un cuaderno de Spark los limpia y los transforma dentro del lago. ¿Qué patrón se está usando?",
+    o: ["ELT", "ETL", "Arquitectura Kappa", "OLTP"], c: 0, g: "etl",
+    e: "Primero se carga y después se transforma en el destino: <b>ELT</b>. En <b>ETL</b> se transforma antes de cargar." },
+  { q: "¿Qué diferencia a un modelo semántico moderno de los cubos tradicionales?",
+    o: ["El modelo semántico agrega los datos al consultar; los cubos guardaban valores preagregados", "El modelo semántico guarda todos los totales precalculados antes de consultar", "Los cubos usan DAX y los modelos semánticos usan KQL", "El modelo semántico no admite relaciones ni jerarquías entre tablas"], c: 0,
+    e: "Cubos (SSAS Multidimensional): valores <b>preagregados</b>. Modelo semántico (tabular): medidas en DAX que agregan <b>al consultar</b>." },
+  { q: "En Fabric, ¿qué modo permite que un modelo semántico lea tablas Delta de OneLake sin importar los datos?",
+    o: ["Direct Lake", "Importación", "Mirroring", "Accesos directos"], c: 0, g: "directlake",
+    e: "<b>Direct Lake</b>: lee tablas Delta de OneLake con rendimiento en memoria, sin importar ni actualizar." },
+  { q: "¿Qué combinación dio origen al concepto de data lakehouse?",
+    o: ["La flexibilidad del data lake con el análisis SQL del data warehouse", "El procesamiento OLTP con las transacciones ACID de una base relacional", "Los cubos multidimensionales con los paneles de Power BI", "El almacenamiento en Blob con el protocolo SMB"], c: 0,
+    e: "La unión del lago flexible con el análisis SQL del warehouse dio origen al <b>data lakehouse</b>." },
+  { q: "¿Qué dos herramientas permiten hacer preguntas en lenguaje natural sobre los datos? Selecciona dos.",
+    o: ["Power BI Q&A", "Genie en Databricks", "Unity Catalog", "Azure File Sync", "Dataflows Gen2"], c: [0, 1],
+    e: "Análisis asistido por IA: Power BI Q&A, Copilot en Fabric y Genie en Databricks." },
+  { q: "En el análisis a gran escala, ¿qué caracteriza al enfoque de big data frente al data warehouse convencional?",
+    o: ["Grandes volúmenes en varios formatos, cargados por lotes o en flujos a un data lake y procesados con motores como Spark", "Copiar datos transaccionales a una base relacional con esquema optimizado para consultas", "Procesar únicamente pequeñas transacciones con propiedades ACID", "Guardar todos los datos en hojas de cálculo compartidas"], c: 0,
+    e: "Data warehouse convencional = BD relacional optimizada para consultas. Big data = varios formatos en un lago, procesados con Spark." }
+]);
+
+T(4, "Ingesta de datos", 22, [
+  { q: "Relaciona cada necesidad con la herramienta de ingesta adecuada.",
+    pares: [["ETL orquestado en Fabric", "Canalizaciones de Fabric Data Factory"], ["Transformar datos sin código con Power Query", "Dataflows Gen2"], ["Ver datos de Amazon S3 en el Lakehouse sin copiarlos", "Accesos directos de OneLake"], ["Replicar una base de datos operativa casi en tiempo real", "Mirroring"], ["Ingerir eventos en streaming desde Kafka", "Eventstream"], ["Canalizaciones híbridas con orígenes locales fuera de Fabric", "Azure Data Factory"]],
+    e: "Tabla de la hoja 22: Data Factory, Dataflows Gen2, accesos directos, Mirroring, Eventstream y Azure Data Factory." },
+  { q: "Por motivos de cumplimiento, los datos de un bucket de Amazon S3 no pueden copiarse, pero los analistas deben verlos en su Lakehouse de Fabric. ¿Qué usas?",
+    o: ["Un acceso directo (shortcut) de OneLake", "Mirroring de Fabric", "Una canalización de copia de Data Factory", "Azure File Sync"], c: 0, g: "shortcut",
+    e: "Los <b>accesos directos</b> son referencias a almacenamiento externo (ADLS Gen2, S3, Google Cloud Storage): los datos se ven sin copiarlos." },
+  { q: "Quieres que una base de datos de Snowflake se replique continuamente en OneLake casi en tiempo real, configurándolo una sola vez y sin crear canalizaciones. ¿Qué usas?",
+    o: ["Mirroring", "Accesos directos", "Dataflows Gen2", "Cuadernos de Fabric"], c: 0, g: "shortcut",
+    e: "<b>Mirroring</b> replica continuamente una BD externa (Azure SQL Database, Snowflake, Cosmos DB…) en OneLake." },
+  { q: "En una canalización de Data Factory, ¿cómo se llama el objeto que define la conexión con un origen o un destino de datos?",
+    o: ["Servicio vinculado", "Actividad", "Acceso directo", "Receptor"], c: 0,
+    e: "Los <b>servicios vinculados</b> conectan la canalización con orígenes y destinos; las <b>actividades</b> son los pasos." },
+  { q: "Necesitas ingerir datos de una API REST para la que no existe un conector, aplicando lógica personalizada en PySpark. ¿Qué opción de Fabric usas?",
+    o: ["Cuadernos de Fabric", "Dataflows Gen2", "Accesos directos", "Mirroring"], c: 0,
+    e: "Los <b>cuadernos</b> son la opción con código para cuando no hay conector o se necesita lógica personalizada." },
+  { q: "En Azure Databricks, ¿qué opción se recomienda para canalizaciones de producción en las que defines qué deben contener las tablas de salida y Databricks resuelve el orden, las dependencias y el procesamiento incremental?",
+    o: ["Lakeflow Spark Declarative Pipelines", "Cuadernos ejecutados a mano", "Azure File Sync", "Fabric Dataflows Gen2"], c: 0,
+    e: "<b>Lakeflow Spark Declarative Pipelines</b>: marco declarativo recomendado para producción." },
+  { q: "¿Qué puede hacer una canalización de Fabric Data Factory? Selecciona tres.",
+    o: ["Ejecutar procedimientos almacenados", "Invocar cuadernos", "Guardar datos en un Lakehouse o un Warehouse", "Crear informes de Power BI con Copilot", "Definir la redundancia de una cuenta de almacenamiento"], c: [0, 1, 2],
+    e: "Una canalización encadena actividades: cargar datos, ejecutar procedimientos almacenados, invocar cuadernos y guardar en Lakehouse o Warehouse." },
+  { q: "¿Cuándo conviene usar Azure Data Factory en lugar de Fabric Data Factory?",
+    o: ["Cuando las canalizaciones viven fuera de Fabric, por ejemplo con destino en Azure SQL Database u orígenes locales en entornos híbridos", "Cuando el destino de los datos es un Lakehouse o un Warehouse dentro de un área de trabajo de Fabric", "Cuando se necesita replicar continuamente una base de datos operativa en OneLake sin crear canalizaciones", "Nunca: Azure Data Factory fue retirado y sus canalizaciones se migraron automáticamente a Fabric"], c: 0,
+    e: "<b>Azure Data Factory</b> es un servicio independiente para canalizaciones fuera de Fabric; usa el mismo modelo, así que las habilidades se transfieren." },
+  { q: "¿Qué herramienta de Fabric se describe como el punto de partida para la ingesta, con canalizaciones y Dataflows Gen2?",
+    o: ["Fabric Data Factory", "Real-Time hub de Fabric", "Unity Catalog", "Eventhouse con KQL"], c: 0,
+    e: "<b>Fabric Data Factory</b> incluye canalizaciones (orquestación) y Dataflows Gen2 (Power Query de poco código)." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Un acceso directo de OneLake copia los datos externos al Lakehouse.", 0], ["Eventstream puede enviar eventos a una base de datos KQL.", 1], ["Con Mirroring, los datos llegan en formato Delta Lake y se consultan por el punto de conexión de SQL.", 1]],
+    e: "Los accesos directos <b>no copian</b> datos. Eventstream enruta a Lakehouse, base KQL o destinos de Real-Time Intelligence." }
+]);
+
+T(4, "Almacenes analíticos", 23, [
+  { q: "En un data warehouse de ventas, ¿qué contiene la tabla de hechos?",
+    o: ["Los valores numéricos de cada evento, como la cantidad y el importe de cada pedido", "Los atributos descriptivos de cada cliente, como su nombre y ciudad", "La jerarquía de categorías de productos", "Los permisos de acceso de los usuarios"], c: 0,
+    e: "<b>Hechos</b>: valores numéricos (pedidos de venta). <b>Dimensiones</b>: entidades para agregar (cliente, producto, tienda, tiempo)." },
+  { q: "En un modelo de ventas, la dimensión Producto se relaciona con una tabla Categoría para representar una jerarquía. ¿Qué esquema es?",
+    o: ["Copo de nieve", "Estrella", "Esquema en lectura", "Modelo de grafos"], c: 0,
+    e: "<b>Copo de nieve</b>: dimensiones con tablas relacionadas para jerarquías (Producto → Categoría)." },
+  { q: "¿Qué caracteriza a un data lake?",
+    o: ["Esquema en lectura: la estructura tabular se define al leer los datos", "Esquema en escritura: los datos deben cumplir un esquema estricto al guardarse", "Solo admite datos estructurados en tablas relacionales", "Solo puede consultarse con DAX"], c: 0,
+    e: "Data lake: archivos, <b>esquema en lectura</b>, procesado con motores distribuidos como Spark." },
+  { q: "Relaciona cada almacén analítico con su forma de aplicar el esquema.",
+    pares: [["Data warehouse", "Al escribir"], ["Data lake", "Al leer"], ["Data lakehouse", "Ambos (Delta)"]],
+    e: "Warehouse: esquema al escribir y SQL. Lake: esquema al leer y Spark. Lakehouse: ambos, con SQL y Spark." },
+  { q: "¿Qué tecnología permite que los archivos de un lago se expongan como tablas con esquemas y transacciones coherentes, base del lakehouse en Fabric y Databricks?",
+    o: ["Delta Lake", "Avro", "Azure Files", "VertiPaq"], c: 0,
+    e: "<b>Delta Lake</b>: sobre Parquet agrega esquemas, transacciones, lotes y streaming, y una API de SQL." },
+  { q: "Un equipo SQL necesita un data warehouse relacional con esquema estricto y muchos usuarios simultáneos, dentro de Fabric. ¿Qué elemento crea?",
+    o: ["Fabric Warehouse", "Fabric Lakehouse", "Eventhouse", "Un acceso directo de OneLake"], c: 0, g: "fab-wh",
+    e: "<b>Fabric Warehouse</b>: relacional administrado, compatible con SQL Server, esquema estricto." },
+  { q: "Un equipo de ciencia de datos trabaja con datos mixtos y semiestructurados, cuadernos Spark y flujos de ML dentro de Fabric. ¿Qué elemento crea?",
+    o: ["Fabric Lakehouse", "Fabric Warehouse", "Una base de datos de Azure SQL", "Un recurso compartido de Azure Files"], c: 0, g: "fab-wh",
+    e: "<b>Fabric Lakehouse</b>: Delta Lake en OneLake con cuadernos, Spark y punto de conexión SQL." },
+  { q: "¿Qué ocurre al crear un Lakehouse en Fabric?",
+    o: ["Se crea automáticamente su punto de conexión de análisis SQL", "Se crea automáticamente un Warehouse con esquema estricto", "Hay que aprovisionar un clúster de Spark dedicado", "Se crea una cuenta nueva de Azure Storage"], c: 0,
+    e: "Al crear un Lakehouse se crea su <b>punto de conexión de análisis SQL</b> (de solo lectura)." },
+  { q: "¿Qué tipo de acceso ofrece el punto de conexión de análisis SQL de un Lakehouse?",
+    o: ["Solo lectura", "Lectura y escritura completas, incluidas instrucciones DDL", "Solo escritura", "Acceso SMB para montar como unidad"], c: 0,
+    e: "Es una interfaz SQL de <b>solo lectura</b> sobre las tablas del Lakehouse." },
+  { q: "Quieres ofrecer BI con SQL sobre tablas Delta de Databricks, con un punto de conexión optimizado para herramientas de BI y consultas simultáneas. ¿Qué usas?",
+    o: ["Databricks SQL Warehouse", "Fabric Dataflows Gen2", "Azure Table Storage", "Power BI Mobile"], c: 0,
+    e: "<b>Databricks SQL Warehouse</b>: punto de conexión para BI y consultas simultáneas." },
+  { q: "Tienes datos estructurados, semiestructurados y no estructurados y no quieres imponer un esquema al escribir. ¿Qué almacén analítico es el adecuado?",
+    o: ["Data lake", "Data warehouse relacional", "Una base de datos OLTP normalizada", "Un cubo multidimensional"], c: 0,
+    e: "Mezcla de tipos y sin esquema al escribir → <b>data lake</b> (o lakehouse)." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Los datos de un Fabric Warehouse también se guardan en OneLake.", 1], ["Un esquema de estrella tiene una tabla de hechos relacionada con varias dimensiones.", 1], ["Fabric y Databricks no pueden combinarse en una misma solución.", 0]],
+    e: "Todo en Fabric vive en OneLake. Se pueden combinar: ELT al lago → cuaderno de Databricks → resultados en un Warehouse de Fabric." },
+  { q: "Un data warehouse se usa cuando:",
+    o: ["Los datos transaccionales se pueden organizar en tablas estructuradas y se quieren consultar con SQL", "Hay principalmente imágenes, videos y documentos sin estructura que no se quieren modelar", "Se necesita procesar cada evento de telemetría en milisegundos, al momento de llegar", "Se quiere guardar los datos sin esquema y definir la estructura solo al leerlos"], c: 0,
+    e: "Warehouse: datos organizables en tablas estructuradas y consultas con SQL." }
+]);
+
+T(4, "Lotes y flujos", 24, [
+  { q: "Relaciona cada característica con el tipo de procesamiento.",
+    pares: [["Procesa todos los datos del conjunto", "Por lotes"], ["Procesa lo más reciente o una ventana de tiempo", "Flujos"], ["Latencia de horas", "Por lotes"], ["Latencia de segundos o milisegundos", "Flujos"], ["Análisis complejo", "Por lotes"], ["Registros individuales o microlotes", "Flujos"]],
+    d: ["Por lotes", "Flujos"],
+    e: "Lotes: todos los datos, conjuntos grandes, horas, análisis complejo. Flujos: ventanas, microlotes, segundos, agregaciones simples." },
+  { q: "¿Cuál es un ejemplo clásico de procesamiento por lotes?",
+    o: ["La factura mensual de una tarjeta de crédito", "Un sistema que activa alarmas de incendio por humo y temperatura", "Recomendar propiedades según la ubicación del móvil del cliente", "Rebalancear carteras según la bolsa en tiempo real"], c: 0,
+    e: "La <b>factura mensual</b> es procesamiento por lotes; los demás son ejemplos de streaming." },
+  { q: "¿Qué dos son desventajas del procesamiento por lotes? Selecciona dos.",
+    o: ["Hay un retraso entre la entrada de los datos y los resultados", "Un error pequeño puede detener todo el lote", "No puede procesar grandes volúmenes de datos", "No se puede programar en horas de poca carga", "Solo admite agregaciones simples"], c: [0, 1],
+    e: "Desventajas: todos los datos deben estar listos, hay retraso y un error pequeño puede detener el lote. Ventaja: procesa grandes volúmenes de forma eficiente." },
+  { q: "¿Qué arquitectura combina una capa de lotes y una capa de flujos que funcionan por separado?",
+    o: ["Lambda", "Kappa", "Estrella", "Copo de nieve"], c: 0, g: "lambda",
+    e: "<b>Lambda</b>: capa de lotes + capa de flujos. <b>Kappa</b>: solo flujos." },
+  { q: "En una arquitectura Kappa, ¿cómo se reprocesa el histórico?",
+    o: ["Se reproduce el flujo, porque no hay capa de lotes", "Con la capa de lotes, que se ejecuta cada noche", "Restaurando una copia de seguridad del data warehouse", "No se puede reprocesar el histórico"], c: 0, g: "lambda",
+    e: "<b>Kappa</b>: todo es un flujo; para reprocesar el histórico se reproduce. Fabric y Kafka la hacen más práctica." },
+  { q: "Un sistema de detección de incendios debe activar alarmas y abrir puertas en cuanto los sensores detectan humo. ¿Qué tipo de procesamiento necesita?",
+    o: ["Procesamiento de flujos", "Procesamiento por lotes nocturno", "Procesamiento por lotes mensual", "Una consulta manual al data warehouse"], c: 0,
+    e: "Escenario crítico en tiempo → <b>streaming</b>." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["El streaming puede usarse para capturar datos que después se procesan por lotes.", 1], ["En una arquitectura lambda, los resultados del streaming nunca se guardan en el data warehouse.", 0], ["El procesamiento por lotes puede dispararse por horario, por cantidad de datos o por otro evento.", 1]],
+    e: "El streaming suele usarse para capturar datos. En lambda, los resultados del streaming también pueden guardarse en el warehouse." },
+  { q: "En una solución de tráfico, un panel muestra los autos que pasan en la hora actual y otro informe muestra el tráfico del último año. ¿Qué enfoque se usa?",
+    o: ["Combinar flujos (tiempo real) y lotes (histórico)", "Solo procesamiento por lotes", "Solo procesamiento OLTP", "Solo un data lake sin procesamiento"], c: 0,
+    e: "Muchas soluciones combinan datos <b>históricos</b> (lotes) y <b>en tiempo real</b> (flujos)." },
+  { q: "¿Cuál es otra arquitectura común, además de lambda, que combina lotes y flujos?",
+    o: ["Delta", "Estrella", "Copo de nieve", "Normalizada"], c: 0,
+    e: "Además de lambda, el resumen menciona <b>Delta</b>; Kappa es la más sencilla, sin capa de lotes." }
+]);
+
+T(4, "Tiempo real", 25, [
+  { q: "Ordena los elementos de una arquitectura general de flujos.",
+    pares: [["Evento que genera los datos", "1"], ["Origen de streaming (cola o carpeta)", "2"], ["Consulta perpetua", "3"], ["Receptor (sink)", "4"]],
+    d: ["1", "2", "3", "4"],
+    e: "Evento → origen → consulta perpetua → receptor." },
+  { q: "¿Qué es una consulta perpetua en el procesamiento de flujos?",
+    o: ["Una consulta que se ejecuta continuamente sobre un flujo, por ejemplo agregando por ventanas de tiempo", "Una consulta programada que se ejecuta una vez al día sobre todos los datos acumulados", "Una vista guardada en una base de datos relacional que nunca se elimina", "Una consulta cuyos resultados se guardan para siempre en el nivel Archive"], c: 0,
+    e: "La <b>consulta perpetua</b> filtra, proyecta o agrega por <b>ventanas de tiempo</b> de forma continua." },
+  { q: "Necesitas ingerir millones de eventos por segundo con orden garantizado dentro de cada partición. ¿Qué servicio usas como origen?",
+    o: ["Azure Event Hubs", "Azure Files", "Azure Table Storage", "Power BI"], c: 0, g: "rt-svc",
+    e: "<b>Azure Event Hubs</b>: ingesta de grandes volúmenes, orden garantizado por partición, entrega al menos una vez." },
+  { q: "¿Qué servicio es como Event Hubs, pero optimizado para dispositivos IoT?",
+    o: ["Azure IoT Hub", "Azure Stream Analytics", "Activator", "Real-Time hub"], c: 0, g: "rt-svc",
+    e: "<b>Azure IoT Hub</b>: optimizado para telemetría de dispositivos IoT." },
+  { q: "Relaciona cada componente de Real-Time Intelligence con su función.",
+    pares: [["Catálogo central de los datos de streaming de la organización", "Real-Time hub"], ["Ingerir, enrutar y transformar flujos", "Eventstreams"], ["Base de datos para eventos y series temporales consultada con KQL", "Eventhouse"], ["Disparar acciones y alertas cuando los datos cumplen condiciones", "Activator"], ["Visualizar datos en vivo", "Paneles en tiempo real"]],
+    e: "Real-Time Intelligence cubre todo el flujo: hub, Eventstreams, Eventhouse, paneles y Activator." },
+  { q: "Necesitas consultar logs, telemetría y series temporales con Kusto Query Language dentro de Fabric. ¿Qué usas?",
+    o: ["Eventhouse", "Fabric Warehouse", "Dataflows Gen2", "Azure Files"], c: 0, h: 28,
+    e: "Palabras clave «Kusto» o «KQL» → <b>Eventhouse</b>." },
+  { q: "Quieres enviar automáticamente una alerta por correo cuando la temperatura de una máquina supera un umbral. ¿Qué componente de Fabric usas?",
+    o: ["Activator", "Eventhouse", "Real-Time hub", "Mirroring"], c: 0, g: "rt-svc",
+    e: "<b>Activator</b> dispara acciones y alertas cuando los datos cumplen condiciones." },
+  { q: "Necesitas procesar flujos con consultas tipo SQL en un servicio PaaS independiente, fuera de Fabric. ¿Qué eliges?",
+    o: ["Azure Stream Analytics", "Eventhouse", "Power BI Desktop", "Azure Data Factory"], c: 0,
+    e: "<b>Azure Stream Analytics</b>: PaaS con trabajos origen → consulta perpetua → salida; buena opción fuera de Fabric." },
+  { q: "Tu equipo ya usa Spark en Databricks y quiere agregar procesamiento en tiempo real con Python. ¿Qué tecnología usa?",
+    o: ["Spark Structured Streaming", "Azure Stream Analytics", "Power BI Q&A", "Azure File Sync"], c: 0,
+    e: "<b>Spark Structured Streaming</b> trata el flujo como una tabla que crece; está en Fabric y Databricks." },
+  { q: "¿Cómo trata Spark Structured Streaming un flujo de datos?",
+    o: ["Como una tabla (dataframe) que crece y se llena sola", "Como un archivo CSV que se sobrescribe cada hora", "Como un cubo con valores preagregados", "Como un blob en páginas"], c: 0,
+    e: "Lee los datos a un <b>dataframe</b> que se llena solo, se consulta y escribe los resultados en un destino." },
+  { q: "Relaciona cada receptor (salida) con su uso.",
+    pares: [["Azure Event Hubs", "Poner en cola los datos para procesarlos después"], ["Data Lake Gen2, OneLake o Blob Storage", "Guardar los resultados como archivo"], ["Azure SQL Database, Databricks o Fabric", "Guardar en una tabla consultable"], ["Power BI", "Visualizaciones en tiempo real"]],
+    e: "Receptores: cola, archivo, tabla o visualización." },
+  { q: "¿Qué tres ventajas aporta Delta Lake a un data lake? Selecciona tres.",
+    o: ["Confiabilidad: las escrituras fallidas no dañan los datos", "Validación del esquema", "La misma tabla sirve como receptor de streaming y origen de consultas por lotes", "Replicación automática a una región secundaria", "Montaje del lago como unidad SMB"], c: [0, 1, 2],
+    e: "Delta Lake: confiabilidad, validación del esquema y lotes y streaming unificados." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Data Lake Storage Gen2 puede servir como origen de streaming.", 1], ["Azure Event Hubs garantiza la entrega exactamente una vez.", 0], ["Apache Kafka es una plataforma de ingesta open source que suele usarse con Spark.", 1]],
+    e: "ADLS Gen2 se usa sobre todo en lotes, pero también como origen de streaming. Event Hubs garantiza la entrega <b>al menos una vez</b>." },
+  { q: "En una solución robusta de streaming, ¿por qué se usa una cola como origen?",
+    o: ["Porque garantiza el orden y que cada evento se procese una sola vez", "Porque elimina la necesidad de una consulta perpetua", "Porque convierte los datos en un esquema de estrella", "Porque reduce el costo de almacenamiento del nivel Archive"], c: 0,
+    e: "Una <b>cola</b> garantiza el <b>orden</b> y que cada evento se procese <b>una sola vez</b>." },
+  { q: "Necesitas capturar, transformar y enrutar flujos de eventos dentro de Fabric hacia un Lakehouse. ¿Qué usas?",
+    o: ["Eventstream", "Azure Stream Analytics", "Unity Catalog", "Accesos directos de OneLake"], c: 0, g: "rt-svc",
+    e: "<b>Eventstream</b>: ingesta y enrutamiento de streaming dentro de Fabric." }
+]);
+
+T(4, "Power BI", 26, [
+  { q: "Relaciona cada herramienta de Power BI con su uso principal.",
+    pares: [["Importar datos, crear el modelo y diseñar informes", "Power BI Desktop"], ["Publicar, compartir, crear paneles y programar actualizaciones", "Servicio Power BI"], ["Consultar informes y paneles desde el teléfono", "Power BI Mobile"]],
+    e: "Desktop crea; el servicio publica y comparte; Mobile consume." },
+  { q: "¿Dónde se crean los paneles (dashboards) y las aplicaciones de Power BI?",
+    o: ["En el servicio Power BI", "Solo en Power BI Desktop", "En Power BI Mobile", "En Azure Data Factory"], c: 0,
+    e: "Los <b>paneles</b> y las <b>aplicaciones</b> se crean en el <b>servicio Power BI</b>." },
+  { q: "¿Qué capacidad mínima se necesita para usar Copilot en Power BI?",
+    o: ["Fabric F2 o Power BI Premium P1", "Cualquier licencia gratuita de Power BI", "Fabric F64 únicamente", "Una suscripción de Azure Databricks"], c: 0,
+    e: "Copilot requiere capacidad <b>Fabric F2+</b> o <b>Power BI Premium P1+</b>." },
+  { q: "Tu organización no tiene licencia de Copilot, pero quieres un resumen escrito del informe que se actualice solo con los datos. ¿Qué usas?",
+    o: ["El objeto visual de narración inteligente", "Copilot en Power BI", "Genie en Databricks", "Un panel en tiempo real con KQL"], c: 0, g: "vis-ia",
+    e: "Sin Copilot, el visual de <b>narración inteligente</b> resume los datos y se actualiza solo." },
+  { q: "¿Qué dos tareas puede hacer Copilot en Power BI? Selecciona dos.",
+    o: ["Generar medidas DAX a partir de una descripción", "Resumir un informe en lenguaje sencillo", "Replicar bases de datos en OneLake", "Configurar la redundancia de OneLake", "Crear cuentas de Cosmos DB"], c: [0, 1],
+    e: "Copilot resume informes, crea páginas de informe y genera medidas DAX." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["El servicio Power BI permite modelado y edición básicos, más limitados que Desktop.", 1], ["En Fabric, la edición web permite crear informes completos sin instalar Desktop.", 1], ["Los modelos semánticos no pueden compartirse entre varios informes.", 0]],
+    e: "Los modelos semánticos son <b>compartibles</b> entre informes." },
+  { q: "¿Qué es una aplicación de Power BI?",
+    o: ["Un paquete de informes y paneles relacionados para consumir en un solo lugar", "La app de Windows que sirve para importar datos, modelar y crear informes", "La app para teléfonos que permite consultar informes sin conexión", "Un conector que importa datos de Excel y otros orígenes al modelo"], c: 0,
+    e: "Aplicación de Power BI = paquete de informes y paneles relacionados." },
+  { q: "¿Qué es un panel (dashboard) en el servicio Power BI?",
+    o: ["Una vista de una página que reúne los visuales clave", "Un informe de varias páginas creado en Desktop", "Una tabla de hechos del modelo semántico", "Una consulta perpetua sobre un flujo"], c: 0,
+    e: "Panel = vista de <b>una página</b> con visuales clave, en el servicio Power BI." }
+]);
+
+T(4, "Modelado de datos", 26, [
+  { q: "Relaciona cada modo de almacenamiento de Power BI con cómo obtiene los datos.",
+    pares: [["Importación", "Copia los datos al modelo (VertiPaq) y requiere actualizar"], ["DirectQuery", "Consulta el origen en cada interacción"], ["Direct Lake", "Lee tablas Delta de OneLake sin importar"]],
+    g: "directlake", h: 29,
+    e: "Importación: VertiPaq, muy rápido, requiere actualización. DirectQuery: consulta el origen. Direct Lake: lee Delta de OneLake directamente." },
+  { q: "¿Qué es VertiPaq?",
+    o: ["El motor de almacenamiento en columnas en memoria de Power BI", "Un lenguaje de fórmulas para crear medidas", "El catálogo de gobernanza de Databricks", "Un formato de archivo por filas para streaming"], c: 0,
+    e: "<b>VertiPaq</b>: almacén de columnas en memoria; las agregaciones se calculan al consultar." },
+  { q: "¿Qué lenguaje se usa para definir medidas en un modelo semántico de Power BI?",
+    o: ["DAX", "KQL", "CQL", "MQL"], c: 0,
+    e: "<b>DAX</b> (Data Analysis Expressions): lenguaje de fórmulas para medidas." },
+  { q: "En un modelo semántico, ¿qué son las medidas y qué son las dimensiones?",
+    o: ["Medidas: valores numéricos a analizar; dimensiones: entidades por las que se agregan", "Medidas: entidades por las que se agrupa; dimensiones: valores numéricos", "Medidas: tablas de jerarquía; dimensiones: relaciones entre tablas", "Medidas y dimensiones son sinónimos de tabla de hechos"], c: 0,
+    e: "Medidas = ingresos, cantidad. Dimensiones = producto, cliente, tiempo." },
+  { q: "Un usuario ve las ventas por año y quiere bajar al detalle por mes y por día. ¿Qué elemento del modelo lo permite?",
+    o: ["Una jerarquía de atributos en la dimensión Tiempo", "Una tabla de hechos adicional con las ventas diarias", "El modo DirectQuery contra la base de datos de origen", "Un objeto visual de tarjeta para cada nivel de fecha"], c: 0,
+    e: "Las <b>jerarquías</b> permiten subir o bajar (drill-down / drill-up): día → mes → año." },
+  { q: "¿Dónde se crean las relaciones entre tablas de hechos y dimensiones, las jerarquías y los formatos en Power BI Desktop?",
+    o: ["En la vista Modelo", "En Power BI Mobile", "En el Real-Time hub", "En el objeto visual de tarjeta"], c: 0,
+    e: "En la <b>vista Modelo</b> de Power BI Desktop." },
+  { q: "Los datos del modelo ya están en tablas Delta de OneLake y quieres rendimiento en memoria sin un paso de importación ni actualizaciones programadas. ¿Qué modo usas?",
+    o: ["Direct Lake", "Importación", "DirectQuery contra una VM", "Exportar a CSV y luego importar"], c: 0, g: "directlake",
+    e: "Datos en OneLake → <b>Direct Lake</b>." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Casi todos los modelos analíticos tienen una dimensión Tiempo.", 1], ["En una tabla de dimensión hay una fila por evento con sus medidas.", 0], ["Las tablas de dimensión tienen una clave única por entidad.", 1]],
+    e: "Dimensión: una fila por entidad con clave única. Hechos: una fila por evento con sus medidas." },
+  { q: "¿Qué tipo de tabla contiene una fila por cada venta, con la cantidad y el ingreso?",
+    o: ["Tabla de hechos", "Tabla de dimensión", "Tabla de jerarquía", "Tabla de catálogo"], c: 0,
+    e: "Una fila por evento con sus medidas = <b>hechos</b>." }
+]);
+
+T(4, "Visualizaciones", 27, [
+  { q: "Relaciona cada objetivo con el objeto visual más adecuado.",
+    pares: [["Mostrar la tendencia de las ventas a lo largo de los meses", "Gráfico de líneas"], ["Comparar ingresos entre categorías de productos", "Gráfico de barras o columnas"], ["Mostrar la proporción de cada región en el total", "Gráfico circular"], ["Ver la correlación entre gasto en marketing e ingresos", "Gráfico de dispersión"], ["Comparar ventas por país", "Mapa"], ["Destacar los ingresos totales del año", "Tarjeta"]],
+    e: "Líneas: tendencia. Barras: comparar. Circular: proporción. Dispersión: correlación. Mapa: ubicación. Tarjeta: una cifra." },
+  { q: "Quieres saber qué dos medidas están relacionadas entre sí, por ejemplo si más inversión en publicidad se asocia a más ventas. ¿Qué visual usas?",
+    o: ["Dispersión", "Circular", "Tarjeta", "Tabla"], c: 0,
+    e: "<b>Dispersión</b>: relación o correlación entre dos medidas." },
+  { q: "Un directivo quiere ver en grande una sola cifra: los ingresos totales del trimestre. ¿Qué visual usas?",
+    o: ["Tarjeta", "Gráfico de líneas", "Gráfico de dispersión", "Árbol de descomposición"], c: 0,
+    e: "<b>Tarjeta</b>: destacar una cifra o métrica clave." },
+  { q: "En un informe de Power BI seleccionas «Seattle» en un gráfico de barras. ¿Qué ocurre con los demás visuales de la página?",
+    o: ["Se filtran y resaltan para mostrar los datos de Seattle", "No cambian, porque cada visual es independiente", "Se eliminan del informe", "Se exportan automáticamente a Excel"], c: 0,
+    e: "Los visuales están <b>vinculados</b>: al seleccionar un valor, los demás se filtran y resaltan." },
+  { q: "¿Qué visual con IA muestra qué factores impulsan más una métrica, por ejemplo qué influye en la satisfacción del cliente?",
+    o: ["Influenciadores clave", "Árbol de descomposición", "Narración inteligente", "Tarjeta"], c: 0, g: "vis-ia",
+    e: "<b>Influenciadores clave</b>: qué factores impulsan más una métrica." },
+  { q: "¿Qué visual con IA permite desglosar un valor de forma interactiva por varias dimensiones para ver qué contribuye a él?",
+    o: ["Árbol de descomposición", "Influenciadores clave", "Gráfico circular", "Q&A"], c: 0, g: "vis-ia",
+    e: "<b>Árbol de descomposición</b>: desglose interactivo por varias dimensiones." },
+  { q: "Un usuario escribe «ventas totales por región en 2026» y obtiene un gráfico como respuesta. ¿Qué característica de Power BI está usando?",
+    o: ["Preguntas y respuestas (Q&A)", "Narración inteligente", "Influenciadores clave", "Activator"], c: 0, g: "vis-ia",
+    e: "<b>Q&A</b>: preguntas en lenguaje natural con respuesta en forma de gráfico." },
+  { q: "Para cada afirmación, indica si es verdadera.",
+    a: [["Power BI admite objetos visuales personalizados y de terceros.", 1], ["El gráfico circular es el más adecuado para mostrar tendencias en el tiempo.", 0], ["Una tabla es útil para mostrar muchos valores relacionados.", 1]],
+    e: "Tendencias en el tiempo → líneas. Circular → proporciones de un total." },
+  { q: "Un analista de negocio crea sus propios informes sin ayuda del equipo técnico. ¿Cómo se llama este enfoque?",
+    o: ["Autoservicio", "Procesamiento por lotes", "Normalización", "Lift-and-shift"], c: 0,
+    e: "<b>Autoservicio</b>: usuarios de negocio que crean sus propios análisis sin ayuda técnica." },
+  { q: "¿Qué rol se encarga normalmente de crear paneles e informes en Power BI?",
+    o: ["Analista de datos", "Ingeniero de datos", "Administrador de bases de datos", "Administrador de red"], c: 0, h: 29,
+    e: "Trampa típica: «crear un panel» es del <b>analista</b>, no del ingeniero." }
+]);
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  const PARTES = {
+    1: { nombre: 'Conceptos básicos de datos', corto: 'Conceptos básicos', min: 25, max: 30 },
+    2: { nombre: 'Datos relacionales en Azure', corto: 'Relacionales', min: 20, max: 25 },
+    3: { nombre: 'Datos no relacionales en Azure', corto: 'No relacionales', min: 15, max: 20 },
+    4: { nombre: 'Análisis en Azure', corto: 'Análisis', min: 25, max: 30 }
+  };
+  const NOMBRE_MODO = { sim: 'Simulacro', prac: 'Práctica', err: 'Repaso de errores' };
+  const LETRAS = 'ABCDEFGHIJ';
+  function resumen(hoja) {
+    let pagina = 'resumen.html';
+    try { if (localStorage.getItem('dp900-resumen') === 'bn') pagina = 'resumen-bn.html'; } catch (e) {}
+    return pagina + (hoja ? '#hoja-' + hoja : '');
+  }
+  const KEY = 'dp900-cuestionarios-v1';
+  const KEY_SES = 'dp900-sesion-v1';
+  const APROBADO = 700;
+  const TAMANOS = [[50, 45], [40, 36], [25, 23]];
+
+  const app = document.getElementById('app');
+  let VISTA = 'inicio';
+  let S = null;
+  let reloj = null;
+  let ULTIMO = null;
+  let FILTRO = 'todas';
+
+  /* ── Preparación del banco ─────────────────────────────────── */
+  function tipoDe(q) {
+    if (q.a) return 'sino';
+    if (q.pares) return 'relacionar';
+    if (Array.isArray(q.c)) return 'multiple';
+    if (q.q.indexOf('___') >= 0) return 'completar';
+    return 'unica';
+  }
+  function hash(s) {
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36);
+  }
+  const usados = new Set();
+  BANCO.forEach(q => {
+    q.tipo = tipoDe(q);
+    const firma = q.q + '|' + (q.o || []).join('|') + (q.a || []).map(x => x[0]).join('|') + (q.pares || []).map(x => x[0]).join('|');
+    let id = 'q' + hash(firma);
+    while (usados.has(id)) id += 'x';
+    usados.add(id);
+    q.id = id;
+    if (q.tipo === 'relacionar') {
+      q.dest = q.d ? q.d.slice() : Array.from(new Set(q.pares.map(p => p[1]))).sort((a, b) => a.localeCompare(b, 'es'));
+    }
+  });
+  const POR_ID = {};
+  BANCO.forEach(q => { POR_ID[q.id] = q; });
+
+  const TEMAS = [];
+  (function () {
+    const m = new Map();
+    BANCO.forEach(q => {
+      const k = q.p + '|' + q.t;
+      if (!m.has(k)) m.set(k, { p: q.p, t: q.t, h: q.h, n: 0 });
+      const o = m.get(k);
+      o.n++;
+      o.h = Math.min(o.h, q.h);
+    });
+    m.forEach(v => TEMAS.push(v));
+  })();
+
+  function validar() {
+    const errs = [];
+    BANCO.forEach(q => {
+      const ref = q.q.slice(0, 70);
+      if (!q.e) errs.push('Sin explicación: ' + ref);
+      if (q.tipo === 'unica' || q.tipo === 'completar') {
+        if (!q.o || typeof q.c !== 'number' || q.c < 0 || q.c >= q.o.length) errs.push('Respuesta fuera de rango: ' + ref);
+      }
+      if (q.tipo === 'completar' && q.q.split('___').length !== 2) errs.push('Debe tener exactamente un hueco: ' + ref);
+      if (q.tipo === 'multiple' && (q.c.length < 2 || q.c.some(i => i < 0 || i >= q.o.length))) errs.push('Respuestas múltiples inválidas: ' + ref);
+      if (q.tipo === 'relacionar') q.pares.forEach(p => { if (q.dest.indexOf(p[1]) < 0) errs.push('Destino inexistente «' + p[1] + '»: ' + ref); });
+    });
+    if (errs.length) console.warn('Problemas en el banco de preguntas:\n' + errs.join('\n'));
+    return errs;
+  }
+  window.validarBanco = validar;
+  validar();
+
+  /* ── Persistencia ──────────────────────────────────────────── */
+  function cargarDB() {
+    const base = { stats: {}, errores: {}, historial: [], ultimoTam: TAMANOS[0] };
+    try { return Object.assign(base, JSON.parse(localStorage.getItem(KEY)) || {}); }
+    catch (e) { return base; }
+  }
+  let DB = cargarDB();
+  function guardar() { try { localStorage.setItem(KEY, JSON.stringify(DB)); } catch (e) { /* almacenamiento no disponible */ } }
+
+  function registrar(q, ok) {
+    const s = DB.stats[q.id] || { v: 0, a: 0 };
+    s.v++;
+    if (ok) s.a++;
+    s.u = ok ? 1 : 0;
+    DB.stats[q.id] = s;
+    if (!ok) DB.errores[q.id] = 0;
+    else if (q.id in DB.errores) {
+      DB.errores[q.id]++;
+      if (DB.errores[q.id] >= 2) delete DB.errores[q.id];
+    }
+  }
+  function contarErrores() { return Object.keys(DB.errores).filter(id => POR_ID[id]).length; }
+
+  function guardarSesion() {
+    try {
+      if (!S || S.terminada) { localStorage.removeItem(KEY_SES); return; }
+      const data = Object.assign({}, S, {
+        items: S.items.map(it => ({ id: it.id, orden: it.orden, resp: it.resp, comprobada: it.comprobada, marcada: it.marcada, puntos: it.puntos }))
+      });
+      localStorage.setItem(KEY_SES, JSON.stringify(data));
+    } catch (e) { /* almacenamiento no disponible */ }
+  }
+  function cargarSesion() {
+    try {
+      const d = JSON.parse(localStorage.getItem(KEY_SES));
+      if (!d || !d.items) return null;
+      d.items = d.items.filter(x => POR_ID[x.id]).map(x => {
+        const q = POR_ID[x.id];
+        if (!x.orden || x.orden.length !== largo(q)) return instanciar(q);
+        return Object.assign(x, { q: q });
+      });
+      return d.items.length ? d : null;
+    } catch (e) { return null; }
+  }
+
+  /* ── Utilidades ────────────────────────────────────────────── */
+  function barajar(a) {
+    a = a.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function pct(x) { return Math.round(x * 100); }
+  function fmtTiempo(ms) {
+    const s = Math.max(0, Math.floor(ms / 1000));
+    return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  }
+  function fmtFecha(t) { return new Date(t).toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' }); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function largo(q) { return (q.o || q.a || q.pares).length; }
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('vis');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => t.classList.remove('vis'), 2600);
+  }
+
+  /* ── Selección de preguntas ────────────────────────────────── */
+  function seleccionarDiverso(pool, n) {
+    const porTema = {};
+    barajar(pool).forEach(q => { (porTema[q.t] = porTema[q.t] || []).push(q); });
+    const temas = barajar(Object.keys(porTema));
+    const out = [];
+    const grupos = new Set();
+    let avance = true;
+    while (out.length < n && avance) {
+      avance = false;
+      for (const t of temas) {
+        if (out.length >= n) break;
+        const lista = porTema[t];
+        while (lista.length) {
+          const q = lista.shift();
+          if (q.g && grupos.has(q.g)) continue;
+          if (q.g) grupos.add(q.g);
+          out.push(q);
+          avance = true;
+          break;
+        }
+      }
+    }
+    return out;
+  }
+  function sinGruposRepetidos(lista) {
+    const grupos = new Set();
+    return lista.filter(q => {
+      if (!q.g) return true;
+      if (grupos.has(q.g)) return false;
+      grupos.add(q.g);
+      return true;
+    });
+  }
+  function repartoSimulacro(n) {
+    const fueraDeRango = p => {
+      const pct = pesos[p] / total * 100;
+      return pct < PARTES[p].min || pct > PARTES[p].max;
+    };
+    let pesos, total, intentos = 0;
+    do {
+      pesos = {};
+      total = 0;
+      Object.keys(PARTES).forEach(p => {
+        pesos[p] = PARTES[p].min + Math.random() * (PARTES[p].max - PARTES[p].min);
+        total += pesos[p];
+      });
+    } while (++intentos < 500 && Object.keys(PARTES).some(fueraDeRango));
+    const cuotas = {};
+    const restos = [];
+    let asignado = 0;
+    Object.keys(pesos).forEach(p => {
+      const exacto = pesos[p] / total * n;
+      cuotas[p] = Math.floor(exacto);
+      asignado += cuotas[p];
+      restos.push([p, exacto - cuotas[p]]);
+    });
+    restos.sort((a, b) => b[1] - a[1]);
+    for (let i = 0; asignado < n; i++, asignado++) cuotas[restos[i % restos.length][0]]++;
+    return cuotas;
+  }
+  function prioridad(q) {
+    const s = DB.stats[q.id];
+    let base;
+    if (!s) base = 0;
+    else if (q.id in DB.errores) base = 0.5;
+    else base = 1 + s.a / s.v;
+    return base + Math.random() * 0.5;
+  }
+
+  /* ── Sesiones ──────────────────────────────────────────────── */
+  function instanciar(q) {
+    const it = { id: q.id, q: q, comprobada: false, marcada: false, puntos: null };
+    it.orden = barajar(Array.from({ length: largo(q) }, (_, i) => i));
+    if (q.tipo === 'unica' || q.tipo === 'completar') it.resp = null;
+    else if (q.tipo === 'multiple') it.resp = [];
+    else if (q.tipo === 'sino') it.resp = q.a.map(() => null);
+    else it.resp = q.pares.map(() => -1);
+    return it;
+  }
+  function hayOtraSesion() {
+    const ses = cargarSesion();
+    return ses && !ses.terminada && !confirm('Tienes una sesión en curso. ¿Descartarla y empezar otra?');
+  }
+  function iniciarSesion(modo, preguntas, minutos) {
+    if (!preguntas.length) { toast('No hay preguntas para esa selección.'); return; }
+    S = {
+      modo: modo,
+      items: preguntas.map(instanciar),
+      idx: 0,
+      inicio: Date.now(),
+      finEn: minutos ? Date.now() + minutos * 60000 : null,
+      terminada: false
+    };
+    guardarSesion();
+    vistaQuiz(true);
+  }
+  function crearSimulacro(n, minutos) {
+    const cuotas = repartoSimulacro(n);
+    let preguntas = [];
+    Object.keys(cuotas).forEach(p => {
+      preguntas = preguntas.concat(seleccionarDiverso(BANCO.filter(q => q.p === +p), cuotas[p]));
+    });
+    iniciarSesion('sim', barajar(preguntas), minutos);
+  }
+  function crearPractica(temas, cantidad, priorizar) {
+    let pool = BANCO.filter(q => temas.has(q.p + '|' + q.t));
+    let lista;
+    if (priorizar) {
+      pool = pool.map(q => [q, prioridad(q)]).sort((a, b) => a[1] - b[1]).map(x => x[0]);
+      lista = cantidad === 'todas' ? pool : barajar(sinGruposRepetidos(pool).slice(0, +cantidad));
+    } else {
+      lista = cantidad === 'todas' ? barajar(pool) : barajar(seleccionarDiverso(pool, +cantidad));
+    }
+    iniciarSesion('prac', lista);
+  }
+  function crearRepasoErrores() {
+    iniciarSesion('err', barajar(Object.keys(DB.errores).map(id => POR_ID[id]).filter(Boolean)));
+  }
+
+  /* ── Evaluación ────────────────────────────────────────────── */
+  function respondida(it) {
+    const q = it.q, r = it.resp;
+    switch (q.tipo) {
+      case 'unica': case 'completar': return r !== null && r !== undefined;
+      case 'multiple': return r.length === q.c.length;
+      case 'sino': return r.every(v => v === 0 || v === 1);
+      case 'relacionar': return r.every(v => v >= 0);
+    }
+    return false;
+  }
+  function algoRespondido(it) {
+    const q = it.q, r = it.resp;
+    switch (q.tipo) {
+      case 'unica': case 'completar': return r !== null && r !== undefined;
+      case 'multiple': return r.length > 0;
+      case 'sino': return r.some(v => v === 0 || v === 1);
+      case 'relacionar': return r.some(v => v >= 0);
+    }
+    return false;
+  }
+  function puntuar(it) {
+    const q = it.q, r = it.resp;
+    switch (q.tipo) {
+      case 'unica': case 'completar':
+        return r === q.c ? 1 : 0;
+      case 'multiple': {
+        const aciertos = r.filter(x => q.c.indexOf(x) >= 0).length;
+        return Math.max(0, (aciertos - (r.length - aciertos)) / q.c.length);
+      }
+      case 'sino':
+        return q.a.reduce((s, a, i) => s + (r[i] === (a[1] ? 1 : 0) ? 1 : 0), 0) / q.a.length;
+      case 'relacionar':
+        return q.pares.reduce((s, p, i) => s + (q.dest[r[i]] === p[1] ? 1 : 0), 0) / q.pares.length;
+    }
+    return 0;
+  }
+  function calcular(items) {
+    const r = { n: items.length, suma: 0, correctas: 0, partes: {}, temas: {} };
+    items.forEach(it => {
+      const p = it.puntos;
+      r.suma += p;
+      if (p === 1) r.correctas++;
+      const P = r.partes[it.q.p] = r.partes[it.q.p] || { suma: 0, n: 0 };
+      P.suma += p; P.n++;
+      const k = it.q.p + '|' + it.q.t;
+      const Tm = r.temas[k] = r.temas[k] || { suma: 0, n: 0, p: it.q.p, t: it.q.t, h: it.q.h };
+      Tm.suma += p; Tm.n++; Tm.h = Math.min(Tm.h, it.q.h);
+    });
+    r.pct = r.n ? r.suma / r.n : 0;
+    r.pts = Math.round(r.pct * 1000);
+    return r;
+  }
+
+  /* ── Reloj ─────────────────────────────────────────────────── */
+  function iniciarReloj() {
+    detenerReloj();
+    actualizarReloj();
+    reloj = setInterval(actualizarReloj, 1000);
+  }
+  function detenerReloj() { if (reloj) { clearInterval(reloj); reloj = null; } }
+  function actualizarReloj() {
+    if (!S || !S.finEn) return;
+    const rest = S.finEn - Date.now();
+    const el = document.getElementById('reloj');
+    if (el) {
+      el.textContent = '⏱ ' + fmtTiempo(rest);
+      el.classList.toggle('poco', rest < 5 * 60000);
+    }
+    if (rest <= 0) finalizar(true);
+  }
+
+  /* ── Vista: pregunta ───────────────────────────────────────── */
+  function htmlPregunta(it, revelar) {
+    const q = it.q, r = it.resp;
+    let h = '';
+    if (q.tipo === 'unica' || q.tipo === 'multiple') {
+      h += '<div class="enun">' + q.q + '</div>';
+      if (q.tipo === 'multiple' && !revelar) h += '<div class="instr">Seleccionadas: ' + r.length + ' de ' + q.c.length + '</div>';
+      h += '<div class="opciones ' + q.tipo + '">';
+      it.orden.forEach((oi, k) => {
+        const sel = q.tipo === 'unica' ? r === oi : r.indexOf(oi) >= 0;
+        const corr = q.tipo === 'unica' ? q.c === oi : q.c.indexOf(oi) >= 0;
+        let cls = 'opcion' + (sel ? ' sel' : '');
+        let marca = '';
+        if (revelar) {
+          if (corr && sel) { cls += ' ok'; marca = '✓'; }
+          else if (corr) { cls += ' falto'; marca = '✓'; }
+          else if (sel) { cls += ' mal'; marca = '✗'; }
+        }
+        h += '<button type="button" class="' + cls + '" data-act="opt" data-oi="' + oi + '"' + (revelar ? ' disabled' : '') + '>' +
+          '<span class="letra">' + LETRAS[k] + '</span><span class="txt">' + q.o[oi] + '</span>' +
+          (marca ? '<span class="marca">' + marca + '</span>' : '') + '</button>';
+      });
+      h += '</div>';
+    } else if (q.tipo === 'completar') {
+      const partes = q.q.split('___');
+      const cls = revelar ? (r === q.c ? ' ok' : ' mal') : '';
+      const sel = '<select data-act="hueco" class="hueco' + cls + '"' + (revelar ? ' disabled' : '') + ' aria-label="Respuesta">' +
+        '<option value="">— elige —</option>' +
+        it.orden.map(oi => '<option value="' + oi + '"' + (r === oi ? ' selected' : '') + '>' + esc(q.o[oi]) + '</option>').join('') +
+        '</select>';
+      h += '<div class="enun completar">' + partes[0] + sel + (partes[1] || '') + '</div>';
+      if (revelar && r !== q.c) h += '<div class="correcta">Respuesta correcta: <b>' + esc(q.o[q.c]) + '</b></div>';
+    } else if (q.tipo === 'sino') {
+      h += '<div class="enun">' + q.q + '</div><table class="sino"><thead><tr><th>Afirmación</th><th>Sí</th><th>No</th></tr></thead><tbody>';
+      it.orden.forEach(ai => {
+        const correcto = q.a[ai][1] ? 1 : 0;
+        const val = r[ai];
+        const celda = opt => {
+          let cls = 'sn' + (val === opt ? ' sel' : '');
+          if (revelar) {
+            if (correcto === opt) cls += val === opt ? ' ok' : ' falto';
+            else if (val === opt) cls += ' mal';
+          }
+          return '<td><button type="button" class="' + cls + '" data-act="sino" data-i="' + ai + '" data-v="' + opt + '"' + (revelar ? ' disabled' : '') + '>' + (opt ? 'Sí' : 'No') + '</button></td>';
+        };
+        h += '<tr><td>' + q.a[ai][0] + '</td>' + celda(1) + celda(0) + '</tr>';
+      });
+      h += '</tbody></table>';
+    } else if (q.tipo === 'relacionar') {
+      h += '<div class="enun">' + q.q + '</div><table class="rel"><tbody>';
+      it.orden.forEach(pi => {
+        const val = r[pi];
+        const ok = q.dest[val] === q.pares[pi][1];
+        const cls = revelar ? (ok ? 'ok' : 'mal') : '';
+        h += '<tr><td>' + q.pares[pi][0] + '</td><td>' +
+          '<select data-act="rel" data-i="' + pi + '" class="' + cls + '"' + (revelar ? ' disabled' : '') + ' aria-label="Respuesta">' +
+          '<option value="">— elige —</option>' +
+          q.dest.map((d, di) => '<option value="' + di + '"' + (val === di ? ' selected' : '') + '>' + esc(d) + '</option>').join('') +
+          '</select>' +
+          (revelar && !ok ? '<div class="correcta">Correcta: <b>' + esc(q.pares[pi][1]) + '</b></div>' : '') +
+          '</td></tr>';
+      });
+      h += '</tbody></table>';
+    }
+    if (revelar) {
+      const pts = it.puntos !== null && it.puntos !== undefined ? it.puntos : puntuar(it);
+      const est = pts === 1 ? 'ok' : pts > 0 ? 'parcial' : 'mal';
+      const tit = pts === 1 ? 'Correcto' : pts > 0 ? 'Parcialmente correcto (' + pct(pts) + ' %)' : (algoRespondido(it) ? 'Incorrecto' : 'Sin responder');
+      h += '<div class="expl ' + est + '"><div class="expl-tit">' + tit + '</div><p>' + q.e + '</p>' +
+        '<div class="ref">Parte ' + q.p + ' · ' + q.t + ' · <a href="' + resumen(q.h) + '" target="_blank" rel="noopener">Hoja ' + q.h + ' del resumen</a></div></div>';
+    }
+    return h;
+  }
+
+  function vistaQuiz(arriba) {
+    VISTA = 'quiz';
+    const it = S.items[S.idx];
+    const q = it.q;
+    const n = S.items.length;
+    const sim = S.modo === 'sim';
+    const revelar = !sim && it.comprobada;
+    let h = '<div class="quiz">';
+    h += '<div class="quiz-head"><div><span class="modo-tag">' + NOMBRE_MODO[S.modo] + '</span><b>Pregunta ' + (S.idx + 1) + ' de ' + n + '</b></div>';
+    if (sim) {
+      h += '<div class="reloj" id="reloj">⏱ ' + fmtTiempo(S.finEn - Date.now()) + '</div>';
+    } else {
+      const comp = S.items.filter(x => x.comprobada);
+      const ok = comp.filter(x => x.puntos === 1).length;
+      h += '<div class="marcador">✓ ' + ok + ' &nbsp; ✗ ' + (comp.length - ok) + '</div>';
+    }
+    h += '</div>';
+    const hechas = sim ? S.items.filter(respondida).length : S.items.filter(x => x.comprobada).length;
+    h += '<div class="progreso"><div style="width:' + (hechas / n * 100) + '%"></div></div>';
+    h += '<section class="card">';
+    if (!sim) h += '<div class="meta"><span class="chip">Parte ' + q.p + ' · ' + PARTES[q.p].corto + '</span><span class="chip suave">' + q.t + '</span></div>';
+    h += htmlPregunta(it, revelar);
+    h += '</section>';
+
+    h += '<div class="acciones">';
+    if (sim) {
+      h += '<button class="btn sec" data-act="prev"' + (S.idx === 0 ? ' disabled' : '') + '>← Anterior</button>';
+      h += '<button class="btn sec' + (it.marcada ? ' activo' : '') + '" data-act="marcar">' + (it.marcada ? '★ Marcada' : '☆ Marcar para revisar') + '</button>';
+      if (S.idx < n - 1) h += '<button class="btn" data-act="next">Siguiente →</button>';
+      h += '<button class="btn' + (S.idx === n - 1 ? '' : ' sec') + ' derecha" data-act="terminar">Revisar y terminar</button>';
+    } else {
+      if (!it.comprobada) h += '<button class="btn" data-act="comprobar"' + (respondida(it) ? '' : ' disabled') + '>Comprobar</button>';
+      else if (S.idx < n - 1) h += '<button class="btn" data-act="next">Siguiente →</button>';
+      else h += '<button class="btn" data-act="terminar">Ver resultados</button>';
+      h += '<button class="btn sec derecha" data-act="salir">Terminar ahora</button>';
+    }
+    h += '</div>';
+
+    if (sim) {
+      h += '<section class="card"><b>Navegación</b><div class="paleta">' +
+        S.items.map((x, i) => '<button type="button" class="pal' + (i === S.idx ? ' act' : '') + (respondida(x) ? ' resp' : '') + (x.marcada ? ' marc' : '') + '" data-act="ir" data-i="' + i + '" title="Pregunta ' + (i + 1) + '">' + (i + 1) + '</button>').join('') +
+        '</div><div class="leyenda"><i class="resp"></i> respondida <i class="marc"></i> marcada <i></i> sin responder</div></section>';
+    }
+    h += '<p class="atajos">Atajos: teclas 1–6 o A–F para elegir una opción · Enter para ' + (sim ? 'avanzar · ← → para moverte entre preguntas' : 'comprobar y avanzar') + '</p>';
+    h += '</div>';
+    app.innerHTML = h;
+    if (sim) iniciarReloj(); else detenerReloj();
+    if (arriba) window.scrollTo(0, 0);
+  }
+
+  /* ── Vista: inicio ─────────────────────────────────────────── */
+  function vistaInicio() {
+    VISTA = 'inicio';
+    detenerReloj();
+    const ses = cargarSesion();
+    const nErr = contarErrores();
+    const ult = DB.historial[DB.historial.length - 1];
+    const cuenta = p => BANCO.filter(q => q.p === p).length;
+    const tam = (DB.ultimoTam || TAMANOS[0]).join('|');
+    let h = '';
+    if (ses && !ses.terminada) {
+      const resp = ses.items.filter(respondida).length;
+      const rest = ses.finEn ? ses.finEn - Date.now() : null;
+      h += '<div class="aviso"><div><b>Tienes ' + (ses.modo === 'sim' ? 'un simulacro' : 'una sesión de ' + NOMBRE_MODO[ses.modo].toLowerCase()) + ' en curso.</b><br>' +
+        '<span class="mini">Pregunta ' + (ses.idx + 1) + ' de ' + ses.items.length + ' · ' + resp + ' respondidas' +
+        (rest !== null ? ' · ' + (rest > 0 ? 'quedan ' + fmtTiempo(rest) : 'tiempo agotado') : '') + '</span></div>' +
+        '<div class="fila"><button class="btn" data-act="continuar">Continuar</button><button class="btn sec" data-act="descartar">Descartar</button></div></div>';
+    }
+    h += '<section class="hero"><h1>Cuestionarios DP-900</h1>' +
+      '<p>' + BANCO.length + ' preguntas basadas en tu resumen, al estilo del examen: escenarios, opción múltiple, Sí/No, completar y relacionar. El orden de las preguntas y de las opciones cambia en cada intento.</p>' +
+      [1, 2, 3, 4].map(p => '<span class="chip">Parte ' + p + ' · ' + PARTES[p].corto + ': ' + cuenta(p) + '</span>').join('') + '</section>';
+
+    h += '<div class="modos">';
+    h += '<section class="card modo-card"><h2>Simulacro de examen</h2>' +
+      '<p>Preguntas al azar con el peso de cada parte del examen real, temporizador y puntuación sobre 1000. Las respuestas se revisan al final.</p>' +
+      '<label class="campo">Tamaño<select id="sim-tam">' +
+      TAMANOS.map(t => '<option value="' + t.join('|') + '"' + (t.join('|') === tam ? ' selected' : '') + '>' + t[0] + ' preguntas · ' + t[1] + ' min</option>').join('') +
+      '</select></label>' +
+      (ult ? '<p class="mini">Último simulacro: <b>' + ult.pts + '</b> / 1000 (' + (ult.pts >= APROBADO ? 'aprobado' : 'no aprobado') + ') · ' + fmtFecha(ult.f) + '</p>' : '') +
+      '<button class="btn grande" data-act="sim-start">Empezar simulacro</button></section>';
+
+    h += '<section class="card modo-card"><h2>Práctica por tema</h2><p>Sin tiempo y con la explicación después de cada pregunta.</p>' +
+      '<div class="partes-sel">' + [1, 2, 3, 4].map(p => '<label class="chk"><input type="checkbox" class="sel-parte" value="' + p + '" checked> Parte ' + p + ' · ' + PARTES[p].corto + '<span class="cnt">' + cuenta(p) + '</span></label>').join('') + '</div>' +
+      '<details class="temas"><summary>Elegir temas concretos</summary>' +
+      [1, 2, 3, 4].map(p => '<div class="grupo-temas"><div class="gt-tit">Parte ' + p + '</div>' +
+        TEMAS.map((t, i) => t.p === p ? '<label class="chk"><input type="checkbox" class="sel-tema" data-p="' + p + '" value="' + i + '" checked> ' + t.t + '<span class="cnt">' + t.n + '</span></label>' : '').join('') + '</div>').join('') +
+      '</details>' +
+      '<label class="campo">Preguntas<select id="prac-n"><option>10</option><option selected>20</option><option>40</option><option value="todas">Todas las del tema</option></select></label>' +
+      '<label class="chk"><input type="checkbox" id="prac-prio" checked> Priorizar las no vistas y las falladas</label>' +
+      '<div style="height:12px"></div>' +
+      '<button class="btn grande" data-act="prac-start">Empezar práctica</button></section>';
+
+    h += '<section class="card modo-card"><h2>Repaso de errores</h2>' +
+      '<p>Solo las preguntas que has fallado. Cada una sale de la lista cuando la aciertas dos veces seguidas.</p>' +
+      '<p class="cifra">' + nErr + ' <span>pendiente' + (nErr === 1 ? '' : 's') + '</span></p>' +
+      '<button class="btn grande" data-act="err-start"' + (nErr ? '' : ' disabled') + '>Repasar errores</button></section>';
+    h += '</div>';
+    h += '<p class="pie">Tu progreso se guarda en este navegador. · <a href="' + resumen() + '">Abrir el resumen</a></p>';
+    app.innerHTML = h;
+  }
+
+  /* ── Vista: resultados ─────────────────────────────────────── */
+  function finalizar(porTiempo) {
+    detenerReloj();
+    if (!S) return;
+    const sim = S.modo === 'sim';
+    let items;
+    if (sim) {
+      items = S.items;
+      items.forEach(it => {
+        it.puntos = puntuar(it);
+        if (algoRespondido(it)) registrar(it.q, it.puntos === 1);
+      });
+    } else {
+      items = S.items.filter(it => it.comprobada);
+      items.forEach(it => { if (it.puntos === null || it.puntos === undefined) it.puntos = puntuar(it); });
+    }
+    const dur = (sim ? Math.min(Date.now(), S.finEn) : Date.now()) - S.inicio;
+    const res = calcular(items);
+    if (sim) {
+      const partes = {};
+      Object.keys(res.partes).forEach(p => { partes[p] = pct(res.partes[p].suma / res.partes[p].n); });
+      DB.historial.push({ f: Date.now(), pts: res.pts, n: items.length, dur: dur, partes: partes });
+      if (DB.historial.length > 100) DB.historial.shift();
+    }
+    guardar();
+    const modo = S.modo;
+    S.terminada = true;
+    guardarSesion();
+    S = null;
+    if (!items.length) { vistaInicio(); return; }
+    ULTIMO = { items: items, res: res, modo: modo, porTiempo: !!porTiempo, dur: dur };
+    FILTRO = 'todas';
+    vistaResultados();
+    window.scrollTo(0, 0);
+  }
+
+  function filaBarra(etiqueta, x, n) {
+    return '<div class="barra-fila"><span>' + etiqueta + '</span><div class="barra"><div class="' + (x >= 0.7 ? 'ok' : 'mal') + '" style="width:' + pct(x) + '%"></div></div>' +
+      '<span class="bv">' + pct(x) + ' % <small>(' + n + ')</small></span></div>';
+  }
+
+  function vistaResultados() {
+    VISTA = 'resultados';
+    detenerReloj();
+    const U = ULTIMO;
+    const res = U.res;
+    const sim = U.modo === 'sim';
+    const aprobado = res.pts >= APROBADO;
+    let h = '<section class="card">';
+    if (sim) {
+      h += '<div class="res-top"><div class="puntaje ' + (aprobado ? 'ok' : 'mal') + '">' + res.pts + '<span>/ 1000</span></div><div>' +
+        '<div class="veredicto ' + (aprobado ? 'ok' : 'mal') + '">' + (aprobado ? 'Aprobado' : 'No aprobado') + '</div>' +
+        '<p>Se aprueba con ' + APROBADO + '. ' + res.correctas + ' de ' + res.n + ' preguntas completamente correctas · tiempo usado ' + fmtTiempo(U.dur) + '.</p>' +
+        (U.porTiempo ? '<p class="alerta">Se acabó el tiempo: las preguntas sin responder cuentan como incorrectas.</p>' : '') +
+        '<p class="mini">La puntuación es proporcional a tus aciertos (con crédito parcial); el examen real usa su propia escala.</p></div></div>';
+    } else {
+      h += '<div class="res-top"><div class="puntaje ' + (res.pct >= 0.7 ? 'ok' : 'mal') + '">' + pct(res.pct) + '<span>%</span></div><div>' +
+        '<div class="veredicto">' + NOMBRE_MODO[U.modo] + ' terminada</div>' +
+        '<p>' + res.correctas + ' de ' + res.n + ' preguntas completamente correctas (equivale a unos ' + res.pts + ' puntos de 1000).</p></div></div>';
+    }
+    h += '<h3>Por parte</h3>' + [1, 2, 3, 4].filter(p => res.partes[p]).map(p => filaBarra('Parte ' + p + ' · ' + PARTES[p].corto, res.partes[p].suma / res.partes[p].n, res.partes[p].n)).join('');
+    const debiles = Object.keys(res.temas).map(k => res.temas[k]).filter(t => t.suma / t.n < 0.7).sort((a, b) => a.suma / a.n - b.suma / b.n);
+    if (debiles.length) {
+      h += '<h3>Temas a repasar</h3><ul class="debiles">' + debiles.map(t => '<li><b>' + t.t + '</b> <span class="mini">Parte ' + t.p + ' · ' + pct(t.suma / t.n) + ' % · hoja ' + t.h + '</span></li>').join('') + '</ul>';
+    }
+    const nErr = contarErrores();
+    h += '<div class="fila" style="margin-top:18px">' +
+      (nErr ? '<button class="btn" data-act="err-start">Repasar errores (' + nErr + ')</button>' : '') +
+      (sim ? '<button class="btn sec" data-act="sim-otra">Otro simulacro</button>' : '') +
+      '<button class="btn sec" data-act="home">Volver al inicio</button></div></section>';
+
+    const malas = U.items.filter(it => it.puntos < 1).length;
+    const marcadas = U.items.filter(it => it.marcada).length;
+    const chip = (f, txt) => '<button class="chip-btn' + (FILTRO === f ? ' act' : '') + '" data-act="filtro" data-f="' + f + '">' + txt + '</button>';
+    h += '<div class="rev-head"><h2>Revisión</h2><div class="filtros">' + chip('todas', 'Todas (' + U.items.length + ')') + chip('mal', 'Con errores (' + malas + ')') +
+      (sim && marcadas ? chip('marc', 'Marcadas (' + marcadas + ')') : '') + '</div></div>';
+    U.items.forEach((it, i) => {
+      if (FILTRO === 'mal' && it.puntos === 1) return;
+      if (FILTRO === 'marc' && !it.marcada) return;
+      h += '<article class="card"><div class="rev-num">Pregunta ' + (i + 1) + (it.marcada ? ' · ★ marcada' : '') + '</div>' + htmlPregunta(it, true) + '</article>';
+    });
+    app.innerHTML = h;
+  }
+
+  /* ── Vista: progreso ───────────────────────────────────────── */
+  function agregado(qs) {
+    let v = 0, a = 0, vistas = 0;
+    qs.forEach(q => { const s = DB.stats[q.id]; if (s) { v += s.v; a += s.a; vistas++; } });
+    return { v: v, a: a, vistas: vistas, n: qs.length, pct: v ? a / v : null };
+  }
+  function vistaEstadisticas() {
+    VISTA = 'stats';
+    detenerReloj();
+    const total = agregado(BANCO);
+    let h = '<section class="card"><h2 style="margin-top:0">Tu progreso</h2><div class="kpis">' +
+      '<div><b>' + total.vistas + '</b><span>de ' + BANCO.length + ' preguntas vistas</span></div>' +
+      '<div><b>' + (total.v ? pct(total.pct) + ' %' : '—') + '</b><span>de aciertos (' + total.v + ' respuestas)</span></div>' +
+      '<div><b>' + contarErrores() + '</b><span>errores pendientes de repasar</span></div>' +
+      '<div><b>' + DB.historial.length + '</b><span>simulacros completados</span></div></div>';
+
+    h += '<h3>Aciertos por parte</h3>';
+    [1, 2, 3, 4].forEach(p => {
+      const a = agregado(BANCO.filter(q => q.p === p));
+      h += a.v ? filaBarra('Parte ' + p + ' · ' + PARTES[p].corto, a.pct, a.vistas + '/' + a.n) :
+        '<div class="barra-fila"><span>Parte ' + p + ' · ' + PARTES[p].corto + '</span><div class="barra"></div><span class="bv mini">sin datos</span></div>';
+    });
+
+    const filas = TEMAS.map(t => Object.assign({ t: t }, agregado(BANCO.filter(q => q.p === t.p && q.t === t.t))));
+    filas.sort((x, y) => (x.pct === null) - (y.pct === null) || (x.pct || 0) - (y.pct || 0));
+    h += '<h3>Por tema <span class="mini">(los más débiles primero)</span></h3><table class="tabla"><thead><tr><th>Tema</th><th>Parte</th><th class="num">Hoja</th><th class="num">Vistas</th><th class="num">Aciertos</th></tr></thead><tbody>' +
+      filas.map(f => '<tr><td>' + f.t.t + '</td><td>' + f.t.p + '</td><td class="num">' + f.t.h + '</td><td class="num">' + f.vistas + '/' + f.n + '</td><td class="num ' +
+        (f.pct === null ? '' : f.pct < 0.7 ? 'pct-bajo' : 'pct-alto') + '">' + (f.pct === null ? '—' : pct(f.pct) + ' %') + '</td></tr>').join('') +
+      '</tbody></table>';
+
+    if (DB.historial.length) {
+      h += '<h3>Historial de simulacros</h3><table class="tabla"><thead><tr><th>Fecha</th><th class="num">Puntos</th><th class="num">Preguntas</th><th class="num">Tiempo</th><th class="num">P1 · P2 · P3 · P4</th></tr></thead><tbody>' +
+        DB.historial.slice().reverse().map(x => '<tr><td>' + fmtFecha(x.f) + '</td><td class="num ' + (x.pts >= APROBADO ? 'pct-alto' : 'pct-bajo') + '">' + x.pts + '</td><td class="num">' + x.n + '</td><td class="num">' + fmtTiempo(x.dur) + '</td><td class="num">' +
+          [1, 2, 3, 4].map(p => (x.partes && x.partes[p] !== undefined ? x.partes[p] + '%' : '—')).join(' · ') + '</td></tr>').join('') +
+        '</tbody></table>';
+    }
+    h += '<div class="fila" style="margin-top:20px"><button class="btn peligro" data-act="reset">Borrar todo el progreso</button></div></section>';
+    app.innerHTML = h;
+  }
+
+  /* ── Acciones ──────────────────────────────────────────────── */
+  function cur() { return S && S.items[S.idx]; }
+  function editable(it) { return S && !S.terminada && it && !(S.modo !== 'sim' && it.comprobada); }
+  function salirDeSimulacro() {
+    return !(VISTA === 'quiz' && S && S.modo === 'sim') || confirm('El simulacro queda guardado, pero el tiempo sigue corriendo. ¿Salir?');
+  }
+
+  const ACCIONES = {
+    home: () => { if (salirDeSimulacro()) vistaInicio(); },
+    stats: () => { if (salirDeSimulacro()) vistaEstadisticas(); },
+    continuar: () => {
+      S = cargarSesion();
+      if (!S) { vistaInicio(); return; }
+      if (S.finEn && S.finEn <= Date.now()) { finalizar(true); return; }
+      vistaQuiz(true);
+    },
+    descartar: () => {
+      if (!confirm('¿Descartar la sesión en curso? Lo que respondiste en ella no se guardará.')) return;
+      localStorage.removeItem(KEY_SES);
+      S = null;
+      vistaInicio();
+    },
+    'sim-start': () => {
+      if (hayOtraSesion()) return;
+      const t = document.getElementById('sim-tam').value.split('|').map(Number);
+      DB.ultimoTam = t;
+      guardar();
+      crearSimulacro(t[0], t[1]);
+    },
+    'sim-otra': () => {
+      if (hayOtraSesion()) return;
+      const t = DB.ultimoTam || TAMANOS[0];
+      crearSimulacro(t[0], t[1]);
+    },
+    'prac-start': () => {
+      if (hayOtraSesion()) return;
+      const temas = new Set();
+      document.querySelectorAll('.sel-tema:checked').forEach(c => { const t = TEMAS[+c.value]; temas.add(t.p + '|' + t.t); });
+      if (!temas.size) { toast('Elige al menos un tema.'); return; }
+      crearPractica(temas, document.getElementById('prac-n').value, document.getElementById('prac-prio').checked);
+    },
+    'err-start': () => {
+      if (hayOtraSesion()) return;
+      crearRepasoErrores();
+    },
+    opt: b => {
+      const it = cur();
+      if (!editable(it)) return;
+      const q = it.q;
+      const oi = +b.dataset.oi;
+      if (q.tipo === 'unica') it.resp = oi;
+      else {
+        const i = it.resp.indexOf(oi);
+        if (i >= 0) it.resp.splice(i, 1);
+        else if (it.resp.length < q.c.length) it.resp.push(oi);
+        else { toast('Esta pregunta pide ' + q.c.length + ' respuestas. Quita una para elegir otra.'); return; }
+      }
+      guardarSesion();
+      vistaQuiz();
+    },
+    sino: b => {
+      const it = cur();
+      if (!editable(it)) return;
+      it.resp[+b.dataset.i] = +b.dataset.v;
+      guardarSesion();
+      vistaQuiz();
+    },
+    comprobar: () => {
+      const it = cur();
+      if (!editable(it) || !respondida(it)) return;
+      it.comprobada = true;
+      it.puntos = puntuar(it);
+      registrar(it.q, it.puntos === 1);
+      guardar();
+      guardarSesion();
+      vistaQuiz();
+    },
+    next: () => { if (S.idx < S.items.length - 1) { S.idx++; guardarSesion(); vistaQuiz(true); } },
+    prev: () => { if (S.idx > 0) { S.idx--; guardarSesion(); vistaQuiz(true); } },
+    ir: b => { S.idx = +b.dataset.i; guardarSesion(); vistaQuiz(true); },
+    marcar: () => { const it = cur(); it.marcada = !it.marcada; guardarSesion(); vistaQuiz(); },
+    terminar: () => {
+      if (S.modo === 'sim') {
+        const sinResp = S.items.filter(it => !respondida(it)).length;
+        const marcadas = S.items.filter(it => it.marcada).length;
+        let msg = '¿Terminar el simulacro y ver la puntuación?';
+        if (sinResp) msg += '\n\nTienes ' + sinResp + ' pregunta' + (sinResp === 1 ? '' : 's') + ' sin responder o incompleta' + (sinResp === 1 ? '' : 's') + '.';
+        if (marcadas) msg += '\nTienes ' + marcadas + ' marcada' + (marcadas === 1 ? '' : 's') + ' para revisar.';
+        if (!confirm(msg)) return;
+      }
+      finalizar(false);
+    },
+    salir: () => {
+      const comp = S.items.filter(it => it.comprobada).length;
+      if (!comp) {
+        if (!confirm('¿Salir sin responder ninguna pregunta?')) return;
+        S.terminada = true; guardarSesion(); S = null; vistaInicio();
+        return;
+      }
+      if (confirm('¿Terminar ahora? Verás el resultado de las ' + comp + ' preguntas que comprobaste.')) finalizar(false);
+    },
+    filtro: b => { FILTRO = b.dataset.f; vistaResultados(); },
+    reset: () => {
+      if (!confirm('¿Borrar todas las estadísticas, el historial de simulacros y la lista de errores? No se puede deshacer.')) return;
+      DB = { stats: {}, errores: {}, historial: [], ultimoTam: DB.ultimoTam };
+      guardar();
+      vistaEstadisticas();
+    }
+  };
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]');
+    if (!b || b.disabled || b.tagName === 'SELECT') return;
+    const fn = ACCIONES[b.dataset.act];
+    if (fn) fn(b, e);
+  });
+
+  document.addEventListener('change', e => {
+    const t = e.target;
+    if (t.classList.contains('sel-parte')) {
+      document.querySelectorAll('.sel-tema[data-p="' + t.value + '"]').forEach(c => { c.checked = t.checked; });
+      return;
+    }
+    if (t.classList.contains('sel-tema')) {
+      const todos = Array.from(document.querySelectorAll('.sel-tema[data-p="' + t.dataset.p + '"]'));
+      const marcados = todos.filter(c => c.checked).length;
+      const parte = document.querySelector('.sel-parte[value="' + t.dataset.p + '"]');
+      parte.checked = marcados > 0;
+      parte.indeterminate = marcados > 0 && marcados < todos.length;
+      return;
+    }
+    const it = cur();
+    if (!editable(it)) return;
+    if (t.dataset.act === 'hueco') {
+      it.resp = t.value === '' ? null : +t.value;
+      guardarSesion();
+      vistaQuiz();
+      const el = app.querySelector('select[data-act="hueco"]');
+      if (el) el.focus();
+    } else if (t.dataset.act === 'rel') {
+      const i = t.dataset.i;
+      it.resp[+i] = t.value === '' ? -1 : +t.value;
+      guardarSesion();
+      vistaQuiz();
+      const el = app.querySelector('select[data-act="rel"][data-i="' + i + '"]');
+      if (el) el.focus();
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (VISTA !== 'quiz' || !S || e.ctrlKey || e.metaKey || e.altKey) return;
+    const tag = e.target.tagName;
+    if (tag === 'SELECT' || tag === 'INPUT' || tag === 'TEXTAREA') return;
+    const it = cur();
+    const q = it.q;
+    const k = e.key.toLowerCase();
+    if ((q.tipo === 'unica' || q.tipo === 'multiple') && k.length === 1) {
+      let i = '123456789'.indexOf(k);
+      if (i < 0) i = 'abcdefghi'.indexOf(k);
+      if (i >= 0 && i < it.orden.length) {
+        e.preventDefault();
+        ACCIONES.opt({ dataset: { oi: it.orden[i] } });
+        return;
+      }
+    }
+    if (e.key === 'Enter') {
+      if (tag === 'BUTTON') return;
+      const btn = app.querySelector('.acciones .btn:not(.sec):not([disabled])');
+      if (btn) { e.preventDefault(); btn.click(); }
+    } else if (S.modo === 'sim' && e.key === 'ArrowRight') {
+      ACCIONES.next();
+    } else if (S.modo === 'sim' && e.key === 'ArrowLeft') {
+      ACCIONES.prev();
+    }
+  });
+
+  document.querySelectorAll('a[data-resumen]').forEach(a => { a.href = resumen(); });
+  vistaInicio();
+})();
+</script>
+</body>
+</html>

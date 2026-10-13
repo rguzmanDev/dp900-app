@@ -1,0 +1,3480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DP-900 · Microsoft Azure Data Fundamentals · Resumen completo · Blanco y negro</title>
+<style>
+  :root {
+    --navy: #0b3d6e;
+    --azul: #0f6cbd;
+    --azul-claro: #e8f1fb;
+    --cian: #50e6ff;
+    --verde: #107c10;
+    --naranja: #c55a11;
+    --rojo: #a4262c;
+    --ink: #1b1b1b;
+    --muted: #5c6378;
+    --line: #c9d6e3;
+    --soft: #f4f7fb;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    background: #dfe3ec;
+    color: var(--ink);
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 8.3pt;
+    line-height: 1.32;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Hoja carta horizontal ─────────────────────────────────────── */
+  .sheet {
+    width: 279.4mm;
+    height: 215.9mm;
+    margin: 18px auto;
+    padding: 10mm 12mm 15mm;
+    background: #fff;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sheet-footer {
+    position: absolute;
+    left: 12mm;
+    right: 12mm;
+    bottom: 6mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7pt;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    padding-top: 3px;
+  }
+
+  .sheet-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 2.5pt solid var(--azul);
+    padding-bottom: 4pt;
+    margin-bottom: 7pt;
+  }
+  .sheet-head .section-tag {
+    display: inline-block;
+    background: var(--azul);
+    color: #fff;
+    font-weight: 700;
+    font-size: 7pt;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 1.5pt 7pt;
+    border-radius: 10pt;
+    margin-bottom: 3pt;
+  }
+  .sheet-head h2 {
+    margin: 0;
+    font-size: 15pt;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .sheet-head a {
+    font-size: 7pt;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 6mm;
+  }
+  .col + .col {
+    border-left: 0.75pt solid var(--line);
+    padding-left: 6mm;
+    margin-left: -3mm;
+  }
+  .full { margin-bottom: 6pt; }
+
+  /* ── Portada ───────────────────────────────────────────────────── */
+  .cover {
+    background: linear-gradient(135deg, #0b3d6e 0%, #0f6cbd 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 22mm 15mm;
+  }
+  .cover .kicker {
+    font-size: 10pt;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--cian);
+    font-weight: 700;
+    margin-bottom: 4mm;
+  }
+  .cover h1 {
+    margin: 0 0 4mm;
+    font-size: 32pt;
+    line-height: 1.05;
+  }
+  .cover h1 span { color: var(--cian); }
+  .cover > p {
+    font-size: 11pt;
+    opacity: .85;
+    margin: 0 0 10mm;
+    max-width: 200mm;
+  }
+  .cover-mods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8mm;
+  }
+  .cover-mod {
+    border: 1.5px solid rgba(255, 255, 255, .35);
+    border-radius: 10pt;
+    padding: 5mm 6mm;
+  }
+  .cover-mod .n {
+    font-size: 8pt;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--cian);
+    font-weight: 700;
+  }
+  .cover-mod h3 {
+    margin: 1mm 0 2mm;
+    font-size: 13pt;
+    color: #fff;
+    border: none;
+    padding: 0;
+  }
+  .cover-mod ol {
+    margin: 0;
+    padding-left: 14pt;
+    font-size: 9pt;
+    opacity: .9;
+  }
+  .cover-mod ol li { margin-bottom: 1pt; }
+  .cover-mod .pg { font-size: 8pt; opacity: .7; margin-top: 2mm; }
+  .cover .sheet-footer {
+    color: rgba(255, 255, 255, .65);
+    border-top-color: rgba(255, 255, 255, .25);
+  }
+
+  /* ── Contenido ─────────────────────────────────────────────────── */
+  h3 {
+    font-size: 9.5pt;
+    color: var(--navy);
+    border-bottom: 1pt solid var(--azul);
+    margin: 8pt 0 4pt;
+    padding-bottom: 1.5pt;
+  }
+  .col > h3:first-child, .full > h3:first-child { margin-top: 0; }
+
+  h4 {
+    font-size: 8.5pt;
+    color: var(--azul);
+    margin: 6pt 0 2pt;
+    text-transform: uppercase;
+    letter-spacing: .2pt;
+  }
+  .col > h4:first-child { margin-top: 0; }
+
+  p { margin: 0 0 4pt; }
+
+  ul, ol { margin: 0 0 4pt; padding-left: 12pt; }
+  li { margin-bottom: 1.5pt; }
+  li ul { margin: 1pt 0 0; }
+
+  .tarjeta {
+    border: 0.75pt solid var(--line);
+    border-left: 3pt solid var(--azul);
+    border-radius: 2pt;
+    padding: 3pt 5pt;
+    margin-bottom: 5pt;
+    background: #fbfdff;
+  }
+  .tarjeta h4 { margin-top: 0; }
+  .tarjeta > :last-child { margin-bottom: 0; }
+
+  .nota {
+    background: var(--azul-claro);
+    border-radius: 2pt;
+    padding: 3pt 5pt;
+    margin: 4pt 0 5pt;
+    font-size: 7.8pt;
+  }
+  .nota.alerta { background: #fff4e5; border-left: 2.5pt solid var(--naranja); }
+  .nota.peligro { background: #fdecee; border-left: 2.5pt solid var(--rojo); }
+
+  .ej { color: var(--muted); font-style: italic; }
+  b.k { color: var(--navy); }
+
+  .tag {
+    display: inline-block;
+    font-size: 6.6pt;
+    font-weight: 600;
+    padding: 0 3pt;
+    border-radius: 6pt;
+    margin-right: 1pt;
+    white-space: nowrap;
+    vertical-align: 1px;
+  }
+  .tag.pk  { background: #fff4e5; color: var(--naranja); }
+  .tag.fk  { background: #e8f1fb; color: var(--navy); }
+  .tag.ddl { background: #e8f1fb; color: var(--navy); }
+  .tag.dcl { background: #fde7e9; color: var(--rojo); }
+  .tag.dml { background: #e3f1e3; color: var(--verde); }
+  .tag.iaas { background: #fde7e9; color: var(--rojo); }
+  .tag.paas { background: #e3f1e3; color: var(--verde); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.6pt;
+    margin-bottom: 5pt;
+  }
+  th, td {
+    border: 0.5pt solid var(--line);
+    padding: 1.5pt 3pt;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--azul-claro); color: var(--navy); }
+  table.mini { font-size: 6.8pt; }
+  table.mini td, table.mini th { padding: 1pt 2pt; }
+  table.cmp th:first-child, table.cmp td:first-child { width: 13%; }
+  table.cmp td:first-child { font-weight: 700; color: var(--navy); background: var(--soft); }
+  td.dup { background: #fff4e5; }
+
+  code, pre {
+    font-family: Consolas, "Courier New", monospace;
+  }
+  code {
+    font-size: 7.4pt;
+    background: var(--soft);
+    border: 0.5pt solid var(--line);
+    border-radius: 2pt;
+    padding: 0 2pt;
+  }
+  pre {
+    font-size: 7.2pt;
+    line-height: 1.3;
+    background: #f6f8fa;
+    border: 0.5pt solid var(--line);
+    border-left: 2.5pt solid var(--navy);
+    border-radius: 2pt;
+    padding: 3pt 5pt;
+    margin: 2pt 0 5pt;
+    white-space: pre;
+    overflow: hidden;
+  }
+  pre .kw { color: #0000c8; font-weight: 700; }
+  pre .s  { color: #a31515; }
+  pre .c  { color: #6a737d; font-style: italic; }
+
+  .esquema {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4pt;
+    margin: 3pt 0 5pt;
+  }
+  .ent {
+    border: 0.75pt solid var(--navy);
+    border-radius: 2pt;
+    font-size: 7.2pt;
+    background: #fff;
+  }
+  .ent b {
+    display: block;
+    background: var(--navy);
+    color: #fff;
+    padding: 1pt 4pt;
+  }
+  .ent div { padding: 0.5pt 4pt; border-top: 0.5pt solid var(--line); }
+
+  dl { margin: 0; }
+  dt { font-weight: 700; color: var(--navy); }
+  dd { margin: 0 0 3pt 8pt; }
+
+  /* ── Botón imprimir (solo en pantalla) ─────────────────────────── */
+  .print-btn {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    background: var(--azul);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+    z-index: 100;
+  }
+  .print-btn:hover { background: var(--navy); }
+  .print-hint {
+    position: fixed;
+    right: 22px;
+    bottom: 72px;
+    max-width: 260px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    line-height: 1.4;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+    z-index: 100;
+  }
+
+  @page { size: letter landscape; margin: 0; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet { margin: 0; box-shadow: none; break-after: page; }
+    .sheet:last-of-type { break-after: auto; }
+    .print-btn, .print-hint { display: none; }
+  }
+
+  /* ── Estilos de las partes 0, 2 y 3 ───────────────────────────── */
+  :root { --morado: #5c2e91; }
+  .nota.ok { background: #e3f1e3; border-left: 2.5pt solid var(--verde); }
+
+  .tag.dba { background: #fde7e9; color: #a4262c; }
+  .tag.ing { background: #e8f1fb; color: var(--navy); }
+  .tag.ana { background: #e3f1e3; color: var(--verde); }
+  .tag.ia  { background: #f1e8fb; color: var(--morado); }
+  .tag.dev { background: #fff4e5; color: var(--naranja); }
+  .tag.rec  { background: #e3f1e3; color: var(--verde); }
+  .tag.hot  { background: #fde7e9; color: var(--rojo); }
+  .tag.cool { background: #e8f1fb; color: var(--azul); }
+  .tag.cold { background: #dfe9f5; color: var(--navy); }
+  .tag.arch { background: #ebe8f0; color: #4a4560; }
+  .tag.fab { background: #e3f1e3; color: var(--verde); }
+  .tag.dbx { background: #fff4e5; color: var(--naranja); }
+  .tag.az  { background: #e8f1fb; color: var(--navy); }
+  .tag.nuevo { background: #fde7e9; color: var(--rojo); }
+
+  .tarjeta.fab { border-left-color: var(--verde); }
+  .tarjeta.dbx { border-left-color: var(--naranja); }
+  .tarjeta.rojo { border-left-color: var(--rojo); }
+  .tarjeta.morado { border-left-color: var(--morado); }
+
+  .p2 table.mini, .p3 table.mini { font-size: 7pt; }
+  .p2 table.mini td, .p2 table.mini th,
+  .p3 table.mini td, .p3 table.mini th { padding: 1pt 2.5pt; }
+
+  pre .p  { color: #0451a5; }
+  .lbl {
+    font-size: 6.5pt;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .nivel {
+    border: 0.75pt solid var(--navy);
+    border-radius: 3pt;
+    padding: 2pt 4pt 3pt;
+    background: #fff;
+    font-size: 7.4pt;
+  }
+  .nivel > b { color: var(--navy); }
+  .nivel .nivel { margin-top: 2pt; }
+  .nivel.n2 { background: #f4f8fd; }
+  .nivel.n3 { background: #e8f1fb; }
+  .nivel.n4 { background: #d6e7f8; }
+
+  .escala {
+    display: flex;
+    justify-content: space-between;
+    font-size: 6.8pt;
+    color: var(--muted);
+    margin: 1pt 0 1pt;
+  }
+  .barra {
+    height: 5pt;
+    border-radius: 3pt;
+    background: linear-gradient(90deg, var(--navy), var(--cian));
+    margin-bottom: 4pt;
+  }
+
+  .flujo { margin: 2pt 0 5pt; }
+  .paso {
+    display: flex;
+    gap: 5pt;
+    align-items: flex-start;
+    margin-bottom: 3pt;
+  }
+  .paso .num {
+    flex-shrink: 0;
+    width: 13pt;
+    height: 13pt;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-weight: 700;
+    font-size: 7pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1pt;
+  }
+  .paso.ia .num { background: var(--morado); }
+
+  .cadena {
+    display: flex;
+    align-items: stretch;
+    gap: 2pt;
+    margin: 3pt 0 5pt;
+    font-size: 7pt;
+    text-align: center;
+  }
+  .cadena div {
+    flex: 1;
+    border: 0.75pt solid var(--navy);
+    border-radius: 2pt;
+    padding: 2pt;
+    background: var(--azul-claro);
+  }
+  .cadena div b { display: block; color: var(--navy); }
+  .cadena span { align-self: center; color: var(--navy); font-weight: 700; }
+
+  .estrella {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3pt;
+    margin: 3pt 0 5pt;
+    font-size: 7pt;
+    text-align: center;
+  }
+  .estrella div {
+    border: 0.75pt solid var(--navy);
+    border-radius: 2pt;
+    padding: 2pt;
+    background: #fff;
+  }
+  .estrella .hecho { background: var(--navy); color: #fff; font-weight: 700; }
+  .estrella .dim { background: var(--azul-claro); color: var(--navy); font-weight: 600; }
+  .estrella .copo { background: #fff4e5; color: var(--naranja); border-style: dashed; }
+  .estrella .vacio { border: none; background: none; }
+
+  .p3.cover > p { margin: 0 0 9mm; max-width: 210mm; }
+  .p3 .cover-mods { grid-template-columns: repeat(3, 1fr); gap: 6mm; }
+  .p3 .cover-mod { padding: 4mm 5mm; }
+  .p3 .cover-mod h3 { font-size: 12pt; }
+  .p3 .cover-mod ol { font-size: 8.8pt; }
+
+  /* ── Portada general, guía y repaso ────────────────────────────── */
+  .cover .peso {
+    display: inline-block;
+    background: var(--cian);
+    color: var(--navy);
+    border-radius: 10pt;
+    padding: 0 6pt;
+    letter-spacing: .05em;
+  }
+  .general .cover-mods { grid-template-columns: repeat(4, 1fr); gap: 5mm; }
+  .general .cover-mod { padding: 4mm 4.5mm; }
+  .general .cover-mod h3 { font-size: 11.5pt; }
+  .general .cover-mod ol { font-size: 8.5pt; }
+  .general .cover-mod .pct { font-size: 20pt; font-weight: 700; color: var(--cian); line-height: 1; margin: 1mm 0 2mm; }
+  .general .extra { display: flex; gap: 5mm; margin-top: 6mm; font-size: 9pt; }
+  .general .extra div {
+    flex: 1;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 8pt;
+    padding: 3mm 4.5mm;
+  }
+  .general .extra b { color: var(--cian); }
+
+  table.check td:first-child { width: 10pt; text-align: center; color: var(--muted); }
+  table.check td:last-child, table.check th:last-child { width: 34pt; text-align: center; font-weight: 700; color: var(--navy); white-space: nowrap; }
+  table.check td.grupo { background: var(--soft); font-weight: 700; color: var(--navy); text-align: left; }
+  .peso-barra { display: flex; align-items: center; gap: 5pt; margin: 0 0 3pt; font-size: 7.6pt; }
+  .peso-barra span:first-child { width: 78pt; }
+  .peso-barra .b { height: 7pt; border-radius: 3pt; background: linear-gradient(90deg, var(--navy), var(--azul)); }
+  .peso-barra span:last-child { color: var(--muted); }
+
+  table.caso td:last-child { font-weight: 600; color: var(--navy); }
+  table.caso th:first-child { width: 58%; }
+
+  /* ══ Versión para impresión en blanco y negro ══════════════════════
+     Solo cambia colores; tamaños y márgenes son los de la versión a color.
+     Ningún texto depende de un fondo oscuro, así que también se lee bien
+     si se imprime sin "Gráficos de fondo". */
+  :root {
+    --navy: #000;
+    --azul: #000;
+    --azul-claro: #e9e9e9;
+    --cian: #000;
+    --verde: #000;
+    --naranja: #000;
+    --rojo: #000;
+    --morado: #000;
+    --ink: #000;
+    --muted: #444;
+    --line: #9a9a9a;
+    --soft: #f1f1f1;
+  }
+
+  /* Portadas: fondo blanco en lugar del degradado */
+  .cover { background: #fff; color: #000; }
+  .cover .kicker { color: #000; }
+  .cover h1 span { color: #000; font-weight: 400; }
+  .cover > p { opacity: 1; color: #222; }
+  .cover-mod { border-color: #000; }
+  .cover-mod .n { color: #000; }
+  .cover-mod h3 { color: #000; }
+  .cover-mod ol { opacity: 1; }
+  .cover-mod .pg { opacity: 1; color: #444; }
+  .cover .sheet-footer { color: #444; border-top-color: #9a9a9a; }
+  .cover .peso { background: #fff; color: #000; box-shadow: inset 0 0 0 1pt #000; }
+  .general .cover-mod .pct { color: #000; }
+  .general .extra div { background: #f1f1f1; box-shadow: inset 0 0 0 0.75pt #000; }
+  .general .extra b { color: #000; }
+
+  /* Encabezado de hoja */
+  .sheet-head .section-tag {
+    background: #fff;
+    color: #000;
+    border: 0.75pt solid #000;
+    padding: 0.75pt 6.25pt;
+  }
+
+  /* Bloques */
+  .tarjeta { background: #fff; border-color: #9a9a9a; border-left-color: #000; }
+  .tarjeta.dbx, .tarjeta.morado { border-left-color: #6a6a6a; }
+  .nota { background: #f1f1f1; }
+  .nota.alerta { background: #f1f1f1; border-left-color: #000; }
+  .nota.ok { background: #f7f7f7; border-left-color: #6a6a6a; }
+  .nota.peligro { background: #e2e2e2; border-left-color: #000; }
+
+  /* Etiquetas: contorno negro en lugar de color */
+  .tag, .tag[class] {
+    background: #fff !important;
+    color: #000 !important;
+    border: 0.5pt solid #000;
+    padding: 0 2.5pt;
+  }
+  .tag.nuevo { font-weight: 700; border-width: 0.5pt; text-decoration: underline; }
+
+  /* Tablas */
+  th { background: #e4e4e4; color: #000; }
+  td.dup { background: #e4e4e4; }
+
+  /* Código */
+  pre { background: #f4f4f4; }
+  pre .kw { color: #000; }
+  pre .s  { color: #333; }
+  pre .p  { color: #000; }
+  pre .c  { color: #666; }
+
+  /* Diagramas */
+  .estrella .hecho { background: #cfcfcf; color: #000; }
+  .estrella .dim { background: #f1f1f1; color: #000; }
+  .estrella .copo { background: #fff; color: #000; }
+  .cadena div { background: #f1f1f1; }
+  .paso .num, .paso.ia .num { background: #fff; color: #000; border: 1pt solid #000; }
+  .nivel.n2 { background: #fafafa; }
+  .nivel.n3 { background: #efefef; }
+  .nivel.n4 { background: #e2e2e2; }
+  .barra { background: linear-gradient(90deg, #000, #d0d0d0); border: 0.5pt solid #000; }
+  .peso-barra .b { background: #bdbdbd; border: 0.75pt solid #000; }
+</style>
+<style>
+  .app-nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--navy), var(--azul));
+    color: #fff;
+    font-size: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+  }
+  .app-nav a { color: #fff; text-decoration: none; }
+  .app-nav .marca { font-weight: 700; letter-spacing: .02em; }
+  .app-nav .marca span { color: #bdbdbd; }
+  .app-nav nav a {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255, 255, 255, .45);
+    border-radius: 20px;
+    font-size: 14px;
+  }
+  .app-nav nav a:hover { background: rgba(255, 255, 255, .15); }
+  .sheet { scroll-margin-top: 60px; }
+  @media print { .app-nav { display: none; } }
+</style>
+</head>
+<body>
+
+<header class="app-nav">
+  <a class="marca" href="index.html">DP-900 · <span>Resumen</span></a>
+  <nav>
+    <a href="index.html">Cuestionarios</a>
+    <a href="resumen.html" data-version>Color</a>
+  </nav>
+</header>
+
+<div class="print-hint">En el cuadro de impresión elige <b>Diseño: Horizontal</b>, <b>Tamaño: Carta</b>, <b>Márgenes: Ninguno</b> y activa <b>Gráficos de fondo</b> para ver los rellenos grises. <b>Color: Blanco y negro.</b></div>
+<button class="print-btn" onclick="window.print()">Imprimir / Guardar como PDF</button>
+
+<!-- ═══════════════════════════ PORTADA GENERAL ═══════════════════════════ -->
+<section class="sheet cover general">
+  <div class="kicker">Examen DP-900 · Resumen de estudio completo</div>
+  <h1>Microsoft Azure<br /><span>Data Fundamentals</span></h1>
+  <p>Las cuatro rutas de aprendizaje de Microsoft Learn resumidas en un solo documento, ordenadas según la guía de estudio vigente (habilidades medidas a partir del 21 de julio de 2026).</p>
+
+  <div class="cover-mods">
+    <div class="cover-mod">
+      <div class="n">Parte 1</div>
+      <div class="pct">25–30 %</div>
+      <h3>Conceptos básicos de datos</h3>
+      <ol>
+        <li>Formatos y almacenamiento</li>
+        <li>OLTP y análisis</li>
+        <li>Roles y servicios</li>
+      </ol>
+      <div class="pg">Hojas 3 a 7</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Parte 2</div>
+      <div class="pct">20–25 %</div>
+      <h3>Datos relacionales en Azure</h3>
+      <ol>
+        <li>Normalización y SQL</li>
+        <li>Objetos de BD</li>
+        <li>Azure SQL y código abierto</li>
+      </ol>
+      <div class="pg">Hojas 8 a 13</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Parte 3</div>
+      <div class="pct">15–20 %</div>
+      <h3>Datos no relacionales</h3>
+      <ol>
+        <li>Blob, Data Lake, Files, Table</li>
+        <li>Cosmos DB y sus API</li>
+        <li>¿Qué servicio uso?</li>
+      </ol>
+      <div class="pg">Hojas 14 a 19</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Parte 4</div>
+      <div class="pct">25–30 %</div>
+      <h3>Análisis en Azure</h3>
+      <ol>
+        <li>Fabric y Databricks</li>
+        <li>Lotes y tiempo real</li>
+        <li>Power BI</li>
+      </ol>
+      <div class="pg">Hojas 20 a 27</div>
+    </div>
+  </div>
+
+  <div class="extra">
+    <div><b>Hoja 2 · Guía de estudio:</b> cada habilidad que mide el examen y la hoja donde se explica.</div>
+    <div><b>Hojas 28 y 29 · Repaso final:</b> qué servicio de Azure usar en cada caso y las trampas típicas del examen.</div>
+  </div>
+
+  <div class="sheet-footer">
+    <span>learn.microsoft.com/credentials/certifications/azure-data-fundamentals</span>
+    <span>1</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ GUÍA DE ESTUDIO ═══════════════════════════ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Guía de estudio</span>
+      <h2>Qué mide el examen y dónde está en este resumen</h2>
+    </div>
+    <a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-900">learn.microsoft.com/credentials/certifications/resources/study-guides/dp-900</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Conceptos básicos de datos · 25–30 %</h3>
+      <table class="mini check">
+        <thead><tr><th></th><th>Habilidad</th><th>Hoja</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" class="grupo">Formas de representar los datos</td></tr>
+          <tr><td>☐</td><td>Datos estructurados, semiestructurados y no estructurados</td><td>4</td></tr>
+          <tr><td colspan="3" class="grupo">Opciones de almacenamiento</td></tr>
+          <tr><td>☐</td><td>Formatos comunes de archivos de datos</td><td>4</td></tr>
+          <tr><td>☐</td><td>Almacenes de datos comunes, incluidas las bases de datos</td><td>4</td></tr>
+          <tr><td>☐</td><td>Almacenes de Azure para casos de uso comunes <span class="tag nuevo">NUEVO</span></td><td>7, 19, 28</td></tr>
+          <tr><td colspan="3" class="grupo">Cargas de trabajo comunes</td></tr>
+          <tr><td>☐</td><td>Cargas transaccionales (OLTP, ACID)</td><td>4</td></tr>
+          <tr><td>☐</td><td>Cargas analíticas (data lake, warehouse, lakehouse)</td><td>5</td></tr>
+          <tr><td colspan="3" class="grupo">Roles y responsabilidades</td></tr>
+          <tr><td>☐</td><td>Administrador de BD, ingeniero de datos y analista de datos</td><td>6</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2. Datos relacionales en Azure · 20–25 %</h3>
+      <table class="mini check">
+        <thead><tr><th></th><th>Habilidad</th><th>Hoja</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" class="grupo">Conceptos relacionales</td></tr>
+          <tr><td>☐</td><td>Características de los datos relacionales</td><td>9</td></tr>
+          <tr><td>☐</td><td>Normalización y por qué se usa</td><td>9</td></tr>
+          <tr><td>☐</td><td>Instrucciones SQL comunes (DDL, DCL, DML)</td><td>10</td></tr>
+          <tr><td>☐</td><td>Objetos de BD comunes (vistas, procedimientos, índices)</td><td>11</td></tr>
+          <tr><td colspan="3" class="grupo">Servicios relacionales de Azure</td></tr>
+          <tr><td>☐</td><td>Familia Azure SQL: SQL Database, Managed Instance y SQL Server en VM</td><td>12, 13</td></tr>
+          <tr><td>☐</td><td>Servicios para BD de código abierto (MySQL, PostgreSQL)</td><td>13</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>3. Datos no relacionales · 15–20 %</h3>
+      <table class="mini check">
+        <thead><tr><th></th><th>Habilidad</th><th>Hoja</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" class="grupo">Capacidades de Azure Storage</td></tr>
+          <tr><td>☐</td><td>Azure Blob Storage (tipos, niveles, redundancia)</td><td>15</td></tr>
+          <tr><td>☐</td><td>Azure Files</td><td>16</td></tr>
+          <tr><td>☐</td><td>Azure Table Storage</td><td>16</td></tr>
+          <tr><td colspan="3" class="grupo">Azure Cosmos DB</td></tr>
+          <tr><td>☐</td><td>Casos de uso de Cosmos DB</td><td>17</td></tr>
+          <tr><td>☐</td><td>API de Cosmos DB</td><td>18</td></tr>
+        </tbody>
+      </table>
+
+      <h3>4. Carga de trabajo de análisis · 25–30 %</h3>
+      <table class="mini check">
+        <thead><tr><th></th><th>Habilidad</th><th>Hoja</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" class="grupo">Análisis a gran escala</td></tr>
+          <tr><td>☐</td><td>Consideraciones de ingesta y procesamiento</td><td>21, 22</td></tr>
+          <tr><td>☐</td><td>Opciones de almacenes de datos analíticos</td><td>23</td></tr>
+          <tr><td>☐</td><td>Servicios de Microsoft: Azure Databricks y Microsoft Fabric</td><td>21–23</td></tr>
+          <tr><td colspan="3" class="grupo">Análisis en tiempo real</td></tr>
+          <tr><td>☐</td><td>Diferencia entre datos por lotes y de streaming</td><td>24</td></tr>
+          <tr><td>☐</td><td>Servicios de Microsoft para análisis en tiempo real</td><td>25</td></tr>
+          <tr><td colspan="3" class="grupo">Visualización con Power BI</td></tr>
+          <tr><td>☐</td><td>Capacidades de Power BI</td><td>26</td></tr>
+          <tr><td>☐</td><td>Características de los modelos de datos</td><td>26</td></tr>
+          <tr><td>☐</td><td>Visualizaciones adecuadas para los datos</td><td>27</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nota">El repaso final (hojas 28 y 29) junta todo lo anterior en tablas de decisión y trampas típicas.</div>
+    </div>
+
+    <div class="col">
+      <h3>Peso de cada tema</h3>
+      <div class="peso-barra"><span>Conceptos básicos</span><span class="b" style="width:30%"></span><span>25–30 %</span></div>
+      <div class="peso-barra"><span>Datos relacionales</span><span class="b" style="width:25%"></span><span>20–25 %</span></div>
+      <div class="peso-barra"><span>No relacionales</span><span class="b" style="width:20%"></span><span>15–20 %</span></div>
+      <div class="peso-barra"><span>Análisis</span><span class="b" style="width:30%"></span><span>25–30 %</span></div>
+      <p class="ej">Conceptos básicos y análisis valen más de la mitad del examen: dales más tiempo de repaso.</p>
+
+      <h3>Datos del examen</h3>
+      <ul>
+        <li><b>Aprobación:</b> 700 puntos o más.</li>
+        <li><b>Sin requisitos previos.</b> Sirve como base para las certificaciones de administrador de BD e ingeniero de datos, pero no es obligatorio para ellas.</li>
+        <li>La mayoría de las preguntas son sobre funciones con <b>disponibilidad general</b>; puede haber de versión preliminar si son de uso común.</li>
+        <li>Si el examen no está en tu idioma, puedes pedir <b>30 minutos adicionales</b>.</li>
+      </ul>
+
+      <div class="nota alerta"><b>Versión de la guía:</b> la referencia es la guía en inglés (<b>21 de julio de 2026</b>). Las traducciones se actualizan unas 8 semanas después; la página en español puede mostrar todavía la versión de noviembre de 2024.</div>
+
+      <h3>Cambios de julio de 2026</h3>
+      <ul>
+        <li>Los cuatro temas y sus porcentajes no cambian.</li>
+        <li>Nuevo: <b>identificar almacenes de Azure para casos de uso comunes</b> (hoja 28).</li>
+        <li>Ajustes menores en representación de datos, Azure Storage (ahora dice "Azure Files") y análisis en tiempo real.</li>
+      </ul>
+
+      <h3>Antes del examen</h3>
+      <ul>
+        <li>Haz la <b>evaluación de práctica gratuita</b> de Microsoft Learn hasta superar el 80 %.</li>
+        <li>Prueba el <b>espacio aislado del examen</b> (aka.ms/examdemo) para conocer la interfaz.</li>
+        <li>Repasa las hojas 28 y 29 el día anterior.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Guía de estudio</span><span>2</span></div>
+</section>
+
+<!-- ═══════════════════════════ PARTE 1 · CONCEPTOS BÁSICOS ═══════════════════════════ -->
+<!-- ═══════════════════════════ PORTADA ═══════════════════════════ -->
+<section class="sheet p0 cover">
+  <div class="kicker">DP-900 · Parte 1 de 4 · <span class="peso">25–30 % del examen</span></div>
+  <h1>Introduction to Microsoft Azure Data:<br /><span>core data concepts</span></h1>
+  <p>Resumen de la ruta de aprendizaje de Microsoft Learn: tipos de datos, almacenamiento, bases de datos, procesamiento transaccional y analítico, roles profesionales y servicios de datos de Azure.</p>
+
+  <div class="cover-mods">
+    <div class="cover-mod">
+      <div class="n">Módulo 1</div>
+      <h3>Explorar conceptos básicos de datos</h3>
+      <ol>
+        <li>Formatos de datos</li>
+        <li>Almacenamiento de archivos</li>
+        <li>Bases de datos</li>
+        <li>Procesamiento transaccional (OLTP)</li>
+        <li>Procesamiento analítico</li>
+      </ol>
+      <div class="pg">Hojas 4 y 5 · incluye glosario</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Módulo 2</div>
+      <h3>Exploración de roles y servicios de datos</h3>
+      <ol>
+        <li>Roles de trabajo en el mundo de los datos</li>
+        <li>Servicios de datos en Azure</li>
+        <li>Referencia rápida: ¿qué servicio uso?</li>
+      </ol>
+      <div class="pg">Hojas 6 y 7 · incluye glosario</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer">
+    <span>learn.microsoft.com/training/paths/azure-data-fundamentals-explore-core-data-concepts</span>
+    <span>3</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p0">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Explorar conceptos básicos de datos</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-core-data-concepts/">learn.microsoft.com/training/modules/explore-core-data-concepts</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Formatos de datos</h3>
+      <p>Hoy es más fácil y barato recopilar y almacenar información. Los datos bien gestionados y analizados generan valor y mejoran la toma de decisiones.</p>
+      <p>Los datos se organizan en <b class="k">entidades</b> (objetos del mundo real, p. ej. un cliente) que tienen <b class="k">atributos</b> (características, p. ej. nombre o correo).</p>
+
+      <h4>Clasificación según su estructura</h4>
+      <ul>
+        <li><b>Estructurados:</b> esquema fijo; todas las instancias tienen los mismos campos. Tablas con filas y columnas. <span class="ej">Ej.: tabla de clientes en una BD relacional.</span></li>
+        <li><b>Semiestructurados:</b> tienen estructura, pero puede variar entre instancias (campos opcionales, listas, objetos anidados). Formato jerárquico. <span class="ej">Ej.: JSON.</span></li>
+        <li><b>No estructurados:</b> sin estructura definida. <span class="ej">Ej.: documentos, imágenes, audio, video, binarios.</span></li>
+      </ul>
+
+      <h3>2. Almacenamiento de archivos</h3>
+      <p>Cada vez se usa más el almacenamiento en la nube. El formato elegido depende de:</p>
+      <ul>
+        <li>El tipo de datos (estructurados, semi o no estructurados).</li>
+        <li>Las aplicaciones y servicios que leerán, escribirán y procesarán los datos.</li>
+        <li>Si deben ser legibles por personas o si se necesita optimizar almacenamiento y procesamiento.</li>
+      </ul>
+
+      <h4>Formatos comunes</h4>
+      <ul>
+        <li><b>Texto delimitado:</b> datos tabulares separados por un delimitador. Los más comunes: <b>CSV</b> (comas) y <b>TSV</b> (tabulaciones).</li>
+        <li><b>JSON</b> (JavaScript Object Notation): ligero y legible; esquema jerárquico de objetos con atributos. Ideal para intercambio entre aplicaciones y sistemas distribuidos.</li>
+        <li><b>XML</b> (Extensible Markup Language): usa etiquetas para elementos y atributos. Popular en los 90 y 2000; hoy desplazado en gran parte por JSON, aún presente en sistemas legacy.</li>
+        <li><b>BLOB</b> (Binary Large Object): todo archivo se guarda como binario, pero el término se usa para imágenes, audio, video y archivos propios de aplicaciones.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4 style="margin-top:0">Formatos optimizados</h4>
+      <ul>
+        <li><b>Avro:</b> <b class="k">orientado a filas</b> (Apache). Encabezado JSON con el esquema; datos en binario por bloques de registros. Bueno para serializar y transmitir.</li>
+        <li><b>ORC</b> (Optimized Row Columnar): <b class="k">columnar</b>, creado por Hortonworks para optimizar lecturas y escrituras en Apache Hive.</li>
+        <li><b>Parquet:</b> <b class="k">columnar</b> (Apache). Agrupa datos por columna: compresión eficiente y lectura solo de las columnas necesarias. Estándar de los lakehouses.</li>
+        <li><b>Delta Lake:</b> no es un formato nuevo, es una <b class="k">capa de tablas sobre Parquet</b> con un registro de transacciones (log). Permite ACID, control de versiones y actualizaciones confiables sobre un data lake. Creado por Databricks, código abierto.</li>
+      </ul>
+
+      <h3>3. Bases de datos</h3>
+      <p>Una base de datos es un sistema central donde se almacenan y consultan datos.</p>
+
+      <div class="tarjeta">
+        <h4>Relacionales</h4>
+        <p>Principalmente para datos <b>estructurados</b>.</p>
+        <ul>
+          <li>Tablas con filas y columnas; cada fila es una instancia de una entidad.</li>
+          <li>Cada fila se identifica con una <b>clave principal</b> (primary key).</li>
+          <li>Las tablas se relacionan mediante <b>claves foráneas</b> (foreign keys): permite normalizar y evitar duplicados.</li>
+          <li>Cada columna tiene un tipo de dato definido (esquema fijo).</li>
+          <li>Se consultan y administran con <b>SQL</b>.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4>No relacionales (NoSQL = "Not only SQL")</h4>
+        <p>Para datos <b>semiestructurados</b> y <b>no estructurados</b>.</p>
+        <ul>
+          <li>No imponen un esquema relacional ni estructura tabular fija.</li>
+          <li><b>Esquema flexible:</b> dos registros de la misma colección pueden tener campos distintos.</li>
+          <li>Cada registro se identifica con una clave única.</li>
+          <li>Cada motor tiene su propia API o lenguaje de consulta (NoSQL no es un lenguaje).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <h4 style="margin-top:0">Cuatro tipos NoSQL</h4>
+      <ul>
+        <li><b>Clave-valor:</b> clave única + valor en cualquier formato.</li>
+        <li><b>Documentos:</b> clave-valor donde el valor es un documento (normalmente JSON) consultable por sus campos.</li>
+        <li><b>Familias de columnas:</b> filas y columnas, con columnas agrupadas en familias relacionadas.</li>
+        <li><b>Grafos:</b> entidades como <b>nodos</b> y relaciones como <b>aristas</b>. Ideales cuando importan las relaciones <span class="ej">(redes sociales)</span>.</li>
+      </ul>
+
+      <h3>4. Procesamiento transaccional (OLTP)</h3>
+      <p>Un sistema transaccional registra <b>transacciones</b>: eventos concretos que la organización quiere rastrear (ventas, pagos, inventario...). Se conoce como <b>OLTP</b> (Online Transaction Processing).</p>
+      <ul>
+        <li>Bases optimizadas para lecturas y escrituras rápidas de registros individuales (<b>CRUD</b>: crear, leer, actualizar, eliminar).</li>
+        <li>Integridad y consistencia mediante las propiedades <b>ACID</b> (ver glosario).</li>
+        <li>Cargas operativas: muchas transacciones pequeñas, concurrentes y de alta disponibilidad.</li>
+      </ul>
+
+      <div class="tarjeta">
+        <h4>OLTP vs. analítico (OLAP)</h4>
+        <table>
+          <thead><tr><th></th><th>OLTP</th><th>Analítico</th></tr></thead>
+          <tbody>
+            <tr><td><b>Datos</b></td><td>Actuales, operativos</td><td>Históricos, agregados</td></tr>
+            <tr><td><b>Operación</b></td><td>Lectura y escritura (CRUD)</td><td>Lectura mayoritaria</td></tr>
+            <tr><td><b>Consultas</b></td><td>Muchas y pequeñas</td><td>Pocas y grandes</td></tr>
+            <tr><td><b>Ejemplo</b></td><td>Registrar una venta</td><td>Ventas por región y mes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 1: Conceptos básicos · Módulo 1</span><span>4</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p0">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Procesamiento analítico y glosario</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-core-data-concepts/">learn.microsoft.com/training/modules/explore-core-data-concepts</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>5. Procesamiento analítico</h3>
+      <p>Trabaja con grandes volúmenes de datos <b>históricos</b> para obtener métricas e información de negocio. Sistemas de solo lectura (o lectura mayoritaria).</p>
+
+      <h4>Arquitectura típica</h4>
+      <ol>
+        <li><b>Ingesta:</b> datos operativos (OLTP) a un data lake mediante:
+          <ul>
+            <li><b>ETL:</b> extraer → transformar → cargar.</li>
+            <li><b>ELT:</b> extraer → cargar → transformar (habitual en lakehouses).</li>
+          </ul>
+        </li>
+        <li><b>Modelado en tablas:</b> en un lakehouse (tablas sobre archivos del lago) o en un data warehouse (motor SQL relacional).</li>
+        <li><b>Agregación:</b> modelo OLAP, hoy <b>modelo semántico</b> (antes "cubo"). Las <b>medidas</b> de las tablas de hechos se calculan por <b>dimensiones</b>. <span class="ej">Ej.: ventas por fecha, cliente y producto.</span> Ejemplo más común: modelos semánticos de Power BI.</li>
+        <li><b>Consumo:</b> informes, visualizaciones y paneles.</li>
+      </ol>
+
+      <h4>Componentes</h4>
+      <ul>
+        <li><b>Data lake:</b> grandes volúmenes de archivos en su formato original.</li>
+        <li><b>Data warehouse:</b> esquema relacional optimizado para <b>lecturas</b>. Puede requerir <b>desnormalizar</b> datos del origen OLTP (duplicados a propósito para consultas más rápidas).</li>
+        <li><b>Data lakehouse:</b> almacenamiento flexible del lake + consultas relacionales del warehouse.</li>
+        <li><b>Modelo OLAP / semántico:</b> datos preagregados por dimensiones y niveles jerárquicos <span class="ej">(región → ciudad → dirección)</span>; consultas de resumen muy rápidas.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4 style="margin-top:0">Quién usa cada capa</h4>
+      <ul>
+        <li><b>Científicos de datos:</b> archivos del data lake, para explorar y crear modelos.</li>
+        <li><b>Analistas de datos:</b> tablas del data warehouse, para informes y visualizaciones complejas.</li>
+        <li><b>Usuarios de negocio:</b> datos preagregados del modelo semántico en informes y paneles.</li>
+      </ul>
+
+      <h4>Plataformas de análisis en Azure</h4>
+      <ul>
+        <li><b>Microsoft Fabric:</b> SaaS unificada: almacenamiento, ingeniería, data warehouse e informes en un área de trabajo.</li>
+        <li><b>Azure Databricks:</b> ingeniería y ciencia de datos a gran escala; usa Delta Lake.</li>
+        <li><b>Microsoft Purview:</b> gobernanza, seguridad y cumplimiento de datos en todos los orígenes.</li>
+        <li>Fabric y Databricks incluyen <b>Copilot</b> para explorar datos en lenguaje natural.</li>
+      </ul>
+
+      <div class="tarjeta">
+        <h4>Arquitectura medallón (lakehouse)</h4>
+        <ul>
+          <li><b>Bronze:</b> datos crudos, tal como llegan del origen.</li>
+          <li><b>Silver:</b> datos limpios y estandarizados (sin duplicados, tipos homogéneos).</li>
+          <li><b>Gold:</b> datos agregados y listos para el negocio, modelados para informes.</li>
+        </ul>
+        <p><b>Ventaja:</b> cada capa tiene un nivel de calidad claro y siempre se puede reprocesar desde Bronze si cambian los requisitos.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>Glosario · Módulo 1</h3>
+      <dl>
+        <dt>Datos</dt><dd>Colección de hechos (números, textos, imágenes...) que registran información.</dd>
+        <dt>Entidad / Atributo</dt><dd>Algo del mundo real representado con datos (cliente) / una de sus características (nombre).</dd>
+        <dt>Almacén de datos (data store)</dt><dd>Cualquier sistema que guarda datos: almacenes de archivos y bases de datos.
+          <div class="nota alerta">No confundir "almacén de datos" (data store) con "almacenamiento de datos" (data warehouse).</div></dd>
+        <dt>ACID</dt><dd>
+          <b>Atomicidad:</b> se ejecuta completa o no se ejecuta.<br />
+          <b>Consistencia:</b> de un estado válido a otro válido.<br />
+          <b>Aislamiento:</b> transacciones concurrentes no interfieren.<br />
+          <b>Durabilidad:</b> tras el commit, persiste aunque el sistema falle.
+        </dd>
+        <dt>OLTP</dt><dd>Muchas transacciones pequeñas en tiempo real; optimizado para lectura y escritura.</dd>
+        <dt>OLAP</dt><dd>Datos preagregados por dimensiones; optimizado para consultas analíticas.</dd>
+        <dt>ETL / ELT</dt><dd>Extraer, transformar y cargar / extraer, cargar y transformar en el destino.</dd>
+        <dt>Data lake</dt><dd>Repositorio de archivos en formato original (cualquier tipo de dato), a gran escala y bajo costo.</dd>
+        <dt>Data warehouse</dt><dd>BD relacional optimizada para lecturas y análisis de datos históricos.</dd>
+        <dt>Data lakehouse</dt><dd>Almacenamiento del data lake + consultas relacionales del warehouse.</dd>
+        <dt>Modelo semántico</dt><dd>Nombre actual del modelo OLAP (antes "cubo").</dd>
+        <dt>Tabla de hechos / dimensiones</dt><dd>Medidas numéricas (ventas) / entidades para agrupar o filtrar (fecha, cliente, producto).</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 1: Conceptos básicos · Módulo 1</span><span>5</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p0">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>Exploración de roles y servicios de datos</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-roles-responsibilities-world-of-data/">learn.microsoft.com/training/modules/explore-roles-responsibilities-world-of-data</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Roles de trabajo</h3>
+      <p>Hay roles orientados al negocio, a la ingeniería, a la investigación e híbridos. Cada organización puede nombrarlos distinto y una persona puede desempeñar varios.</p>
+      <p class="ej">Ej.: como DBA aprovisiona una BD transaccional y, como ingeniero de datos, crea la canalización que copia esos datos a un data warehouse.</p>
+
+      <div class="tarjeta">
+        <h4><span class="tag dba">DBA</span> Administrador de bases de datos</h4>
+        <ul>
+          <li>Diseña, implementa, mantiene y opera BD locales y en la nube.</li>
+          <li>Disponibilidad, rendimiento y optimización.</li>
+          <li>Copias de seguridad y recuperación ante desastres.</li>
+          <li>Seguridad: concede o deniega permisos.</li>
+          <li><i>IA:</i> diagnosticar rendimiento y escribir consultas en lenguaje natural.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4><span class="tag ing">ING</span> Ingeniero de datos</h4>
+        <ul>
+          <li>Canalizaciones de ingesta, limpieza y transformación; almacenes para análisis.</li>
+          <li>Trabaja con BD relacionales y no relacionales, archivos y streaming.</li>
+          <li>Privacidad de los datos desde el entorno local hasta la nube.</li>
+          <li>Administra y supervisa las canalizaciones.</li>
+          <li><i>IA:</i> generar código de transformación y sugerir configuraciones.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4><span class="tag ana">ANA</span> Analista de datos</h4>
+        <ul>
+          <li>Maximiza el valor de los datos de la empresa.</li>
+          <li>Explora tendencias y relaciones, diseña modelos analíticos, crea informes y visualizaciones.</li>
+          <li>Convierte datos crudos en información útil según el negocio.</li>
+          <li><i>IA:</i> resumir informes, sugerir visualizaciones, generar medidas DAX.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4><span class="tag ia">IA</span> Ingeniero de IA</h4>
+        <ul>
+          <li>Crea e integra funciones con IA en apps y flujos de datos.</li>
+          <li>Trabaja con LLM, canalizaciones de ML y orígenes de datos.</li>
+          <li>Escenarios: chat sobre los datos, generación de contenido, clasificación automática.</li>
+          <li>Colabora con ingenieros (preparan datos) y analistas (muestran resultados de IA).</li>
+          <li>Plataforma principal: <b>Microsoft Foundry</b>.</li>
+          <li>Diseño, evaluación e IA responsable siguen siendo tareas humanas.</li>
+        </ul>
+      </div>
+
+      <div class="nota">
+        <b>Otros roles</b> (no cubiertos): científico de datos, arquitecto de datos, desarrollador de aplicaciones, ingeniero de software.<br />
+        <b>Idea clave:</b> todos los roles usan IA como asistente, pero el criterio del profesional sigue siendo necesario.
+      </div>
+
+      <h3>2. Servicios de datos en Azure</h3>
+      <p>No hace falta memorizarlos todos: lo importante es saber <b>qué tipo de herramienta</b> es cada uno y <b>qué rol</b> la usa.</p>
+
+      <h4>Modelos de entrega en la nube</h4>
+      <ul>
+        <li><b>IaaS:</b> Microsoft da la VM; tú administras SO y software.</li>
+        <li><b>PaaS:</b> Microsoft administra infraestructura (servidores, parches, respaldos); tú te centras en datos y app.</li>
+        <li><b>SaaS:</b> producto completo listo para usar por internet.</li>
+      </ul>
+
+      <div class="tarjeta">
+        <h4>Azure SQL <span class="tag dba">DBA</span><span class="tag ing">ING</span><span class="tag ana">ANA</span></h4>
+        <p>Familia de BD relacionales basadas en SQL Server. De menos a más control (y administración):</p>
+        <ul>
+          <li><b>Azure SQL Database:</b> PaaS totalmente administrada.</li>
+          <li><b>SQL Managed Instance:</b> instancia de SQL Server con mantenimiento automatizado; más configurable, más responsabilidad.</li>
+          <li><b>SQL Server en VM</b> (IaaS): control y administración totales.</li>
+        </ul>
+        <p>DBA: BD de apps de línea de negocio (LOB). Ingeniero: <b>origen</b> de ETL. Analista: consulta directa (en empresas grandes se combina antes en un almacén analítico).</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>BD de código abierto <span class="tag dba">DBA</span><span class="tag ing">ING</span><span class="tag ana">ANA</span></h4>
+        <ul>
+          <li><b>Azure Database for MySQL:</b> fácil de usar; pila LAMP (Linux, Apache, MySQL, PHP).</li>
+          <li><b>Azure Database for PostgreSQL:</b> objeto-relacional; admite tipos de datos personalizados no relacionales.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Azure Cosmos DB <span class="tag dev">DEV</span><span class="tag dba">DBA</span><span class="tag ing">ING</span></h4>
+        <ul>
+          <li>BD <b>NoSQL de escala global</b> con varias API: documentos JSON, clave-valor, familias de columnas y grafos (los 4 tipos del módulo 1).</li>
+          <li>Normalmente la administran los <b>desarrolladores</b> como parte de la app.</li>
+          <li>Ingenieros la integran en soluciones analíticas.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Azure Storage <span class="tag ing">ING</span></h4>
+        <ul>
+          <li><b>Contenedores de blobs:</b> archivos binarios, escalable y barato.</li>
+          <li><b>Recursos compartidos de archivos:</b> carpetas de red.</li>
+          <li><b>Tablas:</b> clave-valor para lecturas y escrituras rápidas.</li>
+        </ul>
+        <p><b>Data lake</b> = blob storage + <b>espacio de nombres jerárquico</b> (carpetas en un sistema de archivos distribuido).</p>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Azure Data Factory <span class="tag ing">ING</span></h4>
+        <ul>
+          <li>Define y programa <b>canalizaciones</b> para mover y transformar datos (ETL).</li>
+          <li>Llena almacenes analíticos con datos transaccionales.</li>
+          <li><b>Fabric Data Factory:</b> versión dentro de Fabric; recomendada si todo vive en Fabric.</li>
+        </ul>
+      </div>
+
+      <p class="leyenda">
+        <span class="tag dba">DBA</span> Administrador de BD ·
+        <span class="tag ing">ING</span> Ingeniero de datos ·
+        <span class="tag ana">ANA</span> Analista ·
+        <span class="tag ia">IA</span> Ingeniero de IA ·
+        <span class="tag dev">DEV</span> Desarrollador
+      </p>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 1: Conceptos básicos · Módulo 2</span><span>6</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p0">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>Servicios de análisis, referencia rápida y glosario</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-roles-responsibilities-world-of-data/">learn.microsoft.com/training/modules/explore-roles-responsibilities-world-of-data</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Microsoft Fabric <span class="tag ing">ING</span><span class="tag ana">ANA</span></h4>
+        <ul>
+          <li>Plataforma de análisis unificada <b>SaaS</b>, en el navegador, sobre <b>OneLake</b>.</li>
+          <li>Sin servidores ni clústeres que administrar.</li>
+          <li>Incluye: Data Factory, Lakehouse, Warehouse, ciencia de datos/ML, Real-Time Intelligence, Power BI, BD (SQL y Cosmos DB) y gobernanza.</li>
+          <li>IA para crear canalizaciones, escribir SQL, generar código de cuadernos.</li>
+        </ul>
+        <p><b>Fabric IQ</b> (preliminar): da un <b>significado de negocio común</b> a los datos de OneLake (Cliente, Pedido, Producto) para que usuarios y agentes de IA pregunten en lenguaje natural.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Azure Databricks <span class="tag ing">ING</span><span class="tag ana">ANA</span></h4>
+        <ul>
+          <li>Plataforma de análisis basada en <b>Apache Spark</b>; usa <b>Delta Lake</b>.</li>
+          <li>Ingeniería a gran escala, ciencia de datos y SQL.</li>
+          <li>Servicio administrado dentro de la suscripción de Azure.</li>
+          <li>Para equipos que trabajan con código y <b>cuadernos</b>.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Power BI <span class="tag ana">ANA</span></h4>
+        <ul>
+          <li>Plataforma de <b>BI y visualización</b>: informes y paneles interactivos compartidos.</li>
+          <li>Independiente o integrado en Fabric.</li>
+          <li>Se conecta mediante <b>modelos semánticos</b> (medidas, relaciones, lógica de negocio).</li>
+          <li>IA: resume informes, sugiere visuales, genera DAX y narrativas.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Azure Stream Analytics <span class="tag ing">ING</span></h4>
+        <p>Procesa <b>flujos en tiempo real</b>: entrada → consulta → salida. Envía datos de streaming a un almacén analítico o a visualización en tiempo real.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Azure Data Explorer <span class="tag ana">ANA</span></h4>
+        <p>Análisis de alto rendimiento de datos con <b>marca de tiempo</b>: logs y telemetría IoT.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Microsoft Purview <span class="tag ing">ING</span></h4>
+        <p><b>Gobernanza</b> y descubrimiento de datos: crea un <b>mapa de datos</b> y rastrea el <b>linaje</b> para encontrar datos confiables.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Microsoft Foundry <span class="tag ia">IA</span><span class="tag dev">DEV</span></h4>
+        <p>PaaS para desarrollar soluciones de IA: modelos, herramientas e infraestructura para apps de chat sobre datos, flujos multiagente y canalizaciones de IA.</p>
+      </div>
+
+      <h3>Referencia rápida: ¿qué servicio uso?</h3>
+      <table>
+        <thead><tr><th>Necesito...</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>SQL Server sin administrar servidores</td><td>Azure SQL Database</td></tr>
+          <tr><td>Compatibilidad casi total con SQL Server local</td><td>SQL Managed Instance</td></tr>
+          <tr><td>Control total del servidor SQL</td><td>SQL Server en VM</td></tr>
+          <tr><td>Relacional open source</td><td>Azure DB for MySQL / PostgreSQL</td></tr>
+          <tr><td>NoSQL global (documentos, grafos...)</td><td>Azure Cosmos DB</td></tr>
+          <tr><td>Archivos o data lake</td><td>Azure Storage</td></tr>
+          <tr><td>Mover y transformar datos (ETL)</td><td>Azure Data Factory</td></tr>
+          <tr><td>Todo el análisis en una plataforma SaaS</td><td>Microsoft Fabric</td></tr>
+          <tr><td>Spark, código y cuadernos</td><td>Azure Databricks</td></tr>
+          <tr><td>Informes y paneles</td><td>Power BI</td></tr>
+          <tr><td>Datos en tiempo real</td><td>Azure Stream Analytics</td></tr>
+          <tr><td>Logs y telemetría</td><td>Azure Data Explorer</td></tr>
+          <tr><td>Gobernanza, catálogo y linaje</td><td>Microsoft Purview</td></tr>
+          <tr><td>Crear aplicaciones de IA</td><td>Microsoft Foundry</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Glosario · Módulo 2</h3>
+      <dl>
+        <dt>IaaS / PaaS / SaaS</dt><dd>Modelos de entrega en la nube, de más a menos administración por parte del cliente.</dd>
+        <dt>Aplicación de línea de negocio (LOB)</dt><dd>App crítica para la operación diaria (ventas, facturación, inventario).</dd>
+        <dt>Canalización (pipeline)</dt><dd>Proceso automatizado que mueve y transforma datos de un origen a un destino.</dd>
+        <dt>Streaming</dt><dd>Datos que llegan de forma continua y se procesan en tiempo real.</dd>
+        <dt>Telemetría</dt><dd>Datos periódicos de dispositivos o sistemas, con marca de tiempo (sensores IoT).</dd>
+        <dt>Espacio de nombres jerárquico</dt><dd>Organización de blobs en carpetas; convierte un blob storage en data lake.</dd>
+        <dt>OneLake</dt><dd>Capa de almacenamiento única y compartida de Microsoft Fabric.</dd>
+        <dt>Apache Spark</dt><dd>Motor de procesamiento distribuido de grandes volúmenes; base de Databricks.</dd>
+        <dt>Cuaderno (notebook)</dt><dd>Documento interactivo que combina código, resultados y texto.</dd>
+        <dt>DAX</dt><dd>Data Analysis Expressions: lenguaje de fórmulas para medidas en Power BI.</dd>
+        <dt>LLM</dt><dd>Large Language Model: IA entrenada con mucho texto para comprender y generar lenguaje humano.</dd>
+        <dt>Gobernanza de datos</dt><dd>Políticas y controles para que los datos sean seguros, de calidad y bien usados.</dd>
+        <dt>Linaje de datos</dt><dd>Rastro del origen de un dato y de todas sus transformaciones.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 1: Conceptos básicos · Módulo 2</span><span>7</span></div>
+</section>
+
+<!-- ═══════════════════════════ PARTE 2 · DATOS RELACIONALES ═══════════════════════════ -->
+<!-- ═══════════════════════════ PORTADA ═══════════════════════════ -->
+<section class="sheet p1 cover">
+  <div class="kicker">DP-900 · Parte 2 de 4 · <span class="peso">20–25 % del examen</span></div>
+  <h1>Introduction to Microsoft Azure Data:<br /><span>relational data in Azure</span></h1>
+  <p>Resumen de la ruta de aprendizaje de Microsoft Learn: modelo relacional, normalización, lenguaje SQL, objetos de base de datos y los servicios de Azure para bases de datos relacionales (Azure SQL, MySQL y PostgreSQL).</p>
+
+  <div class="cover-mods">
+    <div class="cover-mod">
+      <div class="n">Módulo 1</div>
+      <h3>Conceptos fundamentales de datos relacionales</h3>
+      <ol>
+        <li>Datos relacionales</li>
+        <li>Normalización</li>
+        <li>SQL: dialectos y tipos de instrucciones (DDL, DCL, DML)</li>
+        <li>Objetos: vistas, procedimientos almacenados e índices</li>
+      </ol>
+      <div class="pg">Hojas 9 a 11 · incluye glosario</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Módulo 2</div>
+      <h3>Servicios de bases de datos relacionales en Azure</h3>
+      <ol>
+        <li>Familia Azure SQL: VM, Managed Instance y SQL Database</li>
+        <li>Comparación y casos de uso</li>
+        <li>Azure Database for MySQL y PostgreSQL</li>
+      </ol>
+      <div class="pg">Hojas 12 y 13 · incluye glosario</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer">
+    <span>learn.microsoft.com/training/paths/azure-data-fundamentals-explore-relational-data</span>
+    <span>8</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p1">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Datos relacionales, normalización y SQL</h2>
+    </div>
+    <a href="https://learn.microsoft.com/en-us/training/modules/explore-relational-data-offerings/">learn.microsoft.com/training/modules/explore-relational-data-offerings</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Datos relacionales</h3>
+      <ul>
+        <li>Las <b>entidades</b> del mundo real (objetos y eventos importantes) se modelan como <b>tablas</b>. <span class="ej">Ej. tienda: clientes, productos, pedidos y líneas de pedido.</span></li>
+        <li>Cada <b>fila</b> es una sola instancia de la entidad <span class="ej">(un cliente, un producto, un pedido)</span>.</li>
+        <li>Son datos <b>estructurados</b>: todas las filas tienen las mismas columnas.</li>
+        <li>Una columna puede quedar vacía: valor <b>NULL</b>. <span class="ej">Ej.: <code>MiddleName</code> de un cliente sin segundo nombre.</span></li>
+      </ul>
+
+      <h4>Tipos de datos</h4>
+      <p>Cada columna guarda un <b>tipo de dato</b> específico:</p>
+      <ul>
+        <li>Texto (longitud fija o variable): <code>Email</code></li>
+        <li>Decimal: <code>Price</code></li>
+        <li>Entero: <code>Quantity</code></li>
+        <li>Fecha y hora: <code>OrderDate</code></li>
+      </ul>
+      <p>Los tipos disponibles dependen del sistema, pero la mayoría admite los tipos estándar de <b>ANSI</b>.</p>
+
+      <h3>2. Normalización</h3>
+      <p>Proceso de diseño del esquema que <b>minimiza la duplicación</b> y <b>asegura la integridad</b> de los datos. Definición práctica:</p>
+      <ol>
+        <li>Cada <b>entidad</b> en su propia tabla.</li>
+        <li>Cada <b>atributo</b> discreto en su propia columna.</li>
+        <li>Cada fila identificada con una <b>clave principal</b> (PK).</li>
+        <li>Entidades relacionadas vinculadas con <b>claves foráneas</b> (FK).</li>
+      </ol>
+
+      <div class="tarjeta">
+        <h4>Ventajas</h4>
+        <ul>
+          <li><b>Sin duplicados:</b> para cambiar la dirección de un cliente se modifica una sola fila.</li>
+          <li><b>Tipos correctos:</b> precios decimales, cantidades enteras.</li>
+          <li><b>Granularidad:</b> se puede filtrar fácilmente, p. ej. clientes de una ciudad.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <h4>Antes: hoja de cálculo sin normalizar</h4>
+      <table class="mini">
+        <thead><tr><th>Pedido</th><th>Cliente</th><th>Dirección</th><th>Producto</th><th>Precio</th><th>Cant.</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="dup">Jane Smith</td><td class="dup">42 Oak St. Seattle</td><td>Widget A</td><td>9.99</td><td>2</td></tr>
+          <tr><td>1</td><td class="dup">Jane Smith</td><td class="dup">42 Oak St. Seattle</td><td>Widget B</td><td>4.49</td><td>1</td></tr>
+          <tr><td>2</td><td>Bob Jones</td><td>18 Pine Ave Portland</td><td>Widget A</td><td>9.99</td><td>5</td></tr>
+          <tr><td>2</td><td>Bob Jones</td><td>18 Pine Ave Portland</td><td>Gadget X</td><td>24.99</td><td>1</td></tr>
+          <tr><td>3</td><td class="dup">Jane Smith</td><td class="dup">42 Oak St. Seattle</td><td>Gadget X</td><td>24.99</td><td>3</td></tr>
+        </tbody>
+      </table>
+      <p class="ej">Problemas: cliente y producto se repiten en cada línea; calle y ciudad están en la misma celda.</p>
+
+      <h4>Después: esquema normalizado</h4>
+      <div class="esquema">
+        <div class="ent"><b>Customer</b>
+          <div><span class="tag pk">PK</span> ID</div><div>Name</div><div>Address</div><div>City</div>
+        </div>
+        <div class="ent"><b>Product</b>
+          <div><span class="tag pk">PK</span> ID</div><div>Name</div><div>Price</div>
+        </div>
+        <div class="ent"><b>Order</b>
+          <div><span class="tag pk">PK</span> OrderNo</div><div>OrderDate</div><div><span class="tag fk">FK</span> Customer</div>
+        </div>
+        <div class="ent"><b>LineItem</b>
+          <div><span class="tag pk">PK</span><span class="tag fk">FK</span> OrderNo</div><div><span class="tag pk">PK</span> ItemNo</div><div><span class="tag fk">FK</span> Product</div><div>Quantity</div>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Claves</h4>
+        <ul>
+          <li><b>Clave principal (PK):</b> identifica de forma única cada fila.</li>
+          <li><b>Clave foránea (FK):</b> guarda la PK de la entidad relacionada <span class="ej">(el pedido guarda el ID del cliente)</span>.</li>
+          <li><b>Integridad referencial:</b> el RDBMS impide FK sin una PK existente <span class="ej">(no hay pedidos de clientes inexistentes)</span>.</li>
+          <li><b>Clave compuesta:</b> combinación única de varias columnas <span class="ej">(LineItem: OrderNo + ItemNo)</span>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>3. SQL (Structured Query Language)</h3>
+      <ul>
+        <li>Lenguaje <b>estándar</b> para comunicarse con bases de datos relacionales: consultar, insertar, actualizar, etc.</li>
+        <li>Lo usan SQL Server, Azure SQL Database, SQL Managed Instance, SQL Server en VM, MySQL, PostgreSQL y Oracle.</li>
+        <li>Estandarizado por <b>ANSI (1986)</b> e <b>ISO (1987)</b>; ampliado varias veces desde entonces.</li>
+        <li>Cada proveedor agrega <b>extensiones propietarias</b> (seguridad, procedimientos almacenados, desencadenadores, cuentas de usuario), de ahí los <b>dialectos</b>.</li>
+      </ul>
+
+      <h4>Dialectos populares</h4>
+      <table>
+        <thead><tr><th>Dialecto</th><th>Lo usa</th></tr></thead>
+        <tbody>
+          <tr><td><b>T-SQL</b> (Transact-SQL)</td><td>SQL Server, Azure SQL Database, SQL Managed Instance, SQL Server en VM</td></tr>
+          <tr><td><b>pgSQL</b> (PL/pgSQL)</td><td>PostgreSQL</td></tr>
+          <tr><td><b>PL/SQL</b> (Procedural Language/SQL)</td><td>Oracle</td></tr>
+        </tbody>
+      </table>
+      <p>Si trabajarás con un solo sistema, conviene aprender su dialecto. Azure SQL Database incluye IA para escribir y entender consultas en lenguaje natural.</p>
+
+      <h4>Tipos de instrucciones SQL</h4>
+      <table>
+        <thead><tr><th>Grupo</th><th>Para qué</th><th>Instrucciones</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag ddl">DDL</span><br />Definición</td><td>Crear, modificar y quitar <b>objetos</b> (tablas, vistas, procedimientos...)</td><td><code>CREATE</code> <code>ALTER</code> <code>DROP</code> <code>RENAME</code></td></tr>
+          <tr><td><span class="tag dcl">DCL</span><br />Control</td><td>Administrar <b>permisos</b> de usuarios o grupos</td><td><code>GRANT</code> <code>DENY</code> <code>REVOKE</code></td></tr>
+          <tr><td><span class="tag dml">DML</span><br />Manipulación</td><td>Consultar y modificar las <b>filas</b></td><td><code>SELECT</code> <code>INSERT</code> <code>UPDATE</code> <code>DELETE</code></td></tr>
+        </tbody>
+      </table>
+      <div class="nota">Truco para recordarlos: <b>D</b>efinición = estructura, <b>C</b>ontrol = permisos, <b>M</b>anipulación = datos.</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 2: Datos relacionales · Módulo 1</span><span>9</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p1">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Instrucciones SQL: DDL, DCL y DML</h2>
+    </div>
+    <a href="https://learn.microsoft.com/en-us/training/modules/explore-relational-data-offerings/">learn.microsoft.com/training/modules/explore-relational-data-offerings</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3><span class="tag ddl">DDL</span> Lenguaje de definición de datos</h3>
+      <table>
+        <tbody>
+          <tr><td><code>CREATE</code></td><td>Crea un objeto nuevo (tabla, vista...).</td></tr>
+          <tr><td><code>ALTER</code></td><td>Modifica su estructura (p. ej. agregar una columna).</td></tr>
+          <tr><td><code>DROP</code></td><td>Quita un objeto de la base de datos.</td></tr>
+          <tr><td><code>RENAME</code></td><td>Cambia el nombre de un objeto.</td></tr>
+        </tbody>
+      </table>
+      <div class="nota peligro"><b>DROP</b> es muy potente: al eliminar una tabla se pierden todas sus filas. Sin copia de seguridad no se pueden recuperar.</div>
+
+      <h4>Ejemplo: crear una tabla</h4>
+<pre><span class="kw">CREATE TABLE</span> Product
+(
+    ID    <span class="kw">INT PRIMARY KEY</span>,
+    Name  <span class="kw">VARCHAR</span>(20) <span class="kw">NOT NULL</span>,
+    Price <span class="kw">DECIMAL NULL</span>
+);</pre>
+      <ul>
+        <li><code>PRIMARY KEY</code>: identifica cada fila. Toda tabla <b>debería</b> tener una, aunque SQL no lo exige.</li>
+        <li><code>NOT NULL</code>: columna <b>obligatoria</b>. Sin esa cláusula, la columna puede quedar vacía (NULL).</li>
+        <li>Tipos comunes: <code>INT</code> (entero), <code>DECIMAL</code> (decimal), <code>VARCHAR</code> (texto de longitud variable). Varían según el sistema.</li>
+      </ul>
+
+      <h3><span class="tag dcl">DCL</span> Lenguaje de control de datos</h3>
+      <p>Lo usan sobre todo los <b>DBA</b> para administrar el acceso a los objetos.</p>
+      <table>
+        <tbody>
+          <tr><td><code>GRANT</code></td><td>Concede permiso para una acción.</td></tr>
+          <tr><td><code>DENY</code></td><td>Deniega permiso para una acción.</td></tr>
+          <tr><td><code>REVOKE</code></td><td>Quita un permiso concedido antes.</td></tr>
+        </tbody>
+      </table>
+<pre><span class="kw">GRANT SELECT</span>, <span class="kw">INSERT</span>, <span class="kw">UPDATE</span>
+<span class="kw">ON</span> Product
+<span class="kw">TO</span> user1;</pre>
+      <p class="ej">user1 puede leer, insertar y modificar datos en Product.</p>
+    </div>
+
+    <div class="col">
+      <h3><span class="tag dml">DML</span> Lenguaje de manipulación de datos</h3>
+      <table>
+        <tbody>
+          <tr><td><code>SELECT</code></td><td>Lee filas de una tabla.</td></tr>
+          <tr><td><code>INSERT</code></td><td>Inserta filas nuevas.</td></tr>
+          <tr><td><code>UPDATE</code></td><td>Modifica filas existentes.</td></tr>
+          <tr><td><code>DELETE</code></td><td>Elimina filas existentes.</td></tr>
+        </tbody>
+      </table>
+      <p>Por defecto, <code>SELECT</code>, <code>UPDATE</code> y <code>DELETE</code> afectan a <b>todas</b> las filas. La cláusula <code>WHERE</code> limita las filas afectadas.</p>
+      <div class="nota peligro">SQL <b>no pide confirmación</b>. Un <code>UPDATE</code> o <code>DELETE</code> sin <code>WHERE</code> modifica o borra <b>toda la tabla</b>.</div>
+
+      <h4>SELECT: consultar</h4>
+<pre><span class="c">-- Todas las columnas (*) de clientes de Seattle</span>
+<span class="kw">SELECT</span> *
+<span class="kw">FROM</span> Customer
+<span class="kw">WHERE</span> City = <span class="s">'Seattle'</span>;
+
+<span class="c">-- Solo algunas columnas, ordenadas</span>
+<span class="kw">SELECT</span> FirstName, LastName, Address, City
+<span class="kw">FROM</span> Customer
+<span class="kw">WHERE</span> City = <span class="s">'Seattle'</span>
+<span class="kw">ORDER BY</span> LastName;</pre>
+      <p>Sin <code>ORDER BY</code>, las filas no salen en ningún orden garantizado.</p>
+
+      <h4>JOIN: combinar tablas</h4>
+<pre><span class="kw">SELECT</span> o.OrderNo, o.OrderDate, c.Address, c.City
+<span class="kw">FROM</span> Order <span class="kw">AS</span> o
+<span class="kw">JOIN</span> Customer <span class="kw">AS</span> c
+<span class="kw">ON</span> o.Customer = c.ID;</pre>
+      <ul>
+        <li>La condición del <code>JOIN</code> suele emparejar una <b>FK</b> con su <b>PK</b>.</li>
+        <li><code>o</code> y <code>c</code> son <b>alias</b> de tabla para abreviar.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>UPDATE: modificar</h4>
+<pre><span class="kw">UPDATE</span> Customer
+<span class="kw">SET</span> Address = <span class="s">'123 High St.'</span>
+<span class="kw">WHERE</span> ID = 1;</pre>
+      <p class="ej">Solo cambia la fila con ID = 1; las demás quedan igual.</p>
+
+      <h4>DELETE: eliminar</h4>
+<pre><span class="kw">DELETE FROM</span> Product
+<span class="kw">WHERE</span> ID = 162;</pre>
+
+      <h4>INSERT: insertar</h4>
+<pre><span class="kw">INSERT INTO</span> Product(ID, Name, Price)
+<span class="kw">VALUES</span> (99, <span class="s">'Drill'</span>, 4.99);</pre>
+      <ul>
+        <li>Se indican la tabla y las columnas (<code>INTO</code>) y los valores (<code>VALUES</code>).</li>
+        <li>El SQL estándar inserta <b>una fila a la vez</b>; algunos dialectos permiten varias listas de <code>VALUES</code>.</li>
+      </ul>
+
+      <div class="tarjeta">
+        <h4>Resumen de sintaxis</h4>
+        <table class="mini">
+          <tbody>
+            <tr><td><code>SELECT</code></td><td><code>SELECT cols FROM tabla WHERE ... ORDER BY ...</code></td></tr>
+            <tr><td><code>INSERT</code></td><td><code>INSERT INTO tabla(cols) VALUES (...)</code></td></tr>
+            <tr><td><code>UPDATE</code></td><td><code>UPDATE tabla SET col = valor WHERE ...</code></td></tr>
+            <tr><td><code>DELETE</code></td><td><code>DELETE FROM tabla WHERE ...</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="nota">Los ejemplos del módulo usan <b>T-SQL</b>. En otros dialectos la sintaxis es parecida, pero puede variar en detalles.</div>
+      <div class="nota alerta"><code>Order</code> es una palabra reservada en SQL. En una base real, una tabla con ese nombre se escribe entre corchetes: <code>[Order]</code>.</div>
+      <p class="ej">Para profundizar: ruta "Introducción a las consultas con Transact-SQL" en Microsoft Learn.</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 2: Datos relacionales · Módulo 1</span><span>10</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 3 ═══════════════════════════ -->
+<section class="sheet p1">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Objetos de base de datos y glosario</h2>
+    </div>
+    <a href="https://learn.microsoft.com/en-us/training/modules/explore-relational-data-offerings/">learn.microsoft.com/training/modules/explore-relational-data-offerings</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>4. Objetos de base de datos</h3>
+      <p>Además de tablas, una BD relacional tiene estructuras que <b>organizan</b> los datos, <b>encapsulan</b> acciones y <b>aceleran</b> el acceso.</p>
+
+      <div class="tarjeta">
+        <h4>Vista</h4>
+        <p><b>Tabla virtual</b> basada en el resultado de un <code>SELECT</code>: una "ventana" a filas de una o varias tablas.</p>
+<pre><span class="kw">CREATE VIEW</span> Deliveries
+<span class="kw">AS</span>
+<span class="kw">SELECT</span> o.OrderNo, o.OrderDate,
+       c.FirstName, c.LastName,
+       c.Address, c.City
+<span class="kw">FROM</span> Order <span class="kw">AS</span> o <span class="kw">JOIN</span> Customer <span class="kw">AS</span> c
+<span class="kw">ON</span> o.Customer = c.ID;</pre>
+        <p>Se consulta y filtra igual que una tabla:</p>
+<pre><span class="kw">SELECT</span> OrderNo, OrderDate, LastName, Address
+<span class="kw">FROM</span> Deliveries
+<span class="kw">WHERE</span> City = <span class="s">'Seattle'</span>;</pre>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Procedimiento almacenado</h4>
+        <p>Instrucciones SQL guardadas que se <b>ejecutan a petición</b>. Encapsulan la lógica que las aplicaciones necesitan; pueden recibir <b>parámetros</b>.</p>
+<pre><span class="kw">CREATE PROCEDURE</span> RenameProduct
+    @ProductID <span class="kw">INT</span>,
+    @NewName   <span class="kw">VARCHAR</span>(20)
+<span class="kw">AS</span>
+<span class="kw">UPDATE</span> Product
+<span class="kw">SET</span> Name = @NewName
+<span class="kw">WHERE</span> ID = @ProductID;</pre>
+        <p>Se ejecuta con <code>EXEC</code>:</p>
+<pre><span class="kw">EXEC</span> RenameProduct 201, <span class="s">'Spanner'</span>;</pre>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Índice</h4>
+        <p>Ayuda a <b>buscar datos más rápido</b>, como el índice al final de un libro: entradas ordenadas que apuntan a la página correcta, sin leer todo el libro.</p>
+        <ul>
+          <li>Se crea sobre una <b>columna</b>: guarda una copia ordenada de esos valores con punteros a las filas.</li>
+          <li>Si una consulta filtra por esa columna en el <code>WHERE</code>, el sistema usa el índice en vez de recorrer la tabla fila por fila.</li>
+          <li>Internamente es una <b>estructura de árbol</b> que usa el optimizador de consultas.</li>
+        </ul>
+<pre><span class="kw">CREATE INDEX</span> idx_ProductName
+<span class="kw">ON</span> Product(Name);</pre>
+        <p><b>Cuándo sí y cuándo no:</b></p>
+        <ul>
+          <li>En tablas con <b>pocas filas</b> no aporta: el optimizador lo ignora y lee la tabla completa.</li>
+          <li>En tablas con <b>muchas filas</b> mejora mucho las consultas.</li>
+          <li>Una tabla puede tener <b>varios índices</b> <span class="ej">(p. ej. otro sobre Price)</span>.</li>
+        </ul>
+        <div class="nota alerta"><b>Costo:</b> ocupan almacenamiento y hay que mantenerlos en cada <code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code>, lo que vuelve más lentas esas operaciones. Hay que equilibrar la velocidad de las consultas con el costo de las escrituras.</div>
+      </div>
+
+      <h4>Comparación rápida</h4>
+      <table>
+        <thead><tr><th>Objeto</th><th>¿Qué es?</th><th>Sirve para</th></tr></thead>
+        <tbody>
+          <tr><td><b>Vista</b></td><td>Consulta guardada (tabla virtual)</td><td>Simplificar consultas frecuentes</td></tr>
+          <tr><td><b>Procedimiento</b></td><td>Código SQL con parámetros</td><td>Encapsular acciones de las apps</td></tr>
+          <tr><td><b>Índice</b></td><td>Estructura de árbol ordenada</td><td>Acelerar búsquedas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Glosario · Módulo 1</h3>
+      <dl>
+        <dt>RDBMS</dt><dd>Sistema de administración de bases de datos relacionales (SQL Server, MySQL, PostgreSQL, Oracle).</dd>
+        <dt>Tabla / fila / columna</dt><dd>Entidad / una instancia de la entidad / un atributo con un tipo de dato.</dd>
+        <dt>NULL</dt><dd>Ausencia de valor en una columna.</dd>
+        <dt>Normalización</dt><dd>Diseño del esquema que minimiza la duplicación y asegura la integridad.</dd>
+        <dt>Clave principal (PK)</dt><dd>Columna(s) que identifican de forma única cada fila.</dd>
+        <dt>Clave foránea (FK)</dt><dd>Columna que guarda la PK de otra tabla para relacionarlas.</dd>
+        <dt>Clave compuesta</dt><dd>Clave formada por la combinación de varias columnas.</dd>
+        <dt>Integridad referencial</dt><dd>Regla que impide FK sin una PK correspondiente.</dd>
+        <dt>Dialecto SQL</dt><dd>Versión de SQL de un proveedor con extensiones propias (T-SQL, pgSQL, PL/SQL).</dd>
+        <dt>DDL / DCL / DML</dt><dd>Instrucciones de definición (estructura) / control (permisos) / manipulación (datos).</dd>
+        <dt>Cláusula WHERE</dt><dd>Filtra las filas que afecta una instrucción.</dd>
+        <dt>JOIN</dt><dd>Combina filas de varias tablas según una condición (normalmente FK = PK).</dd>
+        <dt>Desencadenador (trigger)</dt><dd>Código guardado en la BD que se ejecuta automáticamente ante un evento.</dd>
+        <dt>Optimizador de consultas</dt><dd>Componente que decide cómo ejecutar una consulta (p. ej. si usa un índice).</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 2: Datos relacionales · Módulo 1</span><span>11</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p1">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>Servicios de Azure SQL</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-provision-deploy-relational-database-offerings-azure/">learn.microsoft.com/training/modules/explore-provision-deploy-relational-database-offerings-azure</a>
+  </div>
+
+  <div class="full">
+    <p><b>Azure SQL</b> es el nombre colectivo de la familia de servicios de base de datos basados en <b>Microsoft SQL Server</b> en Azure.</p>
+    <table class="cmp">
+      <thead>
+        <tr><th></th><th>SQL Server en VM de Azure <span class="tag iaas">IaaS</span></th><th>Azure SQL Managed Instance <span class="tag paas">PaaS</span></th><th>Azure SQL Database <span class="tag paas">PaaS</span></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Compatibilidad con SQL Server</td><td><b>Total</b>. Migración lift-and-shift sin cambios.</td><td><b>Casi total</b>. Migración con cambios mínimos (Azure Database Migration Service).</td><td><b>Funciones principales</b>. Algunas características locales pueden no estar disponibles.</td></tr>
+        <tr><td>Arquitectura</td><td>SQL Server instalado en una VM; cada instancia admite varias BD.</td><td>Cada instancia admite varias BD; los <b>grupos de instancias</b> comparten recursos.</td><td><b>Base de datos única</b> en un servidor lógico, o <b>grupo elástico</b> que comparte recursos.</td></tr>
+        <tr><td>Disponibilidad</td><td>99,99 %</td><td>99,99 %</td><td><b>99,995 %</b></td></tr>
+        <tr><td>Administración</td><td><b>Tú administras todo</b>: SO, SQL Server, configuración, respaldos.</td><td>Actualizaciones, respaldos y recuperación <b>automatizados</b>.</td><td>Actualizaciones, respaldos y recuperación <b>automatizados</b>.</td></tr>
+        <tr><td>Cuándo usarlo</td><td>Migrar o extender una solución local <b>conservando el control total</b>.</td><td><b>La mayoría de las migraciones</b> a la nube con cambios mínimos.</td><td><b>Nuevas soluciones en la nube</b> o apps con pocas dependencias de la instancia.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="tarjeta">
+        <h4>SQL Server en VM de Azure <span class="tag iaas">IaaS</span></h4>
+        <ul>
+          <li>Versión completa de SQL Server en la nube, sin hardware local. Migrar a la VM es como migrar a otro servidor local.</li>
+          <li>Para apps que necesitan <b>funciones del SO</b> no disponibles en PaaS.</li>
+          <li>Derechos administrativos totales sobre el SO y el DBMS.</li>
+          <li>Permite: entornos de <b>desarrollo y prueba</b> sin comprar hardware, <b>lift-and-shift</b> rápido y <b>escalado vertical</b> (más memoria, CPU o disco sin reinstalar).</li>
+          <li>Sirve para implementaciones <b>híbridas</b> (parte local y parte en la nube).</li>
+        </ul>
+        <p class="ej">No elimina la necesidad de administrar el DBMS como en el entorno local.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Azure SQL Managed Instance <span class="tag paas">PaaS</span></h4>
+        <ul>
+          <li>Instancia de SQL Server en la nube con <b>varias BD</b> y control como en un servidor local.</li>
+          <li><b>Automatiza</b>: respaldos, parches, supervisión, alta disponibilidad, replicación y escalado.</li>
+          <li>Tú conservas el control de la <b>seguridad</b> y la <b>asignación de recursos</b>.</li>
+          <li>Compatibilidad casi total con SQL Server <b>Enterprise Edition</b>.</li>
+          <li>Comunicaciones cifradas y firmadas con certificados.</li>
+          <li>Inicios de sesión de <b>SQL Server</b> (usuario y contraseña) o de <b>Microsoft Entra ID</b> (credenciales del equipo).</li>
+        </ul>
+        <p><b>Caso de uso:</b> lift-and-shift de una instancia con características avanzadas, sin administrar una VM. <b>Data Migration Assistant (DMA)</b> detecta problemas que bloquean la migración.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Azure SQL Database <span class="tag paas">PaaS</span></h4>
+        <p>BD totalmente administrada y muy escalable. Se crea un <b>servidor lógico</b> (punto central de inicios de sesión, firewall, auditoría y conmutación por error) y en él las BD.</p>
+        <ul>
+          <li><b>Base de datos única:</b> Microsoft administra el servidor; tú solo configuras la BD. Recursos <b>preasignados</b> con cobro por hora, o <b>sin servidor</b> (serverless): escala sola y asigna recursos según la demanda.</li>
+          <li><b>Grupo elástico:</b> varias BD <b>comparten recursos</b>. Útil cuando la carga varía en el tiempo y ayuda a reducir costos. <span class="ej">Ej.: nómina a fin de mes e informes a mediados de mes.</span></li>
+          <li><b>Hiperescala:</b> BD muy grandes (hasta 100 TB), escalado rápido y respaldo/restauración rápidos.</li>
+        </ul>
+        <p>La mejor opción de <b>bajo costo</b> y <b>administración mínima</b>. No es 100 % compatible con SQL Server local; se usa en proyectos nuevos que pueden adaptarse. <b>DMA</b> ayuda a detectar incompatibilidades.</p>
+        <p><b>Se usa para:</b></p>
+        <ul>
+          <li>Apps modernas en la nube con las funciones estables más recientes.</li>
+          <li>Apps que requieren alta disponibilidad.</li>
+          <li>Cargas variables que necesitan escalar rápido.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 2: Datos relacionales · Módulo 2</span><span>12</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p1">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>Azure SQL Database y bases de datos de código abierto</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-provision-deploy-relational-database-offerings-azure/">learn.microsoft.com/training/modules/explore-provision-deploy-relational-database-offerings-azure</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>Ventajas de Azure SQL Database</h3>
+      <ul>
+        <li><b>Actualizaciones y parches automáticos</b>: siempre la versión más reciente y segura.</li>
+        <li><b>Escalabilidad</b> sin actualizaciones manuales costosas.</li>
+        <li><b>Disponibilidad del 99,995 %</b>.</li>
+        <li><b>Restauración a un momento dado</b> (point-in-time).</li>
+        <li><b>Replicación entre regiones</b> para recuperación ante desastres.</li>
+        <li><b>Advanced Threat Protection</b>: evaluación de vulnerabilidades y alertas ante actividad anómala o inyección de SQL, con recomendaciones.</li>
+        <li><b>Auditoría</b>: registra eventos en una cuenta de Azure Storage; ayuda al cumplimiento normativo.</li>
+        <li><b>Cifrado</b> en reposo y en movimiento.</li>
+        <li><b>Oferta gratuita</b> para BD nuevas.</li>
+        <li><b>IA</b> para optimizar consultas y resolver problemas de rendimiento en lenguaje natural.</li>
+      </ul>
+
+      <h4>¿Cuál elijo?</h4>
+      <table>
+        <thead><tr><th>Necesito...</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>Control total del servidor y del SO</td><td>SQL Server en VM</td></tr>
+          <tr><td>Migrar una instancia completa con cambios mínimos</td><td>SQL Managed Instance</td></tr>
+          <tr><td>App nueva en la nube, bajo costo y mínima administración</td><td>Azure SQL Database</td></tr>
+          <tr><td>Varias BD con carga variable</td><td>SQL Database (grupo elástico)</td></tr>
+          <tr><td>BD muy grande (hasta 100 TB)</td><td>SQL Database (Hiperescala)</td></tr>
+          <tr><td>Migrar una app LAMP</td><td>Azure Database for MySQL</td></tr>
+          <tr><td>Datos geométricos o tipos personalizados</td><td>Azure Database for PostgreSQL</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nota"><b>Servidor flexible</b> (MySQL y PostgreSQL): opción totalmente administrada con más control de configuración y optimización de costos. Es la <b>recomendada para cargas nuevas</b> y es gratis 12 meses con una cuenta gratuita de Azure.</div>
+    </div>
+
+    <div class="col">
+      <h3>Bases de datos de código abierto</h3>
+      <p>Azure ofrece MySQL y PostgreSQL para que las organizaciones que ya los usan <b>migren rápido</b>, sin grandes cambios en sus apps.</p>
+
+      <div class="tarjeta">
+        <h4>MySQL</h4>
+        <ul>
+          <li>Open source, fácil de usar; líder en la pila <b>LAMP</b> (Linux, Apache, MySQL, PHP).</li>
+          <li>Ediciones: <b>Community</b> (gratuita, típica en apps web sobre Linux), <b>Standard</b> (más rendimiento) y <b>Enterprise</b> (seguridad, disponibilidad y escalabilidad). Standard y Enterprise son de pago.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4>PostgreSQL</h4>
+        <ul>
+          <li>BD <b>objeto-relacional</b> híbrida: tablas relacionales + tipos de datos personalizados no relacionales.</li>
+          <li><b>Extensible</b>: se le agregan módulos de código.</li>
+          <li>Guarda y manipula <b>datos geométricos</b> (líneas, círculos, polígonos).</li>
+          <li>Lenguaje propio <b>pgSQL</b>, variante de SQL que permite procedimientos almacenados.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Azure Database for MySQL <span class="tag paas">PaaS</span></h4>
+        <ul>
+          <li>Basado en la edición <b>Community</b>.</li>
+          <li>Alta disponibilidad incluida sin costo extra; pago por uso.</li>
+          <li>Respaldos automáticos y restauración a un momento dado hasta <b>35 días</b> (7 por defecto).</li>
+          <li>Reglas de firewall y SSL opcional; parámetros configurables (bloqueos, conexiones, tiempos de espera).</li>
+          <li>Algunas funciones de seguridad y administración no están disponibles: las administra Azure.</li>
+          <li>Monitoreo con alertas, métricas y registros.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Azure Database for PostgreSQL <span class="tag paas">PaaS</span></h4>
+        <ul>
+          <li>Mismas ventajas que MySQL: disponibilidad, rendimiento, escalado, seguridad y administración.</li>
+          <li>Alta disponibilidad con <b>conmutación por error</b> y detección de errores integradas.</li>
+          <li>Limitación: no todas las <b>extensiones</b> locales están disponibles (p. ej. procedimientos en otros lenguajes distintos de pgSQL o acceso al SO).</li>
+          <li>Compatible con <b>pgAdmin</b>, salvo funciones de servidor como respaldo y restauración (las maneja Microsoft).</li>
+          <li>Registra las consultas en la BD <code>azure_sys</code>; se revisan con la vista <code>query_store.qs_view</code> para ajustar el rendimiento.</li>
+        </ul>
+      </div>
+
+      <h3>Glosario · Módulo 2</h3>
+      <dl>
+        <dt>Lift-and-shift</dt><dd>Migrar a la nube tal cual, con cambios mínimos o nulos.</dd>
+        <dt>Implementación híbrida</dt><dd>Parte del sistema local y parte en la nube.</dd>
+        <dt>Servidor lógico</dt><dd>Punto central de administración de varias BD de Azure SQL Database.</dd>
+        <dt>Sin servidor (serverless)</dt><dd>Recursos que se asignan y escalan solos según la demanda.</dd>
+        <dt>Grupo elástico</dt><dd>Varias BD que comparten un conjunto de recursos.</dd>
+        <dt>Data Migration Assistant (DMA)</dt><dd>Herramienta que detecta incompatibilidades antes de migrar.</dd>
+        <dt>Microsoft Entra ID</dt><dd>Servicio de identidad de Microsoft para iniciar sesión sin escribir credenciales.</dd>
+        <dt>Restauración a un momento dado</dt><dd>Recuperar la BD tal como estaba en un instante del pasado.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 2: Datos relacionales · Módulo 2</span><span>13</span></div>
+</section>
+
+<!-- ═══════════════════════════ PARTE 3 · DATOS NO RELACIONALES ═══════════════════════════ -->
+<!-- ═══════════════════════════ PORTADA ═══════════════════════════ -->
+<section class="sheet p2 cover">
+  <div class="kicker">DP-900 · Parte 3 de 4 · <span class="peso">15–20 % del examen</span></div>
+  <h1>Introduction to Microsoft Azure Data:<br /><span>non-relational data in Azure</span></h1>
+  <p>Resumen de la ruta de aprendizaje de Microsoft Learn: almacenamiento de datos no relacionales en Azure Storage (blobs, Data Lake, OneLake, archivos y tablas) y la base de datos NoSQL Azure Cosmos DB con sus cinco API.</p>
+
+  <div class="cover-mods">
+    <div class="cover-mod">
+      <div class="n">Módulo 1</div>
+      <h3>Explorar Azure Storage para datos no relacionales</h3>
+      <ol>
+        <li>Azure Blob Storage: tipos, niveles de acceso y redundancia</li>
+        <li>Azure Data Lake Storage Gen2</li>
+        <li>Microsoft OneLake en Fabric</li>
+        <li>Azure Files</li>
+        <li>Azure Table Storage</li>
+      </ol>
+      <div class="pg">Hojas 15 y 16</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Módulo 2</div>
+      <h3>Aspectos básicos de Azure Cosmos DB</h3>
+      <ol>
+        <li>Qué es y cómo organiza los datos</li>
+        <li>Distribución global y niveles de coherencia</li>
+        <li>Rendimiento (RU/s) y cuándo usarlo</li>
+        <li>API: NoSQL, MongoDB, Table, Cassandra y Gremlin</li>
+      </ol>
+      <div class="pg">Hojas 17 y 18 · Repaso y glosarios en la hoja 19</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer">
+    <span>learn.microsoft.com/training/paths/azure-data-fundamentals-explore-non-relational-data</span>
+    <span>14</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p2">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Azure Blob Storage</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-provision-deploy-non-relational-data-services-azure/">learn.microsoft.com/training/modules/explore-provision-deploy-non-relational-data-services-azure</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Azure Blob Storage</h3>
+      <p>Almacena grandes cantidades de datos <b>no estructurados</b> como <b>blobs</b> (objetos binarios grandes) en la nube. Las apps los leen y escriben con la <b>API de Blob Storage</b>.</p>
+
+      <h4>Organización</h4>
+      <ul>
+        <li>Los blobs viven en <b>contenedores</b> dentro de una <b>cuenta de Azure Storage</b>.</li>
+        <li>Un contenedor agrupa blobs relacionados; el acceso de lectura y escritura se controla <b>a nivel de contenedor</b>.</li>
+        <li>Inicio de sesión recomendado: <b>Microsoft Entra ID</b> con <b>RBAC</b> (control de acceso basado en roles) para dar permisos precisos.</li>
+        <li><b>Carpetas virtuales:</b> por defecto son solo un <code>/</code> en el nombre del blob. No permiten controlar acceso ni hacer operaciones masivas por carpeta.</li>
+      </ul>
+      <p class="ej">Ej.: <code>ventas/2026/enero.csv</code> es un solo blob cuyo nombre contiene "/".</p>
+
+      <h4>Tres tipos de blob</h4>
+      <div class="tarjeta">
+        <h4>Blob en bloques</h4>
+        <ul>
+          <li>Conjunto de bloques de hasta <b>4000 MiB</b> cada uno; máximo <b>190,7 TiB</b> (50 000 bloques).</li>
+          <li>El bloque es la unidad mínima de lectura y escritura.</li>
+          <li>Para objetos grandes y discretos que <b>cambian poco</b> <span class="ej">(imágenes, videos, documentos)</span>.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Blob en páginas</h4>
+        <ul>
+          <li>Páginas fijas de <b>512 bytes</b>; hasta <b>8 TB</b>.</li>
+          <li>Optimizado para lecturas y escrituras <b>aleatorias</b> de páginas sueltas.</li>
+          <li>Azure lo usa para los <b>discos virtuales de las VM</b>.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Blob en anexos</h4>
+        <ul>
+          <li>Blob en bloques optimizado para <b>agregar al final</b>; no se pueden modificar ni borrar bloques existentes.</li>
+          <li>Bloques de hasta 4 MB; máximo ~195 GB.</li>
+          <li>Ideal para <b>registros (logs)</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>Niveles de acceso</h3>
+      <p>Equilibran la <b>latencia</b> de acceso y el <b>costo</b> de almacenamiento.</p>
+      <table class="mini">
+        <thead><tr><th>Nivel</th><th>Para datos...</th><th>Mínimo</th><th>Latencia</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag hot">Hot</span><br />Frecuente</td><td>De acceso frecuente. <b>Predeterminado</b>; medios de alto rendimiento.</td><td>—</td><td>ms</td></tr>
+          <tr><td><span class="tag cool">Cool</span><br />Esporádico</td><td>De acceso poco frecuente.</td><td>30 días</td><td>ms</td></tr>
+          <tr><td><span class="tag cold">Cold</span><br />Frío</td><td>Que rara vez se usan pero necesitan recuperación rápida <span class="ej">(respaldos a corto plazo, recuperación ante desastres)</span>.</td><td>90 días</td><td>ms</td></tr>
+          <tr><td><span class="tag arch">Archive</span><br />Archivo</td><td>Históricos que no deben perderse y casi nunca se necesitan. Están <b>sin conexión</b>.</td><td>180 días</td><td>hasta <b>15 h</b></td></tr>
+        </tbody>
+      </table>
+      <div class="escala"><span>Hot: almacenar caro, acceder barato</span><span>Archive: almacenar barato, acceder caro</span></div>
+      <div class="barra"></div>
+      <ul>
+        <li><b>Mínimo de días:</b> si se borra o mueve antes, hay <b>penalización por eliminación anticipada</b>.</li>
+        <li>Patrón común: crear el blob en Hot y pasarlo a Cool cuando se usa menos. También se puede volver de Cool a Hot.</li>
+      </ul>
+
+      <div class="nota alerta"><b>Rehidratación:</b> para leer un blob de Archive hay que cambiarlo a Hot, Cool o Cold y esperar a que termine el proceso (puede tardar horas).</div>
+
+      <div class="tarjeta">
+        <h4>Directivas de ciclo de vida</h4>
+        <ul>
+          <li>Mueven blobs automáticamente <b>Hot → Cool → Cold → Archive</b> según los días desde la última modificación.</li>
+          <li>También pueden <b>eliminar</b> blobs obsoletos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>Redundancia</h3>
+      <p>Azure Storage guarda varias copias para mantener los datos disponibles y protegidos ante fallos.</p>
+      <table class="mini">
+        <thead><tr><th>Opción</th><th>Qué hace</th><th>Protege ante</th></tr></thead>
+        <tbody>
+          <tr><td><b>LRS</b><br />Local</td><td>3 copias en <b>un centro de datos</b>.</td><td>Fallo de un servidor o disco</td></tr>
+          <tr><td><b>ZRS</b><br />Zona</td><td>Copias en <b>3 zonas de disponibilidad</b> de la región principal.</td><td>Caída de una zona</td></tr>
+          <tr><td><b>GRS</b><br />Geográfica</td><td>Replica de forma <b>asincrónica</b> a una <b>región secundaria</b> a cientos de km.</td><td>Desastre regional</td></tr>
+          <tr><td><b>GZRS</b><br />Zona geográfica</td><td>ZRS en la región principal + copia en la región secundaria.</td><td>Caída de zona y desastre regional</td></tr>
+        </tbody>
+      </table>
+      <div class="nota"><b>RA-GRS / RA-GZRS</b> (Read Access): permiten <b>leer</b> desde la región secundaria incluso antes de una conmutación por error.</div>
+      <div class="escala"><span>LRS: menor protección y costo</span><span>GZRS: mayor protección</span></div>
+      <div class="barra"></div>
+
+      <div class="tarjeta">
+        <h4>Para recordar</h4>
+        <ul>
+          <li><b>Tipo de blob</b> = cómo se escribe (bloques, páginas, anexos).</li>
+          <li><b>Nivel de acceso</b> = cada cuánto se lee (Hot, Cool, Cold, Archive).</li>
+          <li><b>Redundancia</b> = cuántas copias y dónde (LRS, ZRS, GRS, GZRS).</li>
+        </ul>
+      </div>
+
+      <table class="mini">
+        <thead><tr><th>Si necesito...</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td>Guardar videos que casi no cambian</td><td>Blob en bloques</td></tr>
+          <tr><td>Disco de una máquina virtual</td><td>Blob en páginas</td></tr>
+          <tr><td>Escribir un log que solo crece</td><td>Blob en anexos</td></tr>
+          <tr><td>Guardar respaldos por años al menor costo</td><td>Nivel Archive</td></tr>
+          <tr><td>Sobrevivir a la caída de una región</td><td>GRS o GZRS</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 3: Datos no relacionales · Módulo 1</span><span>15</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p2">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Data Lake Gen2, OneLake, Files y Table Storage</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-provision-deploy-non-relational-data-services-azure/">learn.microsoft.com/training/modules/explore-provision-deploy-non-relational-data-services-azure</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>2. Azure Data Lake Storage Gen2</h3>
+      <p>Lago de datos a escala de nube <b>integrado en Azure Storage</b>. Combina la escalabilidad y el control de costos de Blob Storage (niveles y ciclo de vida) con un <b>sistema de archivos jerárquico</b> compatible con los sistemas de análisis.</p>
+      <ul>
+        <li><b>Azure Databricks</b> puede montarlo como sistema de archivos distribuido para procesar grandes volúmenes.</li>
+        <li><b>OneLake</b> de Microsoft Fabric está construido sobre él.</li>
+        <li>El espacio de nombres jerárquico habilita <b>ACL compatibles con POSIX</b>: permisos de lectura, escritura y ejecución por archivo y carpeta, aparte de RBAC.</li>
+        <li>Se activa con la opción <b>Espacio de nombres jerárquico</b> de la cuenta de Storage, al crearla o después.</li>
+      </ul>
+      <div class="nota peligro">La actualización es <b>de un solo sentido</b>: una vez habilitado el espacio de nombres jerárquico, no se puede volver a un espacio de nombres plano.</div>
+
+      <h3>3. Microsoft OneLake</h3>
+      <p><b>Un solo lago de datos lógico</b> para toda la organización. Viene automáticamente con cada inquilino (tenant) de Microsoft Fabric y es el repositorio central de los datos de análisis.</p>
+      <ul>
+        <li>Admite <b>cualquier tipo de archivo</b>, estructurado o no.</li>
+        <li>Varios motores analíticos usan los mismos datos <b>sin moverlos ni duplicarlos</b>.</li>
+      </ul>
+      <div class="tarjeta">
+        <h4>Ventajas clave</h4>
+        <ul>
+          <li><b>Un lago para toda la organización</b>, en vez de un lago por área.</li>
+          <li><b>Propiedad distribuida:</b> cada área administra sus datos en sus <b>áreas de trabajo</b>, con límites de gobernanza.</li>
+          <li><b>Abierto y compatible:</b> guarda en formato <b>Delta Parquet</b> y admite las API y SDK de ADLS Gen2.</li>
+          <li><b>Fácil de navegar</b> desde Windows con el explorador de archivos de OneLake.</li>
+        </ul>
+      </div>
+      <p class="ej">Idea: "OneLake es el OneDrive de los datos".</p>
+    </div>
+
+    <div class="col">
+      <h3>4. Azure Files</h3>
+      <p>Crea <b>recursos compartidos de archivos de red en la nube</b>, como los de una red corporativa. Los recursos compartidos locales no escalan bien con muchos usuarios o con sedes distintas; en Azure se eliminan costos de hardware y mantenimiento y se gana alta disponibilidad.</p>
+
+      <h4>Capacidad y límites</h4>
+      <ul>
+        <li>Se crea dentro de una cuenta de almacenamiento.</li>
+        <li>Hasta <b>256 TiB</b> por cuenta SSD (más en HDD), repartidos en cualquier número de recursos compartidos.</li>
+        <li>Archivo individual de hasta <b>4 TiB</b>; se pueden fijar <b>cuotas</b> por recurso compartido.</li>
+        <li>Hasta <b>2000 identificadores simultáneos</b> por archivo o directorio.</li>
+      </ul>
+
+      <h4>Carga y sincronización</h4>
+      <ul>
+        <li>Carga desde <b>Azure Portal</b> o con <b>AzCopy</b>.</li>
+        <li><b>Azure File Sync:</b> sincroniza copias en caché locales con Azure Files.</li>
+      </ul>
+
+      <h4>Niveles de medios</h4>
+      <table class="mini">
+        <tbody>
+          <tr><td><b>HDD</b></td><td>Discos duros; más barato.</td></tr>
+          <tr><td><b>SSD</b></td><td>Estado sólido; más rendimiento a mayor precio.</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Protocolos</h4>
+      <table class="mini">
+        <thead><tr><th>Protocolo</th><th>Sistemas</th><th>Notas</th></tr></thead>
+        <tbody>
+          <tr><td><b>SMB</b><br />Server Message Block</td><td>Windows, Linux, macOS</td><td>El más usado.</td></tr>
+          <tr><td><b>NFS</b><br />Network File System</td><td>Solo Linux (kernel 4.3+)</td><td>No funciona en Windows ni macOS. Requiere cuenta <b>SSD</b> y una <b>red virtual</b>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>5. Azure Table Storage</h3>
+      <p>Almacenamiento <b>NoSQL clave-valor</b> en tablas. Cada elemento es una fila con columnas para sus campos.</p>
+      <div class="nota alerta">No es como una tabla relacional: guarda datos <b>semiestructurados</b>; las columnas pueden variar por fila y no hay claves foráneas, relaciones, procedimientos almacenados ni vistas.</div>
+      <ul>
+        <li>Cada fila tiene una clave única: <b>PartitionKey + RowKey</b>.</li>
+        <li>Una columna <b>Timestamp</b> registra la fecha de la última modificación.</li>
+        <li>Datos <b>desnormalizados</b>: cada fila contiene toda la entidad <span class="ej">(un cliente con todos sus teléfonos y direcciones)</span>. En una BD relacional irían en varias tablas.</li>
+      </ul>
+
+      <h4>Particiones</h4>
+      <p>Agrupan filas relacionadas que comparten la <b>PartitionKey</b> y se guardan juntas.</p>
+      <ul>
+        <li>Son independientes y crecen o se reducen solas; una tabla admite cualquier número.</li>
+        <li>Incluir la PartitionKey en la búsqueda reduce la E/S y mejora el rendimiento.</li>
+        <li>Dentro de una partición, las filas se guardan <b>ordenadas por RowKey</b>.</li>
+      </ul>
+
+      <h4>Tipos de consulta rápidas</h4>
+      <ul>
+        <li><b>Consulta de punto:</b> una sola fila (PartitionKey + RowKey).</li>
+        <li><b>Consulta por rango:</b> un bloque contiguo de filas en una partición.</li>
+      </ul>
+
+      <table class="mini">
+        <thead><tr><th>PartitionKey</th><th>RowKey</th><th>Timestamp</th><th>Campos...</th></tr></thead>
+        <tbody>
+          <tr><td>MX</td><td>001</td><td>2026-10-08</td><td>Nombre, Tel1, Tel2</td></tr>
+          <tr><td>MX</td><td>002</td><td>2026-10-07</td><td>Nombre, Correo</td></tr>
+          <tr><td>US</td><td>001</td><td>2026-10-05</td><td>Nombre, Dirección</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nota ok"><b>Para cargas nuevas</b> se recomienda <b>Azure Cosmos DB for Table</b>: mismo modelo clave-valor, con más rendimiento y distribución global.</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 3: Datos no relacionales · Módulo 1</span><span>16</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p2">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>Azure Cosmos DB: conceptos, coherencia y rendimiento</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-non-relational-data-stores-azure/">learn.microsoft.com/training/modules/explore-non-relational-data-stores-azure</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. ¿Qué es Azure Cosmos DB?</h3>
+      <ul>
+        <li>Base de datos <b>NoSQL totalmente administrada</b> <span class="tag paas">PaaS</span>: Microsoft se encarga de servidores, parches, actualizaciones y respaldos.</li>
+        <li><b>Independiente del esquema:</b> los elementos de un mismo contenedor pueden tener propiedades distintas <span class="ej">(uno con 5, otro con 15)</span>. Ideal cuando la forma de los datos cambia.</li>
+        <li>Microsoft la usa en <b>Xbox Live</b>, <b>Microsoft 365</b> y partes de <b>Azure</b>: miles de millones de operaciones al día.</li>
+      </ul>
+
+      <h4>Jerarquía de recursos (4 niveles)</h4>
+      <div class="nivel"><b>Cuenta</b> · recurso de Azure; BD ilimitadas
+        <div class="nivel n2"><b>Base de datos</b> · espacio de nombres que agrupa contenedores
+          <div class="nivel n3"><b>Contenedor</b> · unidad de almacenamiento y escalado. Aquí se configuran: clave de partición, rendimiento, indexación y TTL
+            <div class="nivel n4"><b>Elementos</b> · documentos, filas, nodos o aristas, según la API</div>
+          </div>
+        </div>
+      </div>
+
+      <h4>Clave de partición</h4>
+      <ul>
+        <li>Propiedad que reparte los datos entre <b>particiones lógicas</b> de hasta <b>20 GB</b> cada una.</li>
+        <li>Una buena clave tiene <b>muchos valores distintos</b> y reparte los datos de forma <b>uniforme</b>, para mantener el rendimiento al crecer.</li>
+      </ul>
+
+      <h4>Indexación automática</h4>
+      <p>Por defecto indexa <b>todas las propiedades</b>. No hay que definir un esquema ni administrar índices.</p>
+    </div>
+
+    <div class="col">
+      <h3>2. Distribución global</h3>
+      <ul>
+        <li>Se agregan <b>regiones</b> a la cuenta en cualquier momento y los datos se replican solos.</li>
+        <li>Cada usuario lee y escribe en la <b>réplica más cercana</b>: baja latencia en cualquier lugar.</li>
+        <li>Escritura en varias regiones = alta disponibilidad.</li>
+        <li>Percentil 99: lecturas en ~<b>4 ms</b> y escrituras en ~<b>5 ms</b>.</li>
+      </ul>
+
+      <h4>Cinco niveles de coherencia</h4>
+      <p>Definen qué tan sincronizadas están las réplicas entre sí.</p>
+      <table class="mini">
+        <thead><tr><th>Nivel</th><th>Garantía</th></tr></thead>
+        <tbody>
+          <tr><td><b>Fuerte</b></td><td>Cada lectura ve la <b>escritura más reciente</b>.</td></tr>
+          <tr><td><b>Obsolescencia limitada</b></td><td>Las lecturas van atrasadas un intervalo configurable (tiempo o número de versiones).</td></tr>
+          <tr><td><b>Sesión</b> <span class="tag rec">Recomendado</span></td><td>Coherencia garantizada <b>dentro de una sesión</b> de cliente. El más usado y punto de partida para apps transaccionales.</td></tr>
+          <tr><td><b>Prefijo coherente</b></td><td>Nunca se ven escrituras <b>desordenadas</b>, pero pueden estar desactualizadas.</td></tr>
+          <tr><td><b>Eventual</b></td><td>Las réplicas convergen con el tiempo. La garantía más débil y la <b>mayor disponibilidad</b>.</td></tr>
+        </tbody>
+      </table>
+      <div class="escala"><span>Fuerte: más coherencia</span><span>Eventual: más disponibilidad y menor latencia</span></div>
+      <div class="barra"></div>
+      <div class="nota">Truco para recordar el orden: <b>F-O-S-P-E</b> (Fuerte, Obsolescencia limitada, Sesión, Prefijo coherente, Eventual).</div>
+    </div>
+
+    <div class="col">
+      <h3>3. Rendimiento y precios</h3>
+      <p>La capacidad se mide en <b>unidades de solicitud por segundo (RU/s)</b>. <b>1 RU</b> ≈ el costo de leer un elemento de 1 KB. Cada operación (lectura, escritura, consulta, eliminación) consume RU: una sola métrica para rendimiento y costo.</p>
+      <table class="mini">
+        <thead><tr><th>Modo</th><th>Cómo funciona</th></tr></thead>
+        <tbody>
+          <tr><td><b>Dedicado</b></td><td>RU/s reservadas para <b>un solo contenedor</b>.</td></tr>
+          <tr><td><b>Compartido</b></td><td>RU/s a nivel de base de datos, compartidas por hasta <b>25 contenedores</b>.</td></tr>
+          <tr><td><b>Sin servidor</b></td><td>Sin aprovisionar capacidad; se <b>paga por solicitud</b>. Para tráfico bajo o impredecible.</td></tr>
+        </tbody>
+      </table>
+      <div class="nota alerta">Las cuentas <b>sin servidor</b> se limitan a <b>una sola región</b>. Para distribución global, usar rendimiento aprovisionado.</div>
+      <p><b>Escalabilidad automática:</b> se fija un máximo de RU/s y Cosmos DB ajusta la capacidad según la demanda real.</p>
+
+      <h3>4. ¿Cuándo usar Cosmos DB?</h3>
+      <p>Para apps que necesitan <b>esquema flexible</b>, <b>alcance global</b> y <b>baja latencia</b>:</p>
+      <ul>
+        <li><b>IoT y telemetría:</b> ingesta rápida de datos de dispositivos, casi en tiempo real.</li>
+        <li><b>Juegos:</b> perfiles, tablas de clasificación y estadísticas en milisegundos.</li>
+        <li><b>Comercio minorista:</b> catálogos, carritos y pedidos a cualquier escala.</li>
+        <li><b>Apps web y móviles:</b> personalización, funciones sociales e integraciones.</li>
+      </ul>
+      <div class="nota peligro"><b>No es buena opción</b> para combinaciones complejas de varias tablas (mejor <b>Azure SQL Database</b>) ni para análisis histórico a gran escala (mejor <b>Microsoft Fabric</b> o <b>Azure Synapse Analytics</b>).</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 3: Datos no relacionales · Módulo 2</span><span>17</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p2">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>API de Azure Cosmos DB</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-non-relational-data-stores-azure/">learn.microsoft.com/training/modules/explore-non-relational-data-stores-azure</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>5. ¿Por qué varias API?</h3>
+      <ul>
+        <li>La API se elige <b>al crear la cuenta</b> y define el formato de datos, el lenguaje de consulta y las bibliotecas cliente.</li>
+        <li>Internamente Cosmos DB usa su propio formato; la API es una <b>capa de abstracción</b>.</li>
+        <li>Ventaja principal: <b>portabilidad</b>. Una app de MongoDB o Cassandra se apunta a Cosmos DB con cambios mínimos y gana distribución global, rendimiento administrado y SLA.</li>
+      </ul>
+
+      <table class="mini">
+        <thead><tr><th>API</th><th>Modelo</th><th>Lenguaje</th></tr></thead>
+        <tbody>
+          <tr><td><b>NoSQL</b> <span class="tag rec">Nativa</span></td><td>Documentos JSON</td><td>Sintaxis tipo SQL</td></tr>
+          <tr><td><b>MongoDB</b></td><td>Documentos BSON</td><td>MQL</td></tr>
+          <tr><td><b>Table</b></td><td>Clave-valor</td><td>REST / SDK de Table</td></tr>
+          <tr><td><b>Apache Cassandra</b></td><td>Familias de columnas</td><td>CQL</td></tr>
+          <tr><td><b>Apache Gremlin</b></td><td>Grafos</td><td>Gremlin</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tarjeta">
+        <h4>Cosmos DB for NoSQL <span class="tag rec">Recomendada para apps nuevas</span></h4>
+        <ul>
+          <li>API <b>nativa</b>: documentos <b>JSON</b> consultados con sintaxis <b>similar a SQL</b>.</li>
+          <li>Antes se llamaba <b>API de SQL</b> (cambió de nombre en 2023).</li>
+        </ul>
+<pre><span class="kw">SELECT</span> *
+<span class="kw">FROM</span> customers c
+<span class="kw">WHERE</span> c.id = <span class="s">"joe@litware.com"</span></pre>
+        <div class="lbl">Resultado (JSON)</div>
+<pre>{
+  <span class="p">"id"</span>: <span class="s">"joe@litware.com"</span>,
+  <span class="p">"name"</span>: <span class="s">"Joe Jones"</span>,
+  <span class="p">"address"</span>: {
+    <span class="p">"street"</span>: <span class="s">"1 Main St."</span>,
+    <span class="p">"city"</span>: <span class="s">"Seattle"</span>
+  }
+}</pre>
+        <p><b>Fabric mirroring:</b> replica automáticamente los datos operativos a Microsoft Fabric, sin canalizaciones, para analizarlos sin afectar la carga transaccional.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Cosmos DB for MongoDB</h4>
+        <ul>
+          <li>Compatible con los <b>controladores y bibliotecas de MongoDB</b>: apps existentes se conectan sin grandes cambios.</li>
+          <li>Datos en <b>BSON</b> (JSON binario).</li>
+          <li>Consultas con <b>MQL</b> (MongoDB Query Language): se llaman métodos sobre colecciones.</li>
+        </ul>
+<pre>db.products.<span class="kw">find</span>({id: 123})</pre>
+        <div class="lbl">Resultado</div>
+<pre>{ <span class="p">"id"</span>: 123, <span class="p">"name"</span>: <span class="s">"Hammer"</span>, <span class="p">"price"</span>: 2.99 }</pre>
+        <p>Para equipos con experiencia en MongoDB o que migran una carga de MongoDB a la nube.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Cosmos DB for Table</h4>
+        <ul>
+          <li>Pares <b>clave-valor</b> con el mismo modelo de programación que <b>Azure Table Storage</b>; migración con cambios mínimos.</li>
+          <li>Frente a Table Storage gana: <b>más escalabilidad</b>, <b>distribución global</b>, <b>índices secundarios automáticos</b> y <b>escalado automático</b> instantáneo.</li>
+        </ul>
+        <table class="mini">
+          <thead><tr><th>PartitionKey</th><th>RowKey</th><th>Name</th><th>Email</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>123</td><td>Joe Jones</td><td>joe@litware.com</td></tr>
+            <tr><td>1</td><td>124</td><td>Samir Nadoy</td><td>samir@northwind.com</td></tr>
+          </tbody>
+        </table>
+        <p>Una fila se obtiene con un punto de conexión estilo <b>REST</b>:</p>
+<pre>https://endpoint/Customers(PartitionKey=<span class="s">'1'</span>,RowKey=<span class="s">'124'</span>)</pre>
+        <p class="ej">Table Storage sigue disponible, pero Cosmos DB for Table es la recomendada para cargas nuevas.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Cosmos DB for Apache Cassandra</h4>
+        <ul>
+          <li>Compatible con <b>Apache Cassandra</b> (open source), modelo de <b>familia de columnas</b>.</li>
+          <li>Las filas no necesitan tener las mismas columnas <span class="ej">(Sue Smith no tiene Manager)</span>.</li>
+          <li>Lenguaje <b>CQL</b> (Cassandra Query Language), similar a SQL.</li>
+        </ul>
+        <table class="mini">
+          <thead><tr><th>ID</th><th>Name</th><th>Manager</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Sue Smith</td><td></td></tr>
+            <tr><td>2</td><td>Ben Chan</td><td>Sue Smith</td></tr>
+          </tbody>
+        </table>
+<pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> ID = 2</pre>
+        <p>Para migrar cargas de Cassandra a una BD totalmente administrada.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Cosmos DB for Apache Gremlin</h4>
+        <ul>
+          <li>Datos de <b>grafos</b>: entidades como <b>vértices</b> (nodos) y relaciones como <b>aristas</b>.</li>
+          <li>Útil cuando las conexiones importan tanto como los datos: <b>redes sociales</b>, <b>recomendaciones</b>, <b>detección de fraude</b>, <b>organigramas</b>.</li>
+          <li><b>Gremlin</b> es el lenguaje para recorrer y modificar el grafo.</li>
+        </ul>
+        <div class="lbl">Agregar un empleado y conectarlo a su jefe</div>
+<pre>g.<span class="kw">addV</span>(<span class="s">'employee'</span>).<span class="kw">property</span>(<span class="s">'id'</span>, <span class="s">'3'</span>)
+ .<span class="kw">property</span>(<span class="s">'firstName'</span>, <span class="s">'Alice'</span>)
+g.<span class="kw">V</span>(<span class="s">'3'</span>).<span class="kw">addE</span>(<span class="s">'reports to'</span>).<span class="kw">to</span>(g.<span class="kw">V</span>(<span class="s">'1'</span>))</pre>
+        <div class="lbl">Todos los empleados ordenados por id</div>
+<pre>g.<span class="kw">V</span>().<span class="kw">hasLabel</span>(<span class="s">'employee'</span>).<span class="kw">order</span>().<span class="kw">by</span>(<span class="s">'id'</span>)</pre>
+      </div>
+
+      <div class="nota">Elige la API según el <b>modelo de datos</b>, las <b>habilidades del equipo</b> y el <b>código existente</b>.</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 3: Datos no relacionales · Módulo 2</span><span>18</span></div>
+</section>
+
+<!-- ═══════════════════════════ REPASO Y GLOSARIOS ═══════════════════════════ -->
+<section class="sheet p2">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Repaso</span>
+      <h2>¿Qué servicio uso? y glosarios</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/paths/azure-data-fundamentals-explore-non-relational-data/">learn.microsoft.com/training/paths/azure-data-fundamentals-explore-non-relational-data</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>¿Qué servicio uso?</h3>
+      <table class="mini">
+        <thead><tr><th>Necesito...</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>Guardar archivos no estructurados (imágenes, video, respaldos)</td><td>Blob Storage</td></tr>
+          <tr><td>Data lake con carpetas reales y permisos por archivo</td><td>Data Lake Storage Gen2</td></tr>
+          <tr><td>Un solo lago para toda la organización en Fabric</td><td>OneLake</td></tr>
+          <tr><td>Carpeta de red compartida en la nube (SMB/NFS)</td><td>Azure Files</td></tr>
+          <tr><td>Clave-valor simple y barato</td><td>Table Storage</td></tr>
+          <tr><td>Clave-valor a escala global (carga nueva)</td><td>Cosmos DB for Table</td></tr>
+          <tr><td>Documentos JSON en una app nueva</td><td>Cosmos DB for NoSQL</td></tr>
+          <tr><td>Migrar una app de MongoDB</td><td>Cosmos DB for MongoDB</td></tr>
+          <tr><td>Migrar una app de Cassandra</td><td>Cosmos DB for Cassandra</td></tr>
+          <tr><td>Relaciones complejas: redes, fraude, recomendaciones</td><td>Cosmos DB for Gremlin</td></tr>
+          <tr><td>JOIN complejos entre tablas</td><td>Azure SQL Database</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Table Storage vs. Cosmos DB for Table</h3>
+      <table class="mini">
+        <thead><tr><th></th><th>Table Storage</th><th>Cosmos DB for Table</th></tr></thead>
+        <tbody>
+          <tr><td><b>Modelo</b></td><td>Clave-valor</td><td>Clave-valor (mismo SDK)</td></tr>
+          <tr><td><b>Distribución</b></td><td>Redundancia de Azure Storage (LRS, GRS...)</td><td>Distribución global en varias regiones</td></tr>
+          <tr><td><b>Índices</b></td><td>Solo PartitionKey + RowKey</td><td>Índices secundarios automáticos</td></tr>
+          <tr><td><b>Recomendado</b></td><td>Cargas existentes</td><td>Cargas nuevas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Glosario · Módulo 1</h3>
+      <dl>
+        <dt>Blob / contenedor</dt><dd>Archivo binario en Blob Storage / grupo de blobs con acceso común.</dd>
+        <dt>Entra ID + RBAC</dt><dd>Identidad de Azure + control de acceso basado en roles (quién puede hacer qué).</dd>
+        <dt>ACL POSIX</dt><dd>Permisos de lectura, escritura y ejecución por archivo y carpeta.</dd>
+        <dt>Espacio de nombres jerárquico</dt><dd>Carpetas reales sobre Blob Storage; convierte la cuenta en Data Lake Gen2.</dd>
+        <dt>Nivel de acceso</dt><dd>Hot, Cool, Cold o Archive: equilibrio entre costo de almacenar y de acceder.</dd>
+        <dt>Rehidratación</dt><dd>Sacar un blob de Archive a un nivel en línea para poder leerlo.</dd>
+        <dt>Ciclo de vida</dt><dd>Reglas que mueven o eliminan blobs automáticamente según su antigüedad.</dd>
+        <dt>LRS / ZRS / GRS / GZRS</dt><dd>Redundancia local / de zona / geográfica / de zona geográfica.</dd>
+        <dt>Inquilino (tenant)</dt><dd>Instancia de una organización en Microsoft Fabric o Entra ID.</dd>
+        <dt>Delta Parquet</dt><dd>Formato abierto de OneLake: Parquet + registro de transacciones.</dd>
+        <dt>SMB / NFS</dt><dd>Protocolos para compartir archivos en red (multiplataforma / Linux).</dd>
+        <dt>AzCopy / Azure File Sync</dt><dd>Herramienta de carga de archivos / sincronización de caché local con Azure Files.</dd>
+        <dt>PartitionKey / RowKey</dt><dd>Partes de la clave de una tabla: partición y fila única dentro de ella.</dd>
+      </dl>
+    </div>
+
+    <div class="col">
+      <h3>Glosario · Módulo 2</h3>
+      <dl>
+        <dt>Independiente del esquema</dt><dd>Los elementos de un contenedor no necesitan la misma estructura.</dd>
+        <dt>Contenedor (Cosmos DB)</dt><dd>Unidad de almacenamiento y escalado; ahí se definen partición, rendimiento, indexación y TTL.</dd>
+        <dt>Elemento</dt><dd>Registro individual: documento, fila, nodo o arista.</dd>
+        <dt>Partición lógica</dt><dd>Grupo de elementos con la misma clave de partición (máx. 20 GB).</dd>
+        <dt>TTL (Time to Live)</dt><dd>Tiempo tras el cual un elemento se elimina automáticamente.</dd>
+        <dt>Nivel de coherencia</dt><dd>Qué tan actualizadas están las lecturas entre réplicas (Fuerte → Eventual).</dd>
+        <dt>RU/s</dt><dd>Unidades de solicitud por segundo: medida de capacidad y costo.</dd>
+        <dt>Percentil 99</dt><dd>El 99 % de las operaciones termina en ese tiempo o menos.</dd>
+        <dt>SLA</dt><dd>Acuerdo de nivel de servicio: garantías de disponibilidad y rendimiento.</dd>
+        <dt>BSON</dt><dd>JSON binario, formato de MongoDB.</dd>
+        <dt>MQL / CQL / Gremlin</dt><dd>Lenguajes de consulta de MongoDB / Cassandra / grafos.</dd>
+        <dt>Vértice / arista</dt><dd>Nodo (entidad) / relación entre nodos en un grafo.</dd>
+        <dt>Fabric mirroring</dt><dd>Réplica automática de Cosmos DB en Microsoft Fabric para análisis.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 3: Datos no relacionales · Repaso</span><span>19</span></div>
+</section>
+
+<!-- ═══════════════════════════ PARTE 4 · ANÁLISIS ═══════════════════════════ -->
+<!-- ═══════════════════════════ PORTADA ═══════════════════════════ -->
+<section class="sheet p3 cover">
+  <div class="kicker">DP-900 · Parte 4 de 4 · <span class="peso">25–30 % del examen</span></div>
+  <h1>Introduction to Microsoft Azure Data:<br /><span>analytics in Azure</span></h1>
+  <p>Resumen de la ruta de aprendizaje de Microsoft Learn: análisis a gran escala con Microsoft Fabric y Azure Databricks, procesamiento en tiempo real y modelado y visualización de datos con Power BI.</p>
+
+  <div class="cover-mods">
+    <div class="cover-mod">
+      <div class="n">Módulo 1</div>
+      <h3>Análisis a gran escala</h3>
+      <ol>
+        <li>Fabric y Databricks</li>
+        <li>Arquitectura de análisis</li>
+        <li>Canalizaciones de ingesta</li>
+        <li>Almacenes de datos analíticos</li>
+      </ol>
+      <div class="pg">Hojas 21 a 23</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Módulo 2</div>
+      <h3>Análisis en tiempo real</h3>
+      <ol>
+        <li>Procesamiento por lotes y de flujos</li>
+        <li>Arquitectura de procesamiento de flujos</li>
+        <li>Fabric Real-Time Intelligence</li>
+        <li>Spark Structured Streaming y Delta Lake</li>
+      </ol>
+      <div class="pg">Hojas 24 y 25</div>
+    </div>
+    <div class="cover-mod">
+      <div class="n">Módulo 3</div>
+      <h3>Visualización de datos</h3>
+      <ol>
+        <li>Herramientas y flujo de Power BI</li>
+        <li>Modelado de datos analíticos</li>
+        <li>Tipos de visualización</li>
+        <li>IA en Power BI</li>
+      </ol>
+      <div class="pg">Hojas 26 y 27 · glosarios en la hoja 27</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer">
+    <span>learn.microsoft.com/training/paths/azure-data-fundamentals-explore-data-warehouse-analytics</span>
+    <span>20</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p3">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Análisis a gran escala: plataformas y arquitectura</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/examine-components-of-modern-data-warehouse/">learn.microsoft.com/training/modules/examine-components-of-modern-data-warehouse</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Las dos plataformas de análisis de Azure</h3>
+      <div class="tarjeta fab">
+        <h4><span class="tag fab">Fabric</span> Microsoft Fabric</h4>
+        <ul>
+          <li>Plataforma de análisis unificada <b>SaaS</b>: ingeniería de datos, almacenamiento, tiempo real, ciencia de datos y Power BI en <b>una sola área de trabajo</b> en el navegador.</li>
+          <li>Almacenamiento compartido: <b>OneLake</b>.</li>
+          <li>No se administran servidores ni clústeres: creas áreas de trabajo y elementos y Microsoft opera la infraestructura.</li>
+        </ul>
+      </div>
+      <div class="tarjeta dbx">
+        <h4><span class="tag dbx">Databricks</span> Azure Databricks</h4>
+        <ul>
+          <li>Plataforma basada en <b>Apache Spark</b> para ingeniería de datos a gran escala, ciencia de datos y análisis SQL.</li>
+          <li>Usa <b>Delta Lake</b>: agrega transacciones, aplicación de esquemas y control de versiones sobre Parquet.</li>
+          <li>Servicio administrado <b>dentro de tu suscripción</b> de Azure.</li>
+          <li>Para equipos con flujos <b>centrados en código</b> y cuadernos.</li>
+        </ul>
+      </div>
+
+      <h3>2. ¿Qué es el análisis a gran escala?</h3>
+      <p>Combina dos mundos:</p>
+      <ul>
+        <li><b>Data warehouse convencional (BI):</b> copia datos transaccionales a una BD relacional con esquema optimizado para consultas y modelos multidimensionales.</li>
+        <li><b>Big data:</b> grandes volúmenes en varios formatos, cargados por lotes o en flujos en tiempo real a un <b>data lake</b> y procesados con motores distribuidos como <b>Spark</b>.</li>
+      </ul>
+      <div class="nota">La unión del data lake flexible con el análisis SQL del warehouse dio origen al <b>data lakehouse</b>.</div>
+    </div>
+
+    <div class="col">
+      <h3>3. Arquitectura de análisis</h3>
+      <div class="flujo">
+        <div class="paso"><div class="num">1</div><div><b>Ingesta y procesamiento.</b> Datos de BD transaccionales, archivos, flujos u otros orígenes se cargan en un data lake o warehouse con <b>ETL</b> (transforma antes de cargar) o <b>ELT</b> (carga y después transforma). Se limpian, filtran y reestructuran con sistemas distribuidos en <b>clústeres</b>. Incluye procesamiento <b>por lotes</b> y <b>en tiempo real</b>.</div></div>
+        <div class="paso"><div class="num">2</div><div><b>Almacén analítico.</b> Data warehouse relacional, data lake de archivos o híbrido (<b>lakehouse</b>).</div></div>
+        <div class="paso"><div class="num">3</div><div><b>Modelo analítico.</b> Antes: <b>cubos</b> con valores preagregados (SQL Server Analysis Services Multidimensional). Hoy: <b>modelo semántico</b> (modelo tabular de Power BI y Fabric) con tablas, relaciones, jerarquías y medidas en <b>DAX</b>; agrega <b>al consultar</b>, no de antemano. En Fabric, el modo <b>Direct Lake</b> lee tablas Delta de OneLake sin importar datos.</div></div>
+        <div class="paso"><div class="num">4</div><div><b>Visualización.</b> Informes, paneles y exploración interactiva de tendencias, comparaciones y <b>KPI</b>. Incluye <b>autoservicio</b> para usuarios no técnicos.</div></div>
+        <div class="paso ia"><div class="num">5</div><div><b>Análisis asistido por IA.</b> Preguntas en lenguaje natural para quienes no escriben consultas:
+          <ul>
+            <li><b>Power BI Q&amp;A:</b> respuestas en forma de gráfico.</li>
+            <li><b>Copilot en Fabric:</b> genera DAX y SQL, resume informes y explica tendencias.</li>
+            <li><b>Genie en Databricks:</b> conversación que genera y ejecuta SQL sobre Delta Lake.</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>4. Componentes de cada plataforma</h3>
+      <div class="tarjeta fab">
+        <h4><span class="tag fab">Fabric</span> Todo sobre OneLake</h4>
+        <p>Cada servicio lee y escribe directo en <b>OneLake</b> (formato Delta Lake), sin copiar datos entre silos.</p>
+        <ul>
+          <li><b>Fabric Lakehouse:</b> almacenamiento tipo lago + consultas SQL mediante un <b>punto de conexión de análisis SQL</b>.</li>
+          <li><b>Fabric Warehouse:</b> data warehouse relacional administrado, compatible con SQL Server, con esquema estricto.</li>
+          <li><b>Fabric Data Factory:</b> canalizaciones y transformaciones de poco código.</li>
+          <li><b>Power BI:</b> informes, paneles y modelos semánticos con <b>Direct Lake</b>.</li>
+        </ul>
+      </div>
+      <div class="tarjeta dbx">
+        <h4><span class="tag dbx">Databricks</span> Todo sobre Delta Lake</h4>
+        <ul>
+          <li><b>Databricks Lakehouse:</b> capa de almacenamiento unificada en Delta Lake para ML y SQL.</li>
+          <li><b>Databricks SQL:</b> SQL Warehouse <b>sin servidor</b> para consultar tablas Delta, con historial, paneles y alertas.</li>
+          <li><b>Notebooks:</b> Python, SQL, Scala y R para ingeniería, exploración y ML.</li>
+          <li><b>Unity Catalog:</b> <b>gobernanza</b> de datos e IA: control de acceso, linaje y descubrimiento.</li>
+          <li><b>Genie:</b> preguntas en lenguaje natural que generan y ejecutan SQL.</li>
+        </ul>
+      </div>
+      <table class="mini">
+        <thead><tr><th></th><th>Fabric</th><th>Databricks</th></tr></thead>
+        <tbody>
+          <tr><td><b>Modelo</b></td><td>SaaS</td><td>Servicio administrado en tu suscripción</td></tr>
+          <tr><td><b>Almacenamiento</b></td><td>OneLake</td><td>Delta Lake en tu data lake</td></tr>
+          <tr><td><b>Enfoque</b></td><td>Todo integrado, poco código</td><td>Código y cuadernos Spark</td></tr>
+          <tr><td><b>IA</b></td><td>Copilot</td><td>Genie</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 4: Análisis · Módulo 1</span><span>21</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p3">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Canalizaciones de ingesta de datos</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/examine-components-of-modern-data-warehouse/">learn.microsoft.com/training/modules/examine-components-of-modern-data-warehouse</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3><span class="tag fab">Fabric</span> 5. Ingesta en Microsoft Fabric</h3>
+      <p>Varias formas de llevar datos a <b>OneLake</b>: desde ETL con canalizaciones hasta federación sin copia y streaming.</p>
+
+      <div class="tarjeta fab">
+        <h4>Fabric Data Factory <span class="tag rec">Punto de partida</span></h4>
+        <ul>
+          <li><b>Canalizaciones:</b> orquestan flujos de varios pasos; encadenan <b>actividades</b> en secuencia o en paralelo.</li>
+          <li><b>Dataflows Gen2:</b> transformaciones visuales de poco código con <b>Power Query</b>.</li>
+        </ul>
+        <p>Una canalización toma un conjunto de datos de <b>entrada</b>, lo transforma con actividades y genera uno de <b>salida</b>. Usa <b>servicios vinculados</b> para conectarse a orígenes y destinos; puede cargar datos, ejecutar procedimientos almacenados, invocar cuadernos y guardar en un Lakehouse o Warehouse.</p>
+      </div>
+
+      <div class="tarjeta fab">
+        <h4>Accesos directos (shortcuts) de OneLake</h4>
+        <ul>
+          <li><b>Referencia</b> a almacenamiento externo: ADLS Gen2, Amazon S3, Google Cloud Storage u otra ubicación de OneLake.</li>
+          <li>Los datos aparecen en tu Lakehouse <b>sin copiarlos</b>: sin canalizaciones ni duplicación.</li>
+          <li>Útil cuando los datos deben quedarse en su lugar por <b>cumplimiento</b> o <b>costo</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta fab">
+        <h4>Mirroring (creación de reflejos)</h4>
+        <ul>
+          <li><b>Replica continuamente</b> una BD externa (Azure SQL Database, Snowflake, Cosmos DB...) en OneLake casi en tiempo real.</li>
+          <li>Se configura una vez; Fabric se encarga del seguimiento de cambios, <b>sin canalizaciones</b>.</li>
+          <li>Los datos llegan en Delta Lake y se consultan por el punto de conexión de SQL.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta fab">
+        <h4>Eventstream</h4>
+        <ul>
+          <li>Ingesta de <b>streaming en tiempo real</b> desde Azure Event Hubs, Apache Kafka, Azure IoT Hub o puntos de conexión propios.</li>
+          <li>Enruta, filtra y transforma eventos antes de cargarlos en un Lakehouse, una <b>base de datos KQL</b> (series temporales, Kusto Query Language) o un destino de Real-Time Intelligence.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta fab">
+        <h4>Cuadernos de Fabric</h4>
+        <ul>
+          <li>Opción <b>con código</b> (Spark): PySpark, Python, Scala, R o SQL.</li>
+          <li>Para cuando <b>no hay conector</b> o se necesita lógica personalizada (API REST, BD, archivos).</li>
+          <li>Escriben en tablas Delta; se ejecutan a mano o programados en una canalización.</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h4><span class="tag az">Azure</span> Azure Data Factory</h4>
+        <ul>
+          <li>Servicio <b>independiente</b> para canalizaciones <b>fuera de Fabric</b>: destino en Azure SQL Database u otro servicio, u orígenes locales en entornos híbridos.</li>
+          <li>Mismo modelo de canalizaciones y servicios vinculados: las habilidades se transfieren.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3><span class="tag dbx">Databricks</span> 6. Ingesta en Azure Databricks</h3>
+      <div class="tarjeta dbx">
+        <h4>Lakeflow Spark Declarative Pipelines <span class="tag rec">Producción</span></h4>
+        <ul>
+          <li>Marco <b>declarativo</b>: defines <b>qué</b> deben contener las tablas de salida.</li>
+          <li>Databricks resuelve el orden de ejecución, las dependencias y el procesamiento <b>incremental</b>.</li>
+          <li>Recomendado para canalizaciones de producción y ejecución continua.</li>
+        </ul>
+      </div>
+      <div class="tarjeta dbx">
+        <h4>Cuadernos de Databricks</h4>
+        <ul>
+          <li>PySpark, Python, Scala, SQL y R.</li>
+          <li>Para ingesta <b>ad hoc</b> o exploratoria: API REST, JDBC, almacenamiento en la nube o streaming hacia tablas Delta.</li>
+          <li>Se llevan a producción como <b>trabajos</b> programados o como paso de una canalización Lakeflow.</li>
+        </ul>
+      </div>
+
+      <h4>¿Qué herramienta de ingesta uso?</h4>
+      <table class="mini">
+        <thead><tr><th>Necesito...</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td>ETL orquestado en Fabric</td><td>Canalizaciones de Fabric Data Factory</td></tr>
+          <tr><td>Transformar sin código</td><td>Dataflows Gen2</td></tr>
+          <tr><td>Ver datos externos sin copiarlos</td><td>Accesos directos</td></tr>
+          <tr><td>Replicar una BD operativa casi en tiempo real</td><td>Mirroring</td></tr>
+          <tr><td>Eventos en streaming</td><td>Eventstream</td></tr>
+          <tr><td>Lógica personalizada o sin conector</td><td>Cuadernos</td></tr>
+          <tr><td>Canalizaciones fuera de Fabric o híbridas</td><td>Azure Data Factory</td></tr>
+          <tr><td>Canalizaciones de producción en Databricks</td><td>Lakeflow Declarative Pipelines</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 4: Análisis · Módulo 1</span><span>22</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 1 · HOJA 3 ═══════════════════════════ -->
+<section class="sheet p3">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 1</span>
+      <h2>Almacenes de datos analíticos</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/examine-components-of-modern-data-warehouse/">learn.microsoft.com/training/modules/examine-components-of-modern-data-warehouse</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>7. Data warehouse (almacenamiento de datos)</h3>
+      <p>BD <b>relacional</b> con esquema optimizado para <b>análisis</b>, no para transacciones.</p>
+      <ul>
+        <li><b>Tablas de hechos:</b> valores numéricos en el centro <span class="ej">(pedidos de venta)</span>.</li>
+        <li><b>Tablas de dimensiones:</b> entidades para agregar <span class="ej">(cliente, producto, tienda, tiempo)</span>.</li>
+        <li>Permite, por ejemplo, obtener los ingresos mensuales por producto y tienda.</li>
+      </ul>
+
+      <h4>Esquema de estrella</h4>
+      <div class="estrella">
+        <div class="vacio"></div><div class="dim">Cliente</div><div class="vacio"></div>
+        <div class="dim">Tiempo</div><div class="hecho">Ventas<br />(hechos)</div><div class="dim">Producto</div>
+        <div class="vacio"></div><div class="dim">Tienda</div><div class="copo">Categoría<br />(copo de nieve)</div>
+      </div>
+      <ul>
+        <li><b>Estrella:</b> una tabla de hechos relacionada con varias dimensiones.</li>
+        <li><b>Copo de nieve:</b> se agregan tablas relacionadas con las dimensiones para representar <b>jerarquías</b> <span class="ej">(Producto → Categoría)</span>.</li>
+      </ul>
+      <div class="nota ok"><b>Úsalo cuando:</b> los datos transaccionales se pueden organizar en tablas estructuradas y quieres consultarlos con <b>SQL</b>.</div>
+    </div>
+
+    <div class="col">
+      <h3>8. Data lake (lago de datos)</h3>
+      <ul>
+        <li>Almacén de <b>archivos</b>, normalmente en un sistema de archivos distribuido de alto rendimiento.</li>
+        <li>Motores distribuidos como <b>Apache Spark</b> procesan las consultas sobre los archivos.</li>
+        <li><b>Esquema en lectura</b> (schema-on-read): la estructura tabular se define <b>al leer</b> los datos, no al guardarlos.</li>
+      </ul>
+      <div class="nota ok"><b>Úsalo cuando:</b> tienes una mezcla de datos estructurados, semiestructurados y no estructurados y no quieres imponer un esquema al escribir.</div>
+
+      <h3>9. Enfoque híbrido: data lakehouse</h3>
+      <ul>
+        <li>Los datos crudos son <b>archivos en el lago</b> y un <b>punto de conexión de análisis SQL</b> los expone como tablas consultables con SQL.</li>
+        <li>Lo habilita <b>Delta Lake</b>, el formato abierto estándar de Fabric y Databricks: sobre Parquet agrega <b>esquemas</b>, <b>transacciones coherentes</b>, soporte de lotes y streaming, y una API de SQL.</li>
+        <li>En <b>Fabric</b>, todo vive en <b>OneLake</b>: al crear un Lakehouse se crea automáticamente su punto de conexión SQL, y los datos de un Warehouse también están en OneLake.</li>
+      </ul>
+
+      <table class="mini">
+        <thead><tr><th></th><th>Warehouse</th><th>Lake</th><th>Lakehouse</th></tr></thead>
+        <tbody>
+          <tr><td><b>Datos</b></td><td>Estructurados</td><td>Cualquier tipo</td><td>Cualquier tipo</td></tr>
+          <tr><td><b>Esquema</b></td><td>Al escribir</td><td>Al leer</td><td>Ambos (Delta)</td></tr>
+          <tr><td><b>Consulta</b></td><td>SQL</td><td>Spark</td><td>SQL y Spark</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>10. Servicios de Azure para almacenes analíticos</h3>
+      <table class="mini">
+        <thead><tr><th></th><th>Fabric Lakehouse</th><th>Fabric Warehouse</th></tr></thead>
+        <tbody>
+          <tr><td style="white-space:nowrap"><b>Qué es</b></td><td>Delta Lake en OneLake + cuadernos y Spark + punto de conexión SQL</td><td>Warehouse relacional administrado, compatible con SQL Server, sobre OneLake</td></tr>
+          <tr><td style="white-space:nowrap"><b>Úsalo con</b></td><td>Datos mixtos o semiestructurados, flujos de <b>ML</b></td><td>Datos estructurados, equipo SQL, esquema estricto y <b>muchos usuarios simultáneos</b></td></tr>
+        </tbody>
+      </table>
+      <p>Fabric también incluye <b>Data Factory</b> (ingesta), <b>Real-Time Intelligence</b> (logs y telemetría) y <b>Mirroring</b> (Cosmos DB, Azure SQL Database, Snowflake → OneLake).</p>
+
+      <div class="tarjeta dbx">
+        <h4>Azure Databricks</h4>
+        <ul>
+          <li>Spark + <b>Delta Lake</b> nativo: transacciones, esquemas y control de versiones.</li>
+          <li>Para BI con SQL: <b>Databricks SQL Warehouse</b>, punto de conexión optimizado para herramientas de BI y consultas simultáneas.</li>
+          <li>Se elige por flujos Spark <b>con código</b>, portabilidad <b>multinube</b> o experiencia previa del equipo.</li>
+        </ul>
+      </div>
+
+      <div class="nota">Ambos servicios son "almacenes analíticos": dan un esquema y una interfaz de consulta, aunque los datos suelen vivir en un lago. Se pueden combinar: <b>ELT</b> al lago → <b>cuaderno de Databricks</b> procesa → resultados en un <b>Warehouse de Fabric</b>.</div>
+      <p>Fabric y Databricks incluyen asistentes de IA para escribir SQL y código de cuadernos.</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 4: Análisis · Módulo 1</span><span>23</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p3">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>Procesamiento por lotes y de flujos</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-fundamentals-stream-processing/">learn.microsoft.com/training/modules/explore-fundamentals-stream-processing</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Dos formas de procesar datos</h3>
+      <p>Procesar datos = convertir datos crudos en información útil. Con dispositivos inteligentes e internet, mucha información puede procesarse <b>en tiempo real</b> como un flujo continuo.</p>
+
+      <div class="tarjeta">
+        <h4>Procesamiento por lotes</h4>
+        <ul>
+          <li>Se <b>acumulan</b> registros y se procesan <b>juntos</b> en una operación.</li>
+          <li>Se dispara por <b>horario</b> (cada hora), por <b>cantidad</b> de datos o por otro evento.</li>
+        </ul>
+        <p class="ej">Analogía: estacionar los autos en un parqueo y contarlos todos en reposo. Ej. real: la <b>factura mensual</b> de la tarjeta de crédito.</p>
+      </div>
+
+      <table class="mini">
+        <thead><tr><th>Ventajas</th><th>Desventajas</th></tr></thead>
+        <tbody>
+          <tr><td>Procesa <b>grandes volúmenes</b> de forma eficiente en un momento conveniente.</td><td>Todos los datos deben estar <b>listos</b> antes de empezar.</td></tr>
+          <tr><td>Se programa en horas de <b>poca carga</b> (de noche).</td><td><b>Retraso</b> entre la entrada de datos y los resultados.</td></tr>
+          <tr><td></td><td>Un <b>error pequeño</b> (dato, bloqueo o programa) puede detener <b>todo el lote</b>; hay que validar antes de reejecutar.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tarjeta">
+        <h4>Procesamiento de flujos (streaming)</h4>
+        <ul>
+          <li>Cada dato se procesa <b>al llegar</b>, sin esperar el siguiente lote.</li>
+          <li>Ideal cuando se generan datos nuevos de forma <b>continua</b>.</li>
+        </ul>
+        <p class="ej">Analogía: contar los autos <b>mientras pasan</b> y sumar por intervalos (autos por minuto).</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <h4>Ejemplos de streaming</h4>
+      <ul>
+        <li><b>Finanzas:</b> sigue la bolsa en tiempo real, calcula el valor en riesgo y rebalancea carteras.</li>
+        <li><b>Juegos en línea:</b> analiza las interacciones de los jugadores y ofrece incentivos al momento.</li>
+        <li><b>Inmobiliaria:</b> recomienda propiedades según la ubicación del móvil del cliente.</li>
+        <li><b>Crítico en tiempo:</b> un sistema de humo y temperatura activa alarmas y abre puertas ante un incendio.</li>
+      </ul>
+
+      <h3>2. Diferencias clave</h3>
+      <table class="mini">
+        <thead><tr><th></th><th>Por lotes</th><th>Flujos</th></tr></thead>
+        <tbody>
+          <tr><td><b>Ámbito</b></td><td><b>Todos</b> los datos del conjunto</td><td>Lo más reciente o una <b>ventana de tiempo</b> (últimos 30 s)</td></tr>
+          <tr><td><b>Tamaño</b></td><td>Conjuntos <b>grandes</b></td><td>Registros individuales o <b>microlotes</b></td></tr>
+          <tr><td><b>Latencia</b></td><td><b>Horas</b></td><td><b>Segundos o milisegundos</b></td></tr>
+          <tr><td><b>Análisis</b></td><td><b>Complejo</b></td><td>Respuestas simples, agregaciones o cálculos (media acumulada)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3. Combinar lotes y flujos</h3>
+      <ul>
+        <li>Muchas soluciones usan ambos: datos <b>históricos</b> + <b>tiempo real</b>.</li>
+        <li>El streaming alimenta paneles en vivo <span class="ej">(autos en la hora actual)</span> y además guarda resultados en el almacén para el histórico <span class="ej">(tráfico del último año)</span>.</li>
+        <li>Aunque no se necesite tiempo real, el streaming suele usarse para <b>capturar</b> datos y procesarlos después por lotes <span class="ej">(desviar todos los autos al parqueo antes de contarlos)</span>.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>4. Arquitectura lambda</h3>
+      <p>Patrón común para combinar lotes y flujos:</p>
+      <div class="flujo">
+        <div class="paso"><div class="num">1</div><div>Los eventos de streaming se <b>capturan en tiempo real</b>.</div></div>
+        <div class="paso"><div class="num">2</div><div>Los datos de otros orígenes se cargan a un almacén (normalmente un <b>data lake</b>) para procesamiento por lotes.</div></div>
+        <div class="paso"><div class="num">3</div><div>Si no se requiere tiempo real, los datos de streaming también se escriben al almacén para procesarlos por lotes.</div></div>
+        <div class="paso"><div class="num">4</div><div>Si se requiere tiempo real, una tecnología de flujos los prepara (filtra o suma por periodos) para análisis o visualización inmediata.</div></div>
+        <div class="paso"><div class="num">5</div><div>Los datos por lotes se procesan periódicamente y se guardan en el <b>data warehouse</b> para el histórico.</div></div>
+        <div class="paso"><div class="num">6</div><div>Los resultados del streaming también pueden guardarse en el warehouse.</div></div>
+        <div class="paso"><div class="num">7</div><div>Las herramientas de análisis y visualización muestran datos <b>históricos</b> y <b>en tiempo real</b>.</div></div>
+      </div>
+
+      <table class="mini">
+        <thead><tr><th>Arquitectura</th><th>Idea</th></tr></thead>
+        <tbody>
+          <tr><td><b>Lambda</b></td><td>Capa de lotes + capa de flujos por separado.</td></tr>
+          <tr><td><b>Delta</b></td><td>Otra arquitectura común que combina lotes y flujos.</td></tr>
+          <tr><td><b>Kappa</b></td><td>Más sencilla: <b>sin capa de lotes</b>. Todo es un flujo y, para reprocesar el histórico, se reproduce. Fabric y Kafka la hacen más práctica.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 4: Análisis · Módulo 2</span><span>24</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 2 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p3">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 2</span>
+      <h2>Arquitectura de flujos y servicios en tiempo real</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-fundamentals-stream-processing/">learn.microsoft.com/training/modules/explore-fundamentals-stream-processing</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>5. Arquitectura general de flujos</h3>
+      <div class="cadena">
+        <div><b>Evento</b>genera datos</div><span>→</span>
+        <div><b>Origen</b>cola o carpeta</div><span>→</span>
+        <div><b>Consulta</b>perpetua</div><span>→</span>
+        <div><b>Receptor</b>(sink)</div>
+      </div>
+      <ol>
+        <li><b>Evento:</b> señal de un sensor, publicación en redes, línea de un log...</li>
+        <li><b>Origen de streaming:</b> en casos simples, una carpeta o una tabla; en soluciones robustas, una <b>cola</b> que garantiza el <b>orden</b> y que cada evento se procese <b>una sola vez</b>.</li>
+        <li><b>Procesamiento:</b> una <b>consulta perpetua</b> filtra tipos de evento, proyecta valores o agrega por <b>ventanas de tiempo</b> <span class="ej">(emisiones por minuto)</span>.</li>
+        <li><b>Salida (receptor):</b> archivo, tabla, panel en tiempo real u otra cola para seguir procesando.</li>
+      </ol>
+
+      <h3>6. Servicios de análisis en tiempo real</h3>
+      <ul>
+        <li><span class="tag fab">Fabric</span> <b>Real-Time Intelligence:</b> conjunto integrado en Fabric (ver columna derecha).</li>
+        <li><b>Spark Structured Streaming:</b> biblioteca open source para streaming complejo en servicios Spark (Databricks y Fabric).</li>
+        <li><span class="tag az">Azure</span> <b>Azure Stream Analytics:</b> <b>PaaS</b> que define trabajos: origen → consulta perpetua → salida. Buena opción para escenarios independientes o híbridos <b>fuera de Fabric</b>.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>7. Orígenes (entrada)</h3>
+      <table class="mini">
+        <tbody>
+          <tr><td><b>Azure Event Hubs</b></td><td>Ingesta de grandes volúmenes de eventos. Orden garantizado dentro de una partición y entrega <b>al menos una vez</b>.</td></tr>
+          <tr><td><b>Azure IoT Hub</b></td><td>Como Event Hubs, pero optimizado para dispositivos <b>IoT</b>.</td></tr>
+          <tr><td><b>Data Lake Storage Gen2</b></td><td>Más usado en lotes, pero también sirve de origen de streaming.</td></tr>
+          <tr><td><b>Apache Kafka</b></td><td>Ingesta open source; suele usarse con Spark.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>8. Receptores (salida)</h3>
+      <table class="mini">
+        <tbody>
+          <tr><td><b>Azure Event Hubs</b></td><td>Poner en cola los datos para procesarlos después.</td></tr>
+          <tr><td><b>Data Lake Gen2, OneLake o Blob Storage</b></td><td>Guardar los resultados como <b>archivo</b>.</td></tr>
+          <tr><td><b>Azure SQL Database, Databricks o Fabric</b></td><td>Guardar en una <b>tabla</b> consultable.</td></tr>
+          <tr><td><b>Power BI</b></td><td><b>Visualizaciones</b> en tiempo real.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tarjeta">
+        <h4>Spark Structured Streaming</h4>
+        <p>Spark reparte el trabajo en un <b>clúster</b> de máquinas en paralelo; está en <b>Fabric</b> y <b>Databricks</b> y admite Python, Scala o Java para lotes y flujos. Structured Streaming trata el flujo como una <b>tabla que crece</b>:</p>
+        <ol>
+          <li>Se conecta a un origen (Event Hubs, carpeta, red).</li>
+          <li>Lee los datos a una <b>trama de datos</b> (dataframe) que se llena sola.</li>
+          <li>Se consulta <span class="ej">(eventos por minuto, media móvil)</span>.</li>
+          <li>Escribe los resultados en un destino.</li>
+        </ol>
+        <p class="ej">Buena opción si ya usas Spark y quieres sumar tiempo real.</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta fab">
+        <h4><span class="tag fab">Fabric</span> Real-Time Intelligence</h4>
+        <p>Cubre todo el flujo, de la llegada de datos a la acción automática, en la misma área de trabajo:</p>
+        <ul>
+          <li><b>Real-Time hub:</b> <b>catálogo central</b> de los datos de streaming de la organización para descubrirlos y compartirlos.</li>
+          <li><b>Eventstreams:</b> ingerir, enrutar y transformar flujos.</li>
+          <li><b>Eventhouse:</b> BD para eventos y series temporales, consultada con <b>KQL</b> (Kusto Query Language).</li>
+          <li><b>Paneles en tiempo real:</b> visualización de datos en vivo, con lenguaje natural y Copilot.</li>
+          <li><b>Activator:</b> dispara <b>acciones y alertas</b> cuando los datos cumplen condiciones.</li>
+          <li>IA que genera consultas KQL a partir de preguntas en lenguaje natural.</li>
+        </ul>
+        <p class="ej">Flujo: elegir un flujo → explorar patrones, anomalías y previsiones → paneles → alertas con Activator.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h4>Delta Lake</h4>
+        <p>Por defecto un data lake es solo una colección de archivos; Delta Lake le da garantías de <b>base de datos</b>:</p>
+        <ul>
+          <li><b>Confiabilidad:</b> registra los cambios; las escrituras parciales o fallidas no dañan los datos.</li>
+          <li><b>Validación del esquema:</b> rechaza registros que no cumplen la estructura.</li>
+          <li><b>Lotes y streaming unificados:</b> la misma tabla Delta es <b>receptor</b> de streaming y <b>origen</b> de consultas por lotes.</li>
+        </ul>
+        <div class="nota ok"><b>Delta Lake + Spark Structured Streaming</b> = un solo almacén coherente para ingesta en tiempo real y análisis histórico.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 4: Análisis · Módulo 2</span><span>25</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 3 · HOJA 1 ═══════════════════════════ -->
+<section class="sheet p3">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 3</span>
+      <h2>Power BI y modelado de datos</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-fundamentals-data-visualization/">learn.microsoft.com/training/modules/explore-fundamentals-data-visualization</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>1. Herramientas de Power BI</h3>
+      <p>El modelado y la visualización son el núcleo del <b>BI</b>. Hay gráficos en Excel y en cuadernos, pero el análisis empresarial necesita modelado complejo, informes interactivos y uso compartido seguro: <b>Power BI</b>, carga de trabajo principal de Fabric.</p>
+
+      <h4>Flujo de trabajo típico</h4>
+      <div class="cadena">
+        <div><b>Power BI Desktop</b>importar, modelar, crear informes</div><span>→</span>
+        <div><b>Servicio Power BI</b>publicar, actualizar, compartir</div><span>→</span>
+        <div><b>Consumo</b>navegador o app móvil</div>
+      </div>
+      <ul>
+        <li><b>Power BI Desktop:</b> app de Windows para importar y combinar datos de muchos orígenes, crear el <b>modelo</b> y los <b>informes</b>.</li>
+        <li><b>Servicio Power BI:</b> en la nube; se publican informes, se programan <b>actualizaciones</b> de datos, se comparten y se crean <b>paneles</b> y <b>aplicaciones</b>. Permite modelado y edición básicos, más limitados que Desktop.</li>
+        <li><b>App móvil:</b> consumir informes, paneles y apps desde el teléfono.</li>
+      </ul>
+
+      <h4>Power BI en Microsoft Fabric</h4>
+      <ul>
+        <li><b>Áreas de trabajo:</b> los equipos colaboran en el navegador junto a los demás elementos de Fabric, sobre OneLake.</li>
+        <li><b>Modelos semánticos:</b> medidas, relaciones y jerarquías <b>compartibles</b> entre varios informes.</li>
+        <li><b>Direct Lake:</b> consulta archivos de OneLake directo, con velocidad en memoria y escala de lago, sin importar ni actualizar datos.</li>
+        <li><b>Edición web:</b> crear informes completos sin instalar Desktop.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>2. IA en Power BI</h3>
+      <div class="tarjeta" style="border-left-color: var(--morado)">
+        <h4><span class="tag ia">Copilot</span> Copilot en Power BI</h4>
+        <p>Requiere capacidad de <b>Fabric F2+</b> o <b>Power BI Premium P1+</b>; disponible en Desktop y en el servicio.</p>
+        <ul>
+          <li><b>Resumir un informe</b> en lenguaje sencillo.</li>
+          <li><b>Crear páginas de informe</b> eligiendo los gráficos adecuados.</li>
+          <li><b>Generar medidas DAX</b> a partir de una descripción.</li>
+        </ul>
+        <p><b>Sin licencia de Copilot:</b> el objeto visual de <b>narración inteligente</b> resume los datos del informe y se actualiza solo.</p>
+      </div>
+
+      <h3>3. Modelado de datos</h3>
+      <p>Los <b>modelos analíticos</b> (en Fabric y Power BI: <b>modelos semánticos</b>) estructuran tablas relacionadas para el análisis:</p>
+      <ul>
+        <li><b>Medidas:</b> valores numéricos que se analizan <span class="ej">(ingresos, cantidad)</span>.</li>
+        <li><b>Dimensiones:</b> entidades por las que se agregan <span class="ej">(producto, cliente, tiempo)</span>.</li>
+      </ul>
+      <p class="ej">Ej.: ingresos totales por cliente o artículos vendidos por producto y mes.</p>
+
+      <h4>Tablas</h4>
+      <ul>
+        <li><b>Dimensión:</b> una fila por entidad con <b>clave única</b> y atributos (nombre, categoría, ciudad). Casi todos los modelos tienen una dimensión <b>Tiempo</b>.</li>
+        <li><b>Hechos:</b> una fila por <b>evento</b> con sus medidas <span class="ej">(una venta con cantidad e ingreso)</span>.</li>
+        <li><b>Estrella:</b> hechos + dimensiones. <b>Copo de nieve:</b> dimensiones con tablas de detalle <span class="ej">(Producto → Categoría)</span>.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Motor VertiPaq</h4>
+        <p>Al cargar datos en un modelo semántico, Power BI los guarda en un <b>almacén de columnas en memoria</b> (VertiPaq). Las agregaciones se calculan <b>al consultar</b>, lo que da informes rápidos.</p>
+      </div>
+
+      <h4>Jerarquías de atributos</h4>
+      <p>Permiten <b>subir o bajar</b> (drill-down / drill-up) entre niveles de una dimensión:</p>
+      <ul>
+        <li><b>Producto:</b> producto → categoría.</li>
+        <li><b>Cliente:</b> cliente → ciudad.</li>
+        <li><b>Tiempo:</b> día → mes → año.</li>
+      </ul>
+      <p class="ej">Ej.: ver ventas por año y bajar al detalle mensual; VertiPaq calcula cada nivel al consultar.</p>
+
+      <h4>Modelado en Power BI</h4>
+      <ul>
+        <li>El modelo semántico se arma con tablas importadas de uno o varios orígenes.</li>
+        <li>En la <b>vista Modelo</b> de Power BI Desktop se crean <b>relaciones</b> entre hechos y dimensiones, se definen <b>jerarquías</b>, tipos de datos, formatos y otras propiedades.</li>
+        <li>Si los datos están en <b>OneLake</b>, usar <b>Direct Lake</b>: rendimiento en memoria sin paso de importación.</li>
+      </ul>
+
+      <table class="mini">
+        <thead><tr><th>Modo</th><th>Cómo obtiene los datos</th></tr></thead>
+        <tbody>
+          <tr><td><b>Importación</b></td><td>Copia los datos al modelo (VertiPaq); requiere actualizar.</td></tr>
+          <tr><td><b>Direct Lake</b></td><td>Lee tablas Delta de OneLake directamente; sin importar ni actualizar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 4: Análisis · Módulo 3</span><span>26</span></div>
+</section>
+
+<!-- ═══════════════════════════ MÓDULO 3 · HOJA 2 ═══════════════════════════ -->
+<section class="sheet p3">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Módulo 3</span>
+      <h2>Visualizaciones y glosarios</h2>
+    </div>
+    <a href="https://learn.microsoft.com/es-mx/training/modules/explore-fundamentals-data-visualization/">learn.microsoft.com/training/modules/explore-fundamentals-data-visualization</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>4. Tipos de visualización</h3>
+      <p>Power BI trae muchas visualizaciones y admite objetos visuales personalizados y de terceros.</p>
+      <table class="mini">
+        <thead><tr><th>Visual</th><th>Úsalo para</th></tr></thead>
+        <tbody>
+          <tr><td><b>Tabla</b></td><td>Mostrar muchos valores relacionados.</td></tr>
+          <tr><td><b>Tarjeta</b> (texto)</td><td>Destacar una cifra o métrica clave <span class="ej">(ingresos totales)</span>.</td></tr>
+          <tr><td><b>Barras / columnas</b></td><td><b>Comparar</b> valores entre categorías.</td></tr>
+          <tr><td><b>Líneas</b></td><td>Ver <b>tendencias</b>, normalmente en el tiempo.</td></tr>
+          <tr><td><b>Circular</b></td><td><b>Proporciones</b> de un total.</td></tr>
+          <tr><td><b>Dispersión</b></td><td><b>Relación o correlación</b> entre dos medidas <span class="ej">(marketing vs. ingresos)</span>.</td></tr>
+          <tr><td><b>Mapa</b></td><td>Comparar valores por <b>ubicación geográfica</b>.</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Informes interactivos</h4>
+      <p>Los visuales de un informe están <b>vinculados</b>: al seleccionar un valor en uno, los demás se <b>filtran y resaltan</b> <span class="ej">(elegir Seattle en un gráfico filtra todo el informe a Seattle)</span>.</p>
+
+      <h4>Visualizaciones con IA</h4>
+      <ul>
+        <li><b>Narraciones inteligentes:</b> resúmenes escritos que se actualizan con los datos.</li>
+        <li><b>Preguntas y respuestas (Q&amp;A):</b> preguntas en lenguaje natural con respuesta en gráfico.</li>
+        <li><b>Influenciadores clave:</b> qué factores impulsan más una métrica.</li>
+        <li><b>Árbol de descomposición:</b> desglose interactivo por varias dimensiones para ver qué contribuye a un valor.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>Glosario · Módulos 1 y 2</h3>
+      <dl>
+        <dt>Lakehouse</dt><dd>Archivos de un lago expuestos como tablas SQL gracias a Delta Lake.</dd>
+        <dt>Punto de conexión de análisis SQL</dt><dd>Interfaz SQL de solo lectura sobre las tablas de un Lakehouse.</dd>
+        <dt>Esquema en lectura</dt><dd>La estructura se aplica al leer los datos, no al guardarlos.</dd>
+        <dt>Esquema de estrella / copo de nieve</dt><dd>Hechos + dimensiones / dimensiones con tablas de jerarquía.</dd>
+        <dt>Servicio vinculado</dt><dd>Conexión de una canalización a un origen o destino.</dd>
+        <dt>Dataflows Gen2</dt><dd>Transformaciones visuales con Power Query en Fabric.</dd>
+        <dt>Acceso directo (shortcut)</dt><dd>Referencia a datos externos sin copiarlos a OneLake.</dd>
+        <dt>Mirroring</dt><dd>Réplica continua de una BD externa en OneLake.</dd>
+        <dt>Unity Catalog</dt><dd>Gobernanza de datos e IA en Databricks.</dd>
+        <dt>Microlote</dt><dd>Grupo pequeño de registros procesados juntos en streaming.</dd>
+        <dt>Ventana de tiempo</dt><dd>Periodo sobre el que se agregan eventos (por minuto, últimos 30 s).</dd>
+        <dt>Consulta perpetua</dt><dd>Consulta que se ejecuta continuamente sobre un flujo.</dd>
+        <dt>Receptor (sink)</dt><dd>Destino de los resultados del procesamiento de flujos.</dd>
+        <dt>Lambda / Kappa</dt><dd>Arquitectura con capa de lotes y de flujos / solo flujos.</dd>
+        <dt>KQL / Activator</dt><dd>Kusto Query Language para logs y telemetría / acciones automáticas en Fabric cuando los datos cumplen una condición.</dd>
+      </dl>
+    </div>
+
+    <div class="col">
+      <h3>Glosario · Módulo 3</h3>
+      <dl>
+        <dt>BI (inteligencia empresarial)</dt><dd>Análisis de datos para apoyar decisiones de negocio.</dd>
+        <dt>Modelo semántico</dt><dd>Tablas, relaciones, jerarquías y medidas sobre las que se basan los informes.</dd>
+        <dt>Medida / dimensión</dt><dd>Valor numérico a analizar / entidad para agruparlo.</dd>
+        <dt>DAX</dt><dd>Data Analysis Expressions: lenguaje de fórmulas para medidas.</dd>
+        <dt>VertiPaq</dt><dd>Motor de almacenamiento en columnas en memoria de Power BI.</dd>
+        <dt>Direct Lake</dt><dd>Modo que lee tablas Delta de OneLake sin importar datos.</dd>
+        <dt>Jerarquía</dt><dd>Niveles de una dimensión para subir o bajar en el detalle.</dd>
+        <dt>Panel (dashboard)</dt><dd>Vista de una página que reúne visuales clave en el servicio Power BI.</dd>
+        <dt>Aplicación de Power BI</dt><dd>Paquete de informes y paneles relacionados para consumir en un solo lugar.</dd>
+        <dt>KPI</dt><dd>Indicador clave de rendimiento.</dd>
+        <dt>Autoservicio</dt><dd>Usuarios de negocio que crean sus propios análisis sin ayuda técnica.</dd>
+        <dt>Capacidad F2 / P1</dt><dd>Niveles mínimos de Fabric / Power BI Premium para usar Copilot.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Parte 4: Análisis · Módulo 3</span><span>27</span></div>
+</section>
+<!-- ═══════════════════════════ REPASO · CASOS DE USO ═══════════════════════════ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Repaso final</span>
+      <h2>¿Qué servicio de Azure uso? Caso de uso → servicio</h2>
+    </div>
+    <a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-900">Habilidad nueva: almacenes de Azure para casos de uso comunes</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <h3>Datos relacionales</h3>
+      <table class="mini caso">
+        <thead><tr><th>Caso de uso</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>App nueva en la nube con una BD, sin administrar servidores</td><td>Azure SQL Database</td></tr>
+          <tr><td>Varias BD con uso variable que comparten recursos y presupuesto</td><td>SQL Database: grupo elástico</td></tr>
+          <tr><td>Migrar SQL Server local casi sin cambios (SQL Agent, consultas entre BD)</td><td>SQL Managed Instance</td></tr>
+          <tr><td>Control total del sistema operativo o de la versión de SQL Server</td><td>SQL Server en VM (IaaS)</td></tr>
+          <tr><td>App basada en MySQL o PostgreSQL</td><td>Azure Database for MySQL / PostgreSQL</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Archivos y objetos</h3>
+      <table class="mini caso">
+        <thead><tr><th>Caso de uso</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>Imágenes, video, copias de seguridad, documentos</td><td>Blob Storage (blobs en bloques)</td></tr>
+          <tr><td>Discos de VM con lectura y escritura aleatoria</td><td>Blobs en páginas</td></tr>
+          <tr><td>Registros (logs) a los que solo se agregan datos</td><td>Blobs en anexos</td></tr>
+          <tr><td>Data lake con carpetas reales y permisos por carpeta (ACL)</td><td>Data Lake Storage Gen2</td></tr>
+          <tr><td>Un solo lago para todos los elementos de Fabric</td><td>OneLake</td></tr>
+          <tr><td>Recurso compartido SMB/NFS; reemplazar un servidor de archivos</td><td>Azure Files</td></tr>
+          <tr><td>Datos que casi nunca se leen, al menor costo</td><td>Nivel de acceso Archivo</td></tr>
+        </tbody>
+      </table>
+
+      <h3>NoSQL</h3>
+      <table class="mini caso">
+        <thead><tr><th>Caso de uso</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>Clave-valor simple y barato</td><td>Table Storage</td></tr>
+          <tr><td>Lo mismo, pero global y con baja latencia garantizada</td><td>Cosmos DB for Table</td></tr>
+          <tr><td>App global con documentos JSON, latencia de milisegundos y escala elástica</td><td>Cosmos DB for NoSQL</td></tr>
+          <tr><td>Migrar una app de MongoDB</td><td>Cosmos DB for MongoDB</td></tr>
+          <tr><td>Migrar Cassandra (familias de columnas)</td><td>Cosmos DB for Apache Cassandra</td></tr>
+          <tr><td>Grafos: redes sociales, recomendaciones, relaciones</td><td>Cosmos DB for Apache Gremlin</td></tr>
+          <tr><td>PostgreSQL distribuido con escala horizontal</td><td>Cosmos DB for PostgreSQL</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Análisis a gran escala</h3>
+      <table class="mini caso">
+        <thead><tr><th>Caso de uso</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>Orquestar ETL/ELT y copiar datos entre orígenes</td><td>Data Factory (Fabric o Azure)</td></tr>
+          <tr><td>Replicar una BD operativa en OneLake casi en tiempo real</td><td>Mirroring de Fabric</td></tr>
+          <tr><td>Ver datos externos en OneLake sin copiarlos</td><td>Accesos directos (shortcuts)</td></tr>
+          <tr><td>Warehouse relacional con SQL para BI</td><td>Fabric Warehouse / Databricks SQL</td></tr>
+          <tr><td>Datos mixtos, Spark y ciencia de datos / ML</td><td>Fabric Lakehouse / Azure Databricks</td></tr>
+          <tr><td>Equipo centrado en código Spark o estrategia multinube</td><td>Azure Databricks</td></tr>
+          <tr><td>Plataforma SaaS todo en uno, poco código</td><td>Microsoft Fabric</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Tiempo real</h3>
+      <table class="mini caso">
+        <thead><tr><th>Caso de uso</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>Ingerir millones de eventos por segundo</td><td>Azure Event Hubs</td></tr>
+          <tr><td>Ingerir telemetría de dispositivos IoT</td><td>Azure IoT Hub</td></tr>
+          <tr><td>Capturar, transformar y enrutar flujos dentro de Fabric</td><td>Eventstream</td></tr>
+          <tr><td>Consultar logs, telemetría y series temporales con KQL</td><td>Eventhouse (Real-Time Intelligence)</td></tr>
+          <tr><td>Lanzar alertas o acciones cuando los datos cumplen una condición</td><td>Activator</td></tr>
+          <tr><td>Flujos con consultas tipo SQL, PaaS fuera de Fabric</td><td>Azure Stream Analytics</td></tr>
+          <tr><td>Streaming con código Spark (Python, Scala)</td><td>Spark Structured Streaming</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Visualización</h3>
+      <table class="mini caso">
+        <thead><tr><th>Caso de uso</th><th>Servicio</th></tr></thead>
+        <tbody>
+          <tr><td>Importar datos, modelar y crear informes</td><td>Power BI Desktop</td></tr>
+          <tr><td>Publicar, compartir, crear paneles y programar actualizaciones</td><td>Servicio Power BI</td></tr>
+          <tr><td>Consultar informes desde el teléfono</td><td>Power BI Mobile</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Palabras clave en la pregunta</h3>
+      <table class="mini caso">
+        <thead><tr><th>Si la pregunta dice…</th><th>Piensa en…</th></tr></thead>
+        <tbody>
+          <tr><td>"Sin administrar", "PaaS", "una base de datos"</td><td>Azure SQL Database</td></tr>
+          <tr><td>"Lift-and-shift", "compatibilidad casi total con SQL Server"</td><td>SQL Managed Instance</td></tr>
+          <tr><td>"Acceso al sistema operativo", "control total"</td><td>SQL Server en VM</td></tr>
+          <tr><td>"Distribución global", "milisegundos", "escrituras multirregión"</td><td>Cosmos DB</td></tr>
+          <tr><td>"Grafo", "nodos y aristas"</td><td>Gremlin</td></tr>
+          <tr><td>"SMB", "recurso compartido", "montar unidad"</td><td>Azure Files</td></tr>
+          <tr><td>"Espacio de nombres jerárquico", "big data"</td><td>Data Lake Storage Gen2</td></tr>
+          <tr><td>"Esquema en lectura"</td><td>Data lake</td></tr>
+          <tr><td>"Esquema en escritura", "estrella"</td><td>Data warehouse</td></tr>
+          <tr><td>"Transacciones ACID sobre archivos del lago"</td><td>Delta Lake / lakehouse</td></tr>
+          <tr><td>"Eventos", "telemetría", "en el momento"</td><td>Streaming / Real-Time Intelligence</td></tr>
+          <tr><td>"Kusto", "KQL"</td><td>Eventhouse</td></tr>
+          <tr><td>"Pipeline", "orquestar", "copiar datos"</td><td>Data Factory</td></tr>
+          <tr><td>"Informe interactivo", "panel"</td><td>Power BI</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nota alerta"><b>Si dudas entre dos:</b> busca la pista que las separa. Table Storage y Cosmos for Table usan la misma API; si piden <b>global</b> o <b>SLA de latencia</b>, es Cosmos. SQL Database y Managed Instance son PaaS; si piden <b>compatibilidad de instancia</b> (SQL Agent, varias BD), es Managed Instance.</div>
+
+      <div class="nota peligro"><b>Azure Database for MariaDB</b> ya fue retirado; si aparece en una pregunta antigua, la opción equivalente hoy es Azure Database for MySQL.</div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Repaso final</span><span>28</span></div>
+</section>
+
+<!-- ═══════════════════════════ REPASO · TRAMPAS ═══════════════════════════ -->
+<section class="sheet">
+  <div class="sheet-head">
+    <div>
+      <span class="section-tag">Repaso final</span>
+      <h2>Trampas típicas: conceptos que se confunden</h2>
+    </div>
+    <a href="https://learn.microsoft.com/en-us/credentials/certifications/exams/dp-900/practice/assessment?assessment-type=practice&amp;assessmentId=24">Evaluación de práctica gratuita en Microsoft Learn</a>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Tipos de datos</h4>
+        <ul>
+          <li><b>Estructurados:</b> tablas, CSV. <b>Semiestructurados:</b> JSON, XML. <b>No estructurados:</b> imágenes, video, PDF.</li>
+          <li>Trampa: JSON <b>no</b> es "no estructurado".</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Formatos de archivo</h4>
+        <ul>
+          <li><b>Avro:</b> por <b>filas</b>; encabezado JSON y datos binarios. Bueno para escribir y para streaming.</li>
+          <li><b>Parquet</b> y <b>ORC:</b> por <b>columnas</b>; compresión y lecturas analíticas rápidas.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>OLTP vs OLAP</h4>
+        <ul>
+          <li><b>OLTP:</b> muchas transacciones pequeñas, datos normalizados, <b>ACID</b>.</li>
+          <li><b>OLAP:</b> lecturas masivas de históricos, datos desnormalizados (esquema de estrella).</li>
+          <li><b>ACID:</b> Atomicidad (todo o nada), Coherencia (de un estado válido a otro), Aislamiento (las transacciones no se interfieren), Durabilidad (lo confirmado persiste).</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Roles</h4>
+        <ul>
+          <li><span class="tag dba">DBA</span> disponibilidad, rendimiento, copias de seguridad, permisos.</li>
+          <li><span class="tag ing">ING</span> canalizaciones: ingesta, limpieza, transformación.</li>
+          <li><span class="tag ana">ANA</span> modelos, informes y visualizaciones.</li>
+          <li>Trampa: "crear un panel" es del <b>analista</b>, no del ingeniero.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>SQL</h4>
+        <ul>
+          <li><span class="tag ddl">DDL</span> estructura: CREATE, ALTER, DROP, RENAME.</li>
+          <li><span class="tag dcl">DCL</span> permisos: GRANT, DENY, REVOKE.</li>
+          <li><span class="tag dml">DML</span> datos: SELECT, INSERT, UPDATE, DELETE.</li>
+          <li>Trampa: <b>DROP</b> elimina la tabla (DDL); <b>DELETE</b> elimina filas (DML). DELETE sin WHERE borra todas las filas.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Normalización y objetos</h4>
+        <ul>
+          <li><b>Normalizar:</b> una entidad por tabla, sin duplicados, relacionadas por PK/FK. Para análisis se <b>desnormaliza</b>.</li>
+          <li><b>Vista:</b> consulta guardada que se usa como tabla virtual. <b>Procedimiento almacenado:</b> SQL reutilizable con parámetros. <b>Índice:</b> acelera lecturas, pero hace más lentas las escrituras.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Familia Azure SQL</h4>
+        <ul>
+          <li><span class="tag iaas">IaaS</span> <b>SQL Server en VM:</b> tú administras SO, parches y copias.</li>
+          <li><span class="tag paas">PaaS</span> <b>Managed Instance:</b> instancia completa, compatibilidad casi total.</li>
+          <li><span class="tag paas">PaaS</span> <b>SQL Database:</b> una BD o un grupo elástico; menos funciones de instancia.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Niveles de acceso de Blob</h4>
+        <ul>
+          <li><span class="tag hot">Frecuente</span> uso constante. <span class="tag cool">Esporádico</span> ≥ 30 días. <span class="tag cold">Poco frecuente</span> ≥ 90 días. <span class="tag arch">Archivo</span> ≥ 180 días.</li>
+          <li>Trampa: <b>Archivo</b> está sin conexión; hay que <b>rehidratar</b> el blob (puede tardar horas) y solo se asigna por blob, no a la cuenta.</li>
+          <li>Menor costo de almacenamiento = mayor costo de acceso.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Redundancia</h4>
+        <ul>
+          <li><b>LRS:</b> 3 copias en un centro de datos. <b>ZRS:</b> 3 zonas de la región.</li>
+          <li><b>GRS:</b> LRS + copia en región secundaria. <b>GZRS:</b> ZRS + región secundaria.</li>
+          <li>Prefijo <b>RA-</b>: además permite <b>leer</b> de la región secundaria.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Storage: ¿cuál es cuál?</h4>
+        <ul>
+          <li><b>ADLS Gen2</b> no es un servicio aparte: es Blob Storage con <b>espacio de nombres jerárquico</b> habilitado.</li>
+          <li><b>Azure Files</b> (SMB/NFS) ≠ Blob (acceso por HTTP/REST).</li>
+          <li><b>Table Storage:</b> clave = PartitionKey + RowKey.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="tarjeta">
+        <h4>Cosmos DB</h4>
+        <ul>
+          <li><b>Coherencia</b>, de más fuerte a más débil: Fuerte → Obsolescencia limitada → <b>Sesión</b> (predeterminada) → Prefijo coherente → Eventual.</li>
+          <li>Unidad de costo: <b>RU</b>; el rendimiento se aprovisiona en <b>RU/s</b>.</li>
+          <li>API nativa = <b>NoSQL</b>. Cassandra = familias de columnas; Gremlin = grafos.</li>
+        </ul>
+      </div>
+      <div class="tarjeta fab">
+        <h4>Almacenes analíticos</h4>
+        <ul>
+          <li><b>Warehouse:</b> relacional, esquema en <b>escritura</b>, SQL.</li>
+          <li><b>Data lake:</b> archivos, esquema en <b>lectura</b>, Spark.</li>
+          <li><b>Lakehouse:</b> lago + SQL gracias a <b>Delta Lake</b> (ACID sobre Parquet).</li>
+          <li><b>Hechos</b> = valores numéricos; <b>dimensiones</b> = entidades para agrupar.</li>
+        </ul>
+      </div>
+      <div class="tarjeta dbx">
+        <h4>Lotes vs flujos</h4>
+        <ul>
+          <li><b>Lotes:</b> todos los datos, latencia de horas, análisis complejo.</li>
+          <li><b>Flujos:</b> datos recientes o ventanas, latencia de segundos, agregaciones simples.</li>
+          <li><b>Lambda:</b> capa de lotes + capa de flujos. <b>Kappa:</b> solo flujos.</li>
+        </ul>
+      </div>
+      <div class="tarjeta morado">
+        <h4>Power BI</h4>
+        <ul>
+          <li><b>Desktop</b> crea; <b>Servicio</b> publica y comparte; <b>Mobile</b> consume.</li>
+          <li><b>Importación:</b> copia los datos (VertiPaq), muy rápido, requiere actualizar. <b>DirectQuery:</b> consulta el origen en cada interacción. <b>Direct Lake:</b> lee tablas Delta de OneLake sin importar.</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <h4>Visual adecuado</h4>
+        <table class="mini">
+          <tbody>
+            <tr><td>Tendencia en el tiempo</td><td>Líneas</td></tr>
+            <tr><td>Comparar categorías</td><td>Barras / columnas</td></tr>
+            <tr><td>Proporción del total</td><td>Circular / anillo</td></tr>
+            <tr><td>Correlación entre dos medidas</td><td>Dispersión</td></tr>
+            <tr><td>Ubicación geográfica</td><td>Mapa</td></tr>
+            <tr><td>Una cifra clave</td><td>Tarjeta</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-footer"><span>DP-900 · Repaso final</span><span>29</span></div>
+</section>
+
+<script>
+(function () {
+  document.querySelectorAll('section.sheet').forEach(function (s) {
+    var n = s.querySelector('.sheet-footer span:last-child');
+    if (n && /^\d+$/.test(n.textContent.trim())) s.id = 'hoja-' + n.textContent.trim();
+  });
+  try { localStorage.setItem('dp900-resumen', 'bn'); } catch (e) {}
+  var cambio = document.querySelector('a[data-version]');
+  cambio.addEventListener('click', function () {
+    var actual = Array.prototype.find.call(document.querySelectorAll('section.sheet[id]'), function (s) {
+      return s.getBoundingClientRect().bottom > 80;
+    });
+    cambio.href = cambio.getAttribute('href').split('#')[0] + (actual ? '#' + actual.id : '');
+  });
+  if (location.hash) {
+    var destino = document.getElementById(location.hash.slice(1));
+    if (destino) destino.scrollIntoView();
+  }
+})();
+</script>
+</body>
+</html>
